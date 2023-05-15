@@ -2,7 +2,7 @@ import React from 'react'
 
 function GalleryMain() {
   return (
-    <div>Gallery main</div>
+    <div>Gallery page.</div>
   )
 }
 
