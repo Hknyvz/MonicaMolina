@@ -1,6 +1,6 @@
 import React from 'react'
 
-function GalleryMain() {
+function index() {
   return (
     <div>Gallery page test.</div>
   )
