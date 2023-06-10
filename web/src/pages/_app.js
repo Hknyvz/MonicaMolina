@@ -1,6 +1,8 @@
 import { SessionProvider } from "next-auth/react";
 import "@/styles/globals.css";
 import AdminLayout from "@/components/layouts/AdminLayout";
+import WebLayout from "@/components/layouts/WebLayout";
+
 
 export default function App({
   Component,
@@ -8,7 +10,9 @@ export default function App({
 }) {
   const getLayout =
     Component.layout === "web" ? (
-      <Component {...pageProps} />
+      <WebLayout>
+        <Component {...pageProps} />
+      </WebLayout>
     ) : (
       <AdminLayout>
         <Component {...pageProps} />

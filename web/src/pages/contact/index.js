@@ -7,3 +7,5 @@ function ContactPage() {
 }
 
 export default ContactPage
+
+ContactPage.layout = "web";
