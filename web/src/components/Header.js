@@ -10,7 +10,9 @@ const headerBackground =
   backgroundColor: "white",
   paddingTop: 20,
   paddingBottom: 20,
-  width: "100%"
+  width: "100%",
+  boxShadow: "0px 25px 20px rgba(0, 0, 0, 0.60)",
+  
 }
 
 const titleStyle = 
@@ -49,7 +51,7 @@ function Header() {
             <Menu.Item key="concerts">
               Concerts
             </Menu.Item>
-            <Menu.Item key="mail">
+            <Menu.Item key="Contact">
               Contact
             </Menu.Item>
             </Menu>
