@@ -1,13 +1,16 @@
 import React from 'react'
 import Header from 'src/components/Header.js'
+import MainCarousel from 'src/components/MainCarousel.js'
+
 
 function index() {
   return (
       <div>
-              <Header/>
-              Home page test.
+              <MainCarousel/>
       </div>
   )
 }
 
 export default index
+
+index.layout = "web"
