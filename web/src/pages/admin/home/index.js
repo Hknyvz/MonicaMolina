@@ -1,7 +1,14 @@
-import React from "react";
+import HomeContainer from "@/components/admin/home/HomeContainer";
+import React, { useState } from "react";
 
 function AdminHome() {
-  return <div>Admin Home Page</div>;
+  const [crop, setCrop] = useState();
+  return (
+    <div>
+      {/* <CropContainer></CropContainer> */}
+      <HomeContainer></HomeContainer>
+    </div>
+  );
 }
 AdminHome.layout = "admin";
 export default AdminHome;

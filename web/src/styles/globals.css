@@ -106,3 +106,7 @@ a {
     color-scheme: dark;
   }
 }
+
+.ant-modal-confirm-content {
+  width: 100%;
+}
