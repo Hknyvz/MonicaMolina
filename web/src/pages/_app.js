@@ -3,7 +3,6 @@ import "@/styles/globals.css";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import WebLayout from "@/components/layouts/WebLayout";
 
-
 export default function App({
   Component,
   pageProps: { session, ...pageProps },

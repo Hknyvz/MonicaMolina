@@ -11,13 +11,14 @@ const headerBackground =
   paddingTop: 20,
   paddingBottom: 20,
   width: "100%",
-  boxShadow: "0px 25px 20px rgba(0, 0, 0, 0.60)",
-  
+  boxShadow: "0px 25px 20px rgba(0, 0, 0, 0.50)",
+  zIndex: 1,
+
 }
 
 const titleStyle = 
 {
-  fontFamily: 'Montserrat sans-serif' ,
+  fontFamily: 'Montserrat sans-serif',
   margin: 0,
 
 }
