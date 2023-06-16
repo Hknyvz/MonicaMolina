@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Modal, Space } from "antd";
 
 const TableContainer = styled.div`
-  margin-top: 16px;
+  margin-top: 10px;
 `;
 
 const TableGeneralOperationContainer = styled.div`
@@ -14,4 +14,10 @@ const FullSpace = styled(Space)`
   width: 100%;
 `;
 
-export { TableContainer, TableGeneralOperationContainer, FullSpace };
+const FontDiv = styled.div`
+  font-family: "Allison";
+  color: red;
+  font-size: 100px;
+`;
+
+export { TableContainer, TableGeneralOperationContainer, FullSpace, FontDiv };

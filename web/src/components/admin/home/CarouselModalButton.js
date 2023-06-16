@@ -1,27 +1,43 @@
 import { Button, Form, Input, Modal } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FullSpace } from "./StyledComponents";
 import CropContainer from "./CropContainer";
+import { useFormik } from "formik";
+import { createClient } from "@/pages/api/client";
 
-function CarouselModalButton({ data }) {
+function CarouselModalButton({ data, isCreate }) {
   const { confirm } = Modal;
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(data?.image);
+  const [tempImage, setTempImage] = useState(data?.image);
+  const [modalData, setModalData] = useState({
+    Id: data?.id,
+    Order: data?.order,
+    ImageUrl: data?.image,
+    ImageText: data?.text,
+  });
 
-  const handleOk = async () => {
-    // setSelectData((prev) => ({ ...prev, image: image }));
-    // const client = createClient();
-    // await client.post("/carousel", selectedData);
-    // setIsModalOpen(false);
-    // clearSelectedData();
-    //debugger;
-    // const reader = new FileReader();
-    // reader.onload = function (event) {
-    //   const base64String = event.target.result;
-    //   // Base64 formatına dönüştürülen verilerle yapılacak işlemler
-    //   console.log(base64String);
-    // };
-    // reader.readAsDataURL(image);
-  };
+  useEffect(() => {
+    setImage(data?.image);
+  }, [data]);
+
+  const formik = useFormik({
+    initialValues: {
+      Id: modalData.Id,
+      Order: modalData.Order,
+      ImageUrl: modalData.ImageUrl,
+      ImageText: modalData.ImageText,
+    },
+    onSubmit: async (values) => {
+      values.ImageUrl = tempImage;
+      const client = createClient();
+      await client.post("/carousel", values);
+      if (!isCreate) {
+        setImage(tempImage);
+      } else {
+        setTempImage(null);
+      }
+    },
+  });
 
   const showModal = () => {
     confirm({
@@ -31,37 +47,30 @@ function CarouselModalButton({ data }) {
           <Form>
             <FullSpace style={{ width: "100%" }} direction="vertical">
               <Input
-                value={data?.text}
+                name="ImageText"
+                value={formik.initialValues.ImageText}
                 placeholder="Image Text"
-                onChange={(e) =>
-                  setSelectData((prev) => ({
-                    ...prev,
-                    text: e.target.value,
-                  }))
-                }
+                onChange={formik.handleChange}
               />
               <Input
-                value={data?.order}
+                name="Order"
+                value={formik.initialValues.Order}
                 placeholder="Order Number"
-                onChange={(e) =>
-                  setSelectData((prev) => ({
-                    ...prev,
-                    order: e.target.value,
-                  }))
-                }
+                onChange={formik.handleChange}
               />
               <CropContainer
-                image={data?.image}
-                cropImage={(e) => setImage(e)}
+                image={tempImage}
+                cropImage={(e) => setTempImage(e)}
               ></CropContainer>
             </FullSpace>
           </Form>
         </div>
       ),
       onCancel() {
+        setTempImage(image);
         Modal.destroyAll();
       },
-      onOk: handleOk,
+      onOk: formik.handleSubmit,
     });
   };
 

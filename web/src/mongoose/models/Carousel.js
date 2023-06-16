@@ -1,7 +1,13 @@
 import mongoose from "mongoose";
+import { v4 as uuidv4 } from "uuid";
 
 const CarouselSchema = new mongoose.Schema(
   {
+    _id: {
+      type: String,
+      default: uuidv4,
+      required: true,
+    },
     Order: {
       type: String,
       required: true,
@@ -17,6 +23,5 @@ const CarouselSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-
 export default mongoose.models.Carousel ||
   mongoose.model("Carousel", CarouselSchema);

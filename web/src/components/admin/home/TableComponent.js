@@ -1,6 +1,7 @@
 import { Button, Space, Table } from "antd";
 import React from "react";
 import {
+  FullSpace,
   TableContainer,
   TableGeneralOperationContainer,
 } from "./StyledComponents";
@@ -48,18 +49,21 @@ function TableComponent({ data }) {
   return (
     <>
       <TableContainer>
-        <TableGeneralOperationContainer>
-          <Space>
-            <CarouselModalButton></CarouselModalButton>
-          </Space>
-        </TableGeneralOperationContainer>
-        <Table
-          size="small"
-          pagination={false}
-          bordered
-          columns={columns}
-          dataSource={data}
-        ></Table>
+        <FullSpace direction="vertical">
+          <TableGeneralOperationContainer>
+            <Space>
+              <CarouselModalButton isCreate={true}></CarouselModalButton>
+            </Space>
+          </TableGeneralOperationContainer>
+          <Table
+            size="small"
+            pagination={false}
+            bordered
+            columns={columns}
+            dataSource={data}
+            key={(p) => p.id}
+          ></Table>
+        </FullSpace>
       </TableContainer>
     </>
   );

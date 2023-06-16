@@ -39,7 +39,7 @@ export default function CropContainer({ image, cropImage }) {
     setCrop(centerAspectCrop(width, height, 16 / 9));
   }
 
-  function onDownloadCropClick() {
+  function croppedSend() {
     if (!previewCanvasRef.current) {
       throw new Error("Crop canvas does not exist");
     }
@@ -48,11 +48,14 @@ export default function CropContainer({ image, cropImage }) {
       if (!blob) {
         return null;
       }
-      if (blobUrlRef.current) {
-        URL.revokeObjectURL(blobUrlRef.current);
-      }
-      blobUrlRef.current = URL.createObjectURL(blob);
-      cropImage(blobUrlRef.current);
+
+      const reader = new FileReader();
+      let base64String;
+      reader.onloadend = function () {
+        base64String = reader.result;
+        cropImage(base64String);
+      };
+      reader.readAsDataURL(blob);
     });
   }
 
@@ -71,7 +74,7 @@ export default function CropContainer({ image, cropImage }) {
         previewCanvasRef.current
       ) {
         canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop);
-        onDownloadCropClick();
+        croppedSend();
       }
     },
     100,
