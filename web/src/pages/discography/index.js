@@ -1,8 +1,11 @@
 import React from 'react'
+import Disco from 'src/components/Disco.js'
 
 function index() {
   return (
-    <div>Discography</div>
+    <>
+      <Disco/>
+    </>
   )
 }
 
