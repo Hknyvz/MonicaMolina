@@ -1,6 +1,7 @@
 import React from "react";
 import TableComponent from "./TableComponent";
 import { FontDiv } from "./StyledComponents";
+import FormikTest from "./FormikTest";
 
 const datas = [
   {
@@ -16,6 +17,7 @@ function HomeContainer({ data }) {
   return (
     <>
       <TableComponent data={data}></TableComponent>
+      <FormikTest></FormikTest>
     </>
   );
 }

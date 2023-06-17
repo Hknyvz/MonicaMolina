@@ -7,25 +7,25 @@ import { createClient } from "@/pages/api/client";
 
 function CarouselModalButton({ data, isCreate }) {
   const { confirm } = Modal;
-  const [image, setImage] = useState(data?.image);
-  const [tempImage, setTempImage] = useState(data?.image);
+  const [image, setImage] = useState(data?.ImageUrl);
+  const [tempImage, setTempImage] = useState(data?.ImageUrl);
   const [modalData, setModalData] = useState({
-    Id: data?.id,
-    Order: data?.order,
-    ImageUrl: data?.image,
-    ImageText: data?.text,
+    Id: data?._id,
+    Order: data?.Order,
+    ImageUrl: data?.ImageUrl,
+    ImageText: data?.ImageText,
   });
 
   useEffect(() => {
-    setImage(data?.image);
+    setImage(data?.ImageUrl);
   }, [data]);
 
   const formik = useFormik({
     initialValues: {
-      Id: modalData.Id,
-      Order: modalData.Order,
-      ImageUrl: modalData.ImageUrl,
-      ImageText: modalData.ImageText,
+      Id: data?._id,
+      Order: data?.Order,
+      ImageUrl: data?.ImageUrl,
+      ImageText: data?.ImageText,
     },
     onSubmit: async (values) => {
       values.ImageUrl = tempImage;
@@ -44,17 +44,19 @@ function CarouselModalButton({ data, isCreate }) {
       icon: null,
       content: (
         <div style={{ width: "100%" }}>
-          <Form>
+          <form onSubmit={formik.handleSubmit}>
             <FullSpace style={{ width: "100%" }} direction="vertical">
               <Input
+                id="ImageText"
                 name="ImageText"
-                value={formik.initialValues.ImageText}
+                value={formik.values.ImageText}
                 placeholder="Image Text"
                 onChange={formik.handleChange}
               />
-              <Input
+              <input
+                id="Order"
                 name="Order"
-                value={formik.initialValues.Order}
+                value={formik.values.Order}
                 placeholder="Order Number"
                 onChange={formik.handleChange}
               />
@@ -63,7 +65,7 @@ function CarouselModalButton({ data, isCreate }) {
                 cropImage={(e) => setTempImage(e)}
               ></CropContainer>
             </FullSpace>
-          </Form>
+          </form>
         </div>
       ),
       onCancel() {

@@ -13,18 +13,18 @@ function TableComponent({ data }) {
   const columns = [
     {
       title: "Order",
-      dataIndex: "order",
-      key: "order",
+      dataIndex: "Order",
+      key: "Order",
     },
     {
-      title: "Text",
-      dataIndex: "text",
-      key: "text",
+      title: "ImageText",
+      dataIndex: "ImageText",
+      key: "ImageText",
     },
     {
       title: "Image",
-      dataIndex: "image",
-      key: "image",
+      dataIndex: "ImageUrl",
+      key: "ImageUrl",
       width: 170,
       render: (image) => <img src={image} width={160} height={90}></img>,
     },
