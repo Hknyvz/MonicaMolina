@@ -19,7 +19,7 @@ const save = async (data, guid) => {
     model.ImageUrl = relativePath;
     model.ImageText = data.ImageText;
     await model.save();
-    const res = { message: "Dosya başarıyla kaydedildi.", data: model };
+    const res = { message: "Saved successful", data: model };
     return res;
   } catch (err) {
     throw err;
@@ -28,16 +28,21 @@ const save = async (data, guid) => {
 
 const update = async (data) => {
   try {
-    deleteImage(data.Id);
-    saveImage(data.ImageUrl, data.Id);
     const model = { Order: data.Order, ImageText: data.ImageText };
     let updatedEntry = await CarouselModel.findByIdAndUpdate(data.Id, model, {
       new: true,
     });
-    return updatedEntry;
+    const res = { message: "Updated successful", data: updatedEntry };
+    return res;
   } catch (err) {
     throw err;
   }
+};
+
+const remove = async (id) => {
+  const res = await CarouselModel.findByIdAndDelete(id);
+  deleteImage(id);
+  return res;
 };
 
 const handler = async (req, res) => {
@@ -47,19 +52,25 @@ const handler = async (req, res) => {
     if (method === "GET") {
       let carousels = await CarouselModel.find();
       return res.status(200).json(carousels);
-    } else if (req.method === "POST") {
+    } else if (method === "POST") {
       const newGuid = uuidv4();
       const response = await save(req.body, newGuid);
 
-      return res.status(200).json(response);
-    } else if (req.method === "PUT") {
+      return res.status(201).json(response);
+    } else if (method === "PUT") {
       const response = await update(req.body);
 
       return res.status(200).json(response);
+    } else if (method === "DELETE") {
+      const { id } = req.query;
+      const response = await remove(id);
+      return res.status(204).json(response);
+    } else {
+      return res.status(405).json({ message: "Method not allowed" });
     }
   } catch (err) {
     console.error("err", err);
-    return res.status(500).json({ message: "Dosya kaydedilemedi.", err: err });
+    return res.status(500).json({ message: "Couldn't save file", err: err });
   }
 };
 

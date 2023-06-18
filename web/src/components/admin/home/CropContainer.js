@@ -63,14 +63,12 @@ export default function CropContainer({ image, cropImage, time }) {
   }
 
   useEffect(() => {
-    debugger;
     setSelectedImage(image);
     handleRemoveFiles();
   }, [image, time]);
 
   useDebounceEffect(
     async () => {
-      debugger;
       if (
         completedCrop?.width &&
         completedCrop?.height &&
@@ -91,7 +89,11 @@ export default function CropContainer({ image, cropImage, time }) {
 
   const antUpload = (file) => {
     if (file.fileList.length > 0) {
-      setSelectedImage(URL.createObjectURL(file.file.originFileObj));
+      const reader = new FileReader();
+      reader.addEventListener("load", () =>
+        setSelectedImage(reader.result?.toString() || "")
+      );
+      reader.readAsDataURL(file.file.originFileObj);
       setFileList([...file.fileList]);
     } else setSelectedImage(null);
   };
@@ -115,7 +117,7 @@ export default function CropContainer({ image, cropImage, time }) {
           ? selectedImage && (
               <ReactCrop
                 crop={crop}
-                onChange={(percentCrop) => setCrop(percentCrop)}
+                onChange={(_, percentCrop) => setCrop(percentCrop)}
                 onComplete={(c) => setCompletedCrop(c)}
                 aspect={16 / 9}
               >
@@ -137,6 +139,7 @@ export default function CropContainer({ image, cropImage, time }) {
               />
             )}
         <canvas
+          hidden
           ref={previewCanvasRef}
           style={{
             border: "1px solid black",

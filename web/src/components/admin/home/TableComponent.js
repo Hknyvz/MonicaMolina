@@ -19,7 +19,11 @@ function TableComponent({ data }) {
     setTableData(data);
   }, [data]);
 
-  const handleDelete = (id) => {};
+  const handleDelete = async (id) => {
+    const client = createClient();
+    await client.delete(`/carousel?id=${id}`);
+    await refreshTableData();
+  };
 
   const columns = [
     {
@@ -58,7 +62,7 @@ function TableComponent({ data }) {
           <Button
             type="primary"
             style={{ backgroundColor: "#ff0000", color: "white" }}
-            onClick={() => handleDelete(data.id)}
+            onClick={() => handleDelete(renderData._id)}
           >
             Delete
           </Button>

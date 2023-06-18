@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal } from "antd";
+import { Form, Input, Modal, Space } from "antd";
 import React, { useEffect, useState } from "react";
 import { FullSpace } from "./StyledComponents";
 import CropContainer from "./CropContainer";
@@ -26,7 +26,6 @@ function CarouselModal({
     },
     onSubmit: async (values) => {
       values.ImageUrl = tempImage;
-      console.log(tempImage);
       const client = createClient();
 
       if (isCreate) {
@@ -39,10 +38,6 @@ function CarouselModal({
       handleCancel();
     },
   });
-
-  useEffect(() => {
-    console.log(tempImage);
-  }, [tempImage]);
 
   useEffect(() => {
     setFormikField();
@@ -74,29 +69,40 @@ function CarouselModal({
         onCancel={handleCancel}
         maskClosable={false}
       >
-        <form>
-          <FullSpace style={{ width: "100%" }} direction="vertical">
-            <Input
-              id="ImageText"
-              name="ImageText"
-              value={formik.values.ImageText}
-              placeholder="Image Text"
-              onChange={formik.handleChange}
-            />
-            <Input
-              id="Order"
-              name="Order"
-              value={formik.values.Order}
-              placeholder="Order Number"
-              onChange={formik.handleChange}
-            />
-            <CropContainer
-              image={formik.values.ImageUrl}
-              cropImage={(e) => setTempImage(e)}
-              time={time}
-            ></CropContainer>
+        <Form>
+          <FullSpace direction="vertical">
+            <label>
+              Image Text
+              <Input
+                id="ImageText"
+                name="ImageText"
+                value={formik.values.ImageText}
+                placeholder="Image Text"
+                onChange={formik.handleChange}
+              />
+            </label>
+            <label>
+              Order
+              <Input
+                id="Order"
+                name="Order"
+                value={formik.values.Order}
+                placeholder="Order Number"
+                onChange={formik.handleChange}
+              />
+            </label>
+            {isCreate && (
+              <Space direction="vertical">
+                Upload
+                <CropContainer
+                  image={formik.values.ImageUrl}
+                  cropImage={(e) => setTempImage(e)}
+                  time={time}
+                ></CropContainer>
+              </Space>
+            )}
           </FullSpace>
-        </form>
+        </Form>
       </Modal>
     </>
   );
