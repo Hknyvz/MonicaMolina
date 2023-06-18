@@ -5,16 +5,15 @@ import { canvasPreview } from "../../utils/crop/canvasPreview";
 import { useDebounceEffect } from "../../utils/crop/useDebounceEffect";
 
 import "react-image-crop/dist/ReactCrop.css";
-import { Button, message, Space, Upload } from "antd";
+import { Button, Space, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { createClient } from "@/pages/api/client";
 
 function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
   return centerCrop(
     makeAspectCrop(
       {
         unit: "%",
-        width: 90,
+        width: 100,
       },
       aspect,
       mediaWidth,
@@ -25,14 +24,18 @@ function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
   );
 }
 
-export default function CropContainer({ image, cropImage }) {
+export default function CropContainer({ image, cropImage, time }) {
   const previewCanvasRef = useRef(null);
   const imgRef = useRef(null);
   const uploadRef = useRef();
-  const blobUrlRef = useRef("");
+  const hiddenAnchorRef = useRef(null);
+  const [completedCrop, setCompletedCrop] = useState({
+    width: 424,
+    height: 238,
+  });
   const [crop, setCrop] = useState();
-  const [completedCrop, setCompletedCrop] = useState();
   const [selectedImage, setSelectedImage] = useState();
+  const [fileList, setFileList] = useState([]);
 
   function onImageLoad(e) {
     const { width, height } = e.currentTarget;
@@ -60,55 +63,88 @@ export default function CropContainer({ image, cropImage }) {
   }
 
   useEffect(() => {
+    debugger;
     setSelectedImage(image);
-    if (!image) {
-    }
-  }, [image]);
+    handleRemoveFiles();
+  }, [image, time]);
 
   useDebounceEffect(
     async () => {
+      debugger;
       if (
         completedCrop?.width &&
         completedCrop?.height &&
         imgRef.current &&
         previewCanvasRef.current
       ) {
-        canvasPreview(imgRef.current, previewCanvasRef.current, completedCrop);
+        await canvasPreview(
+          imgRef.current,
+          previewCanvasRef.current,
+          completedCrop
+        );
         croppedSend();
       }
     },
     100,
-    [completedCrop]
+    [completedCrop, fileList]
   );
-  const antUpload = async (file) => {
-    if (file.fileList.length > 0)
+
+  const antUpload = (file) => {
+    if (file.fileList.length > 0) {
       setSelectedImage(URL.createObjectURL(file.file.originFileObj));
-    else setSelectedImage(null);
+      setFileList([...file.fileList]);
+    } else setSelectedImage(null);
+  };
+
+  const handleRemoveFiles = () => {
+    setFileList([]);
   };
 
   return (
     <>
       <Space direction="vertical">
-        <Upload onChange={antUpload} ref={uploadRef}>
+        <Upload
+          fileList={fileList}
+          onChange={antUpload}
+          ref={uploadRef}
+          onRemove={handleRemoveFiles}
+        >
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
         </Upload>
-        {selectedImage && (
-          <ReactCrop
-            crop={crop}
-            onChange={(percentCrop) => setCrop(percentCrop)}
-            onComplete={(c) => setCompletedCrop(c)}
-            aspect={16 / 9}
-          >
-            <img
-              ref={imgRef}
-              alt="Crop me"
-              src={selectedImage}
-              onLoad={onImageLoad}
-              width={472}
-            />
-          </ReactCrop>
-        )}
-        <canvas hidden ref={previewCanvasRef} />
+        {uploadRef?.current?.fileList.length > 0
+          ? selectedImage && (
+              <ReactCrop
+                crop={crop}
+                onChange={(percentCrop) => setCrop(percentCrop)}
+                onComplete={(c) => setCompletedCrop(c)}
+                aspect={16 / 9}
+              >
+                <img
+                  ref={imgRef}
+                  alt="Crop me"
+                  src={selectedImage}
+                  onLoad={onImageLoad}
+                  width={472}
+                />
+              </ReactCrop>
+            )
+          : selectedImage && (
+              <img
+                alt="Crop me"
+                src={selectedImage}
+                onLoad={onImageLoad}
+                width={472}
+              />
+            )}
+        <canvas
+          ref={previewCanvasRef}
+          style={{
+            border: "1px solid black",
+            objectFit: "contain",
+            width: completedCrop.width,
+            height: completedCrop.height,
+          }}
+        />
       </Space>
     </>
   );
