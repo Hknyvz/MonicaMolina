@@ -44,7 +44,7 @@ function Header() {
           <Col >
             <Title style={titleStyle}>MÓNICA MOLINA</Title>
           </Col>
-          <Col>
+          <Col span={9}>
           <Menu mode="horizontal" style={textStyle}>
             <Menu.Item key="home">
               <Link href="/home">
