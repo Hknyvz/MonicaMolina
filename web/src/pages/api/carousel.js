@@ -1,4 +1,5 @@
 import { deleteImage, saveImage } from "@/helpers/file";
+import logger from "@/helpers/logger";
 import dbConnect from "@/mongoose/dbConnect";
 import CarouselModel from "@/mongoose/models/Carousel";
 import { v4 as uuidv4 } from "uuid";
@@ -12,31 +13,23 @@ export const config = {
 };
 
 const save = async (data, guid) => {
-  try {
-    const relativePath = saveImage(data.ImageUrl, guid);
-    const model = new CarouselModel({ _id: guid });
-    model.Order = data.Order;
-    model.ImageUrl = relativePath;
-    model.ImageText = data.ImageText;
-    await model.save();
-    const res = { message: "Saved successful", data: model };
-    return res;
-  } catch (err) {
-    throw err;
-  }
+  const relativePath = saveImage(data.ImageUrl, guid);
+  const model = new CarouselModel({ _id: guid });
+  model.Order = data.Order;
+  model.ImageUrl = relativePath;
+  model.ImageText = data.ImageText;
+  await model.save();
+  const res = { message: "Saved successful", data: model };
+  return res;
 };
 
 const update = async (data) => {
-  try {
-    const model = { Order: data.Order, ImageText: data.ImageText };
-    let updatedEntry = await CarouselModel.findByIdAndUpdate(data.Id, model, {
-      new: true,
-    });
-    const res = { message: "Updated successful", data: updatedEntry };
-    return res;
-  } catch (err) {
-    throw err;
-  }
+  const model = { Order: data.Order, ImageText: data.ImageText };
+  let updatedEntry = await CarouselModel.findByIdAndUpdate(data.Id, model, {
+    new: true,
+  });
+  const res = { message: "Updated successful", data: updatedEntry };
+  return res;
 };
 
 const remove = async (id) => {
@@ -69,7 +62,7 @@ const handler = async (req, res) => {
       return res.status(405).json({ message: "Method not allowed" });
     }
   } catch (err) {
-    console.error("err", err);
+    logger.error(`Api Carousel:${err}`);
     return res.status(500).json({ message: "Couldn't save file", err: err });
   }
 };
