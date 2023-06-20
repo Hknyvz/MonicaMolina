@@ -10,14 +10,4 @@ const TableGeneralOperationContainer = styled.div`
   justify-content: end;
 `;
 
-const FullSpace = styled(Space)`
-  width: 100%;
-`;
-
-const FontDiv = styled.div`
-  font-family: "Allison";
-  color: red;
-  font-size: 100px;
-`;
-
-export { TableContainer, TableGeneralOperationContainer, FullSpace, FontDiv };
+export { TableContainer, TableGeneralOperationContainer };

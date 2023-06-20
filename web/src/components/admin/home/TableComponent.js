@@ -1,12 +1,12 @@
 import { Button, Space, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import {
-  FullSpace,
   TableContainer,
   TableGeneralOperationContainer,
 } from "./StyledComponents";
 import CarouselModal from "./CarouselModal";
 import { createClient } from "@/pages/api/client";
+import { FullSpace } from "../shared/StyledComponent";
 
 function TableComponent({ data }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,7 +57,7 @@ function TableComponent({ data }) {
               setTitle("Update Carousel Modal");
             }}
           >
-            Update
+            Edit
           </Button>
           <Button
             type="primary"
