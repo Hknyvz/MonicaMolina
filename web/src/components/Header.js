@@ -2,6 +2,7 @@ import React from 'react'
 import { Menu } from 'antd';
 import { Typography } from 'antd';
 import { Col, Row } from 'antd';
+import Link from 'next/link'
 
 const { Title } = Typography;
 
@@ -18,7 +19,18 @@ const headerBackground =
 
 const titleStyle = 
 {
-  fontFamily: 'Montserrat sans-serif',
+  fontFamily: 'Montserrat',
+  fontWeight: 400,
+  margin: 0,
+
+}
+
+const textStyle = 
+{
+  fontFamily: 'Montserrat',
+  fontWeight: 300,
+  color: "black",
+  fontSize: 16,
   margin: 0,
 
 }
@@ -32,33 +44,47 @@ function Header() {
           <Col >
             <Title style={titleStyle}>MÓNICA MOLINA</Title>
           </Col>
-          <Col>
-          <Menu mode="horizontal" >
+          <Col span={9}>
+          <Menu mode="horizontal" style={textStyle}>
             <Menu.Item key="home">
-              Home
+              <Link href="/home">
+                Home
+              </Link>
             </Menu.Item>    
             <Menu.Item key="biography">
-              Biography
+              <Link href="/biography">
+                Biography
+              </Link>             
             </Menu.Item>
             <Menu.Item key="discography">
-              Discography
+              <Link href="/discography">
+                Discography
+              </Link>  
             </Menu.Item>
             <Menu.Item key="news">
-              News
+              <Link href="/news">
+                News
+              </Link>  
             </Menu.Item>
             <Menu.Item key="gallery">
-              Gallery
+              <Link href="/gallery">
+                Gallery
+              </Link>  
             </Menu.Item>
             <Menu.Item key="concerts">
-              Concerts
+              <Link href="/concerts">
+                Concerts
+              </Link>  
             </Menu.Item>
-            <Menu.Item key="Contact">
-              Contact
+            <Menu.Item key="contact">
+              <Link href="/contact">
+                Contact
+                </Link>  
             </Menu.Item>
             </Menu>
           </Col>
           <Col>
-            <Title level={5} style={{margin: 0}}>EN-ES</Title>
+            <Title style={textStyle}>EN-ES</Title>
           </Col>
         </Row>
       </div>
