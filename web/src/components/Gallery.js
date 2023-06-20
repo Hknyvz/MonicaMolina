@@ -3,6 +3,9 @@ import { Col, Row } from 'antd';
 import { Typography} from 'antd';
 import { Tabs } from 'antd';
 import ImageGallery from 'src/components/ImageGallery.js'
+import VideoGallery from 'src/components/VideoGallery.js'
+
+
 const { Title, Paragraph, Text, Link } = Typography;
 
 const titleStyle = {
@@ -21,6 +24,8 @@ const bodyStyle = {
     paddingTop: 110
 }
 
+
+
 function Gallery() {
   return (
     <div>
@@ -28,16 +33,12 @@ function Gallery() {
             <Title level={1} style={titleStyle}>Gallery Wall</Title>
         </Row>
         <Row justify="space-evenly" style={{paddingBottom: 35}}>
-            <Tabs defaultActiveKey="1" centered>
-                <Tabs.TabPane tab="Photos" key="1">
-                    <Row justify="center" gutter={16}>
-                        <ImageGallery/>
-                    </Row>
+            <Tabs defaultActiveKey="1" centered style={{width:"70%"}}>
+                <Tabs.TabPane tab="Photos" key="1" style={{marginTop: 30}}>
+                    <ImageGallery/>
                 </Tabs.TabPane>
-                <Tabs.TabPane tab="Videos" key="2">
-                    <Row justify="center" gutter={16}>
-
-                    </Row>
+                <Tabs.TabPane tab="Videos" key="2" style={{marginTop: 30}}>
+                    <VideoGallery/>
                 </Tabs.TabPane>
             </Tabs>
         </Row>

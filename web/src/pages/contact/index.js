@@ -1,11 +1,14 @@
 import React from 'react'
+import Contact from 'src/components/Contact.js'
 
-function ContactPage() {
+function index() {
   return (
-    <div>Contact page</div>
+    <div>
+      <Contact/>
+    </div>
   )
 }
 
-export default ContactPage
+export default index
 
-ContactPage.layout = "web";
+index.layout = "web";

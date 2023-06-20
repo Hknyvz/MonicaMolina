@@ -76,8 +76,8 @@ function Header() {
                 Concerts
               </Link>  
             </Menu.Item>
-            <Menu.Item key="Contact">
-              <Link href="/Contact">
+            <Menu.Item key="contact">
+              <Link href="/contact">
                 Contact
                 </Link>  
             </Menu.Item>
