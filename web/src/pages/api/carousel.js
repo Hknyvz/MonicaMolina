@@ -11,9 +11,9 @@ export const config = {
     },
   },
 };
-
+const directory = "home-photo";
 const save = async (data, guid) => {
-  const relativePath = saveImage(data.ImageUrl, guid);
+  const relativePath = saveImage(data.ImageUrl, guid, directory);
   const model = new CarouselModel({ _id: guid });
   model.Order = data.Order;
   model.ImageUrl = relativePath;
@@ -34,12 +34,12 @@ const update = async (data) => {
 
 const remove = async (id) => {
   const res = await CarouselModel.findByIdAndDelete(id);
-  deleteImage(id);
+  deleteImage(id, directory);
   return res;
 };
 
 const handler = async (req, res) => {
-  await dbConnect("Carousel");
+  await dbConnect("Monica");
   const method = req.method;
   try {
     if (method === "GET") {

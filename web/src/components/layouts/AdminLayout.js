@@ -1,13 +1,16 @@
 import { Layout } from "antd";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import { LoadingContext } from "@/components/contexts/LoadingContext";
+import LoadingSpinner from "@/components/admin/LoadingSpinner";
 
 const SideBar = dynamic(() => import("./SideBar/SideBar"));
 const NavBar = dynamic(() => import("./Navbar/Navbar"));
 const ContentWrapper = dynamic(() => import("./ContentWrapper/ContentWrapper"));
 function AdminLayout({ children }) {
   const [collapsed, setCollapsed] = useState(false);
+  const { isLoading } = useContext(LoadingContext);
   return (
     <>
       <Head>
@@ -20,7 +23,10 @@ function AdminLayout({ children }) {
         <SideBar collapsed={collapsed}></SideBar>
         <Layout>
           <NavBar collapseAction={() => setCollapsed(!collapsed)} />
-          <ContentWrapper>{children}</ContentWrapper>
+          <ContentWrapper>
+            {isLoading && <LoadingSpinner />}
+            {children}
+          </ContentWrapper>
         </Layout>
       </Layout>
     </>

@@ -1,8 +1,13 @@
 import { SessionProvider } from "next-auth/react";
 import "@/styles/globals.css";
 import AdminLayout from "@/components/layouts/AdminLayout";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import WebLayout from "@/components/layouts/WebLayout";
+import {
+  LoadingContext,
+  LoadingProvider,
+} from "@/components/contexts/LoadingContext";
+import LoadingSpinner from "@/components/admin/LoadingSpinner";
 
 export default function App({
   Component,
@@ -15,14 +20,18 @@ export default function App({
     }
   }, []);
   const getLayout =
-    Component.layout === "web" ? (
-      <WebLayout>
-        <Component {...pageProps} />
-      </WebLayout>
-    ) : (
+    Component.layout === "admin" ? (
       <AdminLayout>
         <Component {...pageProps} />
       </AdminLayout>
+    ) : (
+      <WebLayout>
+        <Component {...pageProps} />
+      </WebLayout>
     );
-  return <SessionProvider session={session}>{getLayout}</SessionProvider>;
+  return (
+    <LoadingProvider>
+      <SessionProvider session={session}>{getLayout}</SessionProvider>
+    </LoadingProvider>
+  );
 }

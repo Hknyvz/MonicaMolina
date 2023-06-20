@@ -1,9 +1,10 @@
 import { Form, Input, Modal, Space } from "antd";
-import React, { useEffect, useState } from "react";
-import { FullSpace } from "./StyledComponents";
-import CropContainer from "./CropContainer";
+import React, { useContext, useEffect, useState } from "react";
+import CropContainer from "../shared/CropContainer";
 import { useFormik } from "formik";
 import { createClient } from "@/pages/api/client";
+import { LoadingContext } from "@/components/contexts/LoadingContext";
+import { FullSpace } from "../shared/StyledComponent";
 
 function CarouselModal({
   data,
@@ -16,6 +17,7 @@ function CarouselModal({
 }) {
   const [tempImage, setTempImage] = useState(data?.ImageUrl);
   const [time, setTime] = useState();
+  const { setLoading } = useContext(LoadingContext);
 
   const formik = useFormik({
     initialValues: {
@@ -25,9 +27,9 @@ function CarouselModal({
       ImageText: "",
     },
     onSubmit: async (values) => {
+      setLoading(true);
       values.ImageUrl = tempImage;
       const client = createClient();
-
       if (isCreate) {
         await client.post("/carousel", values);
         setTempImage(null);
@@ -36,6 +38,7 @@ function CarouselModal({
       }
       await refresh();
       handleCancel();
+      setLoading(false);
     },
   });
 
@@ -98,6 +101,7 @@ function CarouselModal({
                   image={formik.values.ImageUrl}
                   cropImage={(e) => setTempImage(e)}
                   time={time}
+                  aspect={16 / 9}
                 ></CropContainer>
               </Space>
             )}
