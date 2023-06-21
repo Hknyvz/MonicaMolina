@@ -1,16 +1,10 @@
 import { Carousel } from 'antd';
 import React from 'react';
-import testPic from 'public/images/testPic.jpg';
-import monicaS1 from 'public/images/monicaS1.jpg';
-import Image from 'next/image'
+import { useRef } from 'react';
+import Link from 'next/link'
 
 
-const contentStyle = 
-{
-  position: "relative",
-  width: "100%",
-  height: "500px",
-};
+
 
 const slideStyles = {
   width: "100%",
@@ -25,21 +19,51 @@ const slideStyles = {
 
 function MainCarousel({slides}) {
 
+    const windowSize = useRef([window.innerWidth, window.innerHeight]);
+    
+    const contentStyle = 
+    {
+      position: "relative",
+      width: windowSize.current[0],
+      height: windowSize.current[1]-86,
+    };
+    const carouselStyle = 
+    {
+      width: windowSize.current[0],
+      height: windowSize.current[1]-86,
+    };
+
   const imageStyle = {
     ...slideStyles,
     //backgroundImage: `url(${slides[currentIndex].url})`,
     backgroundImage: `url(images/monicaS1.jpg)`,
-
   };
+
+  const imageStyles = 
+  {
+    width: windowSize.current[0],
+    height: windowSize.current[1]-86,
+    objectFit: "cover"
+  }
+
   return (
 
     <div style={contentStyle}>
-        <Carousel>
+        <Carousel style={carouselStyle} autoplay>
           <div>
-            <img src="images/testPic.jpg"/>
+            <Link href="https://www.google.com">
+                <img style={imageStyles} src="images/slider1.jpg"/>
+            </Link>
           </div>
           <div>
-            <img src="images/monicaS1.jpg"/>
+            <Link href="https://www.google.com">
+                <img style={imageStyles} src="images/slider2.jpg"/>
+            </Link>
+            </div>
+            <div>
+            <Link href="https://www.google.com">
+                <img style={imageStyles} src="images/slider3.jpg"/>
+            </Link>
           </div>
         </Carousel>
     </div>
