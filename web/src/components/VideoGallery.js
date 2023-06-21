@@ -16,7 +16,6 @@ const VideoList = [
 function VideoGallery() {
   return (
     <div>
-       
           <List itemLayout="vertical" size="large" pagination={{ positin:"bottom", align: "center", pageSize: 8 }} grid={{ gutter: 18 ,column: 4 }}  dataSource={VideoList} renderItem={(item) => (
             <List.Item>                
                        <iframe width="330" height="200" src={item.Embed} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>            
