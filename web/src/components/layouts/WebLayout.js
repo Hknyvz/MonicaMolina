@@ -1,6 +1,6 @@
 import { Layout } from "antd";
 import React, { useState } from "react";
-import Header from "src/components/Header.js";
+import Header from "@/components/Header";
 import dynamic from "next/dynamic";
 import { FullLayout } from "./styledComponents/StyledAdminLayout";
 
