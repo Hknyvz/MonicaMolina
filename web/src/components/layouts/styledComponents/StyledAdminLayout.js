@@ -1,10 +1,8 @@
 import styled from "styled-components";
-import { Menu as AntMenu } from "antd";
+import { Menu as AntMenu, Layout } from "antd";
 
-const AdminLayoutContainer = styled.div`
+const FullLayout = styled(Layout)`
   width: 100%;
-  height: 60px;
-  background-color: #001529;
 `;
 
 const LeftMenuContainer = styled.div`
@@ -16,4 +14,4 @@ const LeftMenuContainer = styled.div`
 
 const Menu = styled(AntMenu)``;
 
-export { LeftMenuContainer, AdminLayoutContainer, Menu };
+export { LeftMenuContainer, FullLayout, Menu };
