@@ -4,6 +4,7 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 import { LoadingContext } from "@/components/contexts/LoadingContext";
 import LoadingSpinner from "@/components/admin/LoadingSpinner";
+import { FullLayout } from "./styledComponents/StyledAdminLayout";
 
 const SideBar = dynamic(() => import("./SideBar/SideBar"));
 const NavBar = dynamic(() => import("./Navbar/Navbar"));
@@ -21,13 +22,13 @@ function AdminLayout({ children }) {
       </Head>
       <Layout>
         <SideBar collapsed={collapsed}></SideBar>
-        <Layout>
+        <FullLayout>
           <NavBar collapseAction={() => setCollapsed(!collapsed)} />
           <ContentWrapper>
             {isLoading && <LoadingSpinner />}
             {children}
           </ContentWrapper>
-        </Layout>
+        </FullLayout>
       </Layout>
     </>
   );
