@@ -8,6 +8,7 @@ import {
   TableGeneralOperationContainer,
 } from "../shared/StyledComponent";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
+import Image from "next/image";
 
 function CarouselTable({ data }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,7 +44,7 @@ function CarouselTable({ data }) {
       key: "ImageUrl",
       width: 170,
       render: (image) => (
-        <img src={imageUrlBuilder(image)} width={160} height={90}></img>
+        <Image src={imageUrlBuilder(image)} width={160} height={90}></Image>
       ),
     },
     {
