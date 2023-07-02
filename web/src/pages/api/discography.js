@@ -1,7 +1,7 @@
 import { deleteImage, saveImage } from "@/helpers/file";
 import logger from "@/helpers/logger";
 import dbConnect from "@/mongoose/dbConnect";
-import CarouselModel from "@/mongoose/models/Carousel";
+import DiscographyModel from "@/mongoose/models/Discography";
 import { v4 as uuidv4 } from "uuid";
 
 export const config = {
@@ -17,7 +17,7 @@ const handler = async (req, res) => {
   const method = req.method;
   try {
     if (method === "GET") {
-      let carousels = await CarouselModel.find().exec();
+      let carousels = await DiscographyModel.find().exec();
       return res.status(200).json(carousels);
     } else if (method === "POST") {
       const newGuid = uuidv4();
@@ -36,18 +36,18 @@ const handler = async (req, res) => {
       return res.status(405).json({ message: "Method not allowed" });
     }
   } catch (err) {
-    logger.error(`Api Carousel:${err}`);
-    return res.status(500).json({ message: "Couldn't save file", err: err });
+    logger.error(`Api Discography:${err}`);
+    return res.status(500).json({ message: "Couldn't update", err: err });
   }
 };
 
-const directory = "home-photo";
+const directory = "discography-photo";
 const save = async (data, guid) => {
   const relativePath = saveImage(data.ImageUrl, guid, directory);
-  const model = new CarouselModel({ _id: guid });
-  model.Order = data.Order;
+  const model = new DiscographyModel({ _id: guid });
+  model.Year = data.Year;
   model.ImageUrl = relativePath;
-  model.ImageText = data.ImageText;
+  model.Name = data.Name;
   await model.save();
   const res = { message: "Saved successful", data: model };
   return res;
@@ -58,8 +58,8 @@ const update = async (data) => {
     deleteImage(data.Id, directory);
     saveImage(data.ImageUrl, data.Id, directory);
   }
-  const model = { Order: data.Order, ImageText: data.ImageText };
-  let updatedEntry = await CarouselModel.findByIdAndUpdate(data.Id, model, {
+  const model = { Year: data.Year, Name: data.Name };
+  let updatedEntry = await DiscographyModel.findByIdAndUpdate(data.Id, model, {
     new: true,
   });
   const res = { message: "Updated successful", data: updatedEntry };
@@ -67,7 +67,7 @@ const update = async (data) => {
 };
 
 const remove = async (id) => {
-  const res = await CarouselModel.findByIdAndDelete(id);
+  const res = await DiscographyModel.findByIdAndDelete(id);
   deleteImage(id, directory);
   return res;
 };

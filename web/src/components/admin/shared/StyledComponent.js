@@ -5,4 +5,13 @@ const FullSpace = styled(Space)`
   width: 100%;
 `;
 
-export { FullSpace };
+const TableContainer = styled.div`
+  padding: 15px;
+`;
+
+const TableGeneralOperationContainer = styled.div`
+  display: flex;
+  justify-content: end;
+`;
+
+export { FullSpace, TableContainer, TableGeneralOperationContainer };
