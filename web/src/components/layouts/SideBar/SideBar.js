@@ -21,7 +21,7 @@ const items = [
   getItem("Home", "/admin/home", <HomeOutlined />),
   getItem("Biography", "/admin/biography", <HomeOutlined />),
   getItem("Discography", "/admin/discography", <HomeOutlined />),
-  getItem("news", "/admin/news", <HomeOutlined />),
+  getItem("News", "/admin/news", <HomeOutlined />),
   getItem("Gallery", "/admin/gallery", <HomeOutlined />),
   getItem("Concert", "/admin/concert", <HomeOutlined />),
   getItem("Contact", "/admin/contact", <HomeOutlined />),

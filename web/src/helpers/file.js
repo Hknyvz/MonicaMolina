@@ -8,12 +8,16 @@ const saveImage = (image, guid, directory) => {
   let relativePath = path.join(directory, fileName);
   let filePath = path.join(process.cwd(), "public", relativePath);
   fs.writeFileSync(filePath, decodedImage);
+  relativePath = relativePath.replace("\\", "/");
+  relativePath = "/" + relativePath;
   return relativePath;
 };
 
 const deleteImage = (id, directory) => {
-  const filePath = path.join(process.cwd(), "public", directory, `${id}.jpg`);
-  fs.unlinkSync(filePath);
+  try {
+    const filePath = path.join(process.cwd(), "public", directory, `${id}.jpg`);
+    fs.unlinkSync(filePath);
+  } catch (error) {}
 };
 
 export { saveImage, deleteImage };

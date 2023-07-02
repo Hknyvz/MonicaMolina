@@ -36,6 +36,7 @@ export default function CropContainer({ image, cropImage, time, aspect }) {
 
   function onImageLoad(e) {
     const { width, height } = e.currentTarget;
+    aspect = aspect ? aspect : width / height;
     setCrop(centerAspectCrop(width, height, aspect));
   }
 

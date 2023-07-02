@@ -6,7 +6,7 @@ import { createClient } from "@/pages/api/client";
 import { LoadingContext } from "@/components/contexts/LoadingContext";
 import { FullSpace } from "../shared/StyledComponent";
 
-function CarouselModal({
+function DiscographyModal({
   data,
   isCreate,
   isOpen,
@@ -22,22 +22,23 @@ function CarouselModal({
   const formik = useFormik({
     initialValues: {
       Id: "",
-      Order: "",
+      Name: "",
       ImageUrl: "",
-      ImageText: "",
+      Year: "",
     },
     onSubmit: async (values) => {
       setLoading(true);
       values.ImageUrl = tempImage;
       const client = createClient();
       if (isCreate) {
-        await client.post("/carousel", values);
+        await client.post("/discography", values);
         setTempImage(null);
       } else {
-        await client.put("/carousel", values);
+        await client.put("/discography", values);
       }
-      await refresh();
+
       handleCancel();
+      await refresh();
       setLoading(false);
     },
   });
@@ -50,7 +51,7 @@ function CarouselModal({
     setTime(Date.now());
   }, [isOpen]);
 
-  const handleCancel = () => {
+  const handleCancel = async () => {
     setFormikField();
     setIsOpen(false);
     setIsCreate(false);
@@ -58,9 +59,9 @@ function CarouselModal({
 
   const setFormikField = () => {
     formik.setFieldValue("Id", data?._id);
-    formik.setFieldValue("ImageText", data?.ImageText);
+    formik.setFieldValue("Name", data?.Name);
     formik.setFieldValue("ImageUrl", data?.ImageUrl);
-    formik.setFieldValue("Order", data?.Order);
+    formik.setFieldValue("Year", data?.Year);
   };
 
   return (
@@ -75,32 +76,32 @@ function CarouselModal({
         <Form>
           <FullSpace direction="vertical">
             <label>
-              Image Text
+              Album Name
               <Input
-                id="ImageText"
-                name="ImageText"
-                value={formik.values.ImageText}
-                placeholder="Image Text"
+                id="Name"
+                name="Name"
+                value={formik.values.Name}
+                placeholder="Album Name"
                 onChange={formik.handleChange}
               />
             </label>
             <label>
-              Order
+              Album Year
               <Input
-                id="Order"
-                name="Order"
-                value={formik.values.Order}
-                placeholder="Order Number"
+                id="Year"
+                name="Year"
+                value={formik.values.Year}
+                placeholder="Album Year"
                 onChange={formik.handleChange}
               />
             </label>
             <Space direction="vertical">
-              Upload
+              Album Cover Image
               <CropContainer
                 image={undefined}
                 cropImage={(e) => setTempImage(e)}
                 time={time}
-                aspect={16 / 9}
+                aspect={undefined}
               ></CropContainer>
             </Space>
           </FullSpace>
@@ -110,4 +111,4 @@ function CarouselModal({
   );
 }
 
-export default CarouselModal;
+export default DiscographyModal;
