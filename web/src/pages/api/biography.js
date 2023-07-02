@@ -38,7 +38,6 @@ const Update = async (data) => {
   let updatedEntry = await BiographyModel.findByIdAndUpdate(data.Id, model, {
     new: true,
   });
-  console.log(updatedEntry);
   const res = { message: "Updated successful", data: updatedEntry };
   return res;
 };

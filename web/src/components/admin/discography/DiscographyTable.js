@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FullSpace,
   TableContainer,
@@ -7,6 +7,7 @@ import {
 import { Button, Space, Table } from "antd";
 import DiscographyModal from "./DiscographyModal";
 import { createClient } from "@/pages/api/client";
+import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 
 function DiscographyTable({ data }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +26,7 @@ function DiscographyTable({ data }) {
       dataIndex: "ImageUrl",
       key: "ImageUrl",
       width: 170,
-      render: (image) => <img src={image} width={160}></img>,
+      render: (image) => <img src={imageUrlBuilder(image)} width={160}></img>,
     },
     {
       title: "Name",
