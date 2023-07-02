@@ -6,6 +6,7 @@ import { FullSpace } from "../shared/StyledComponent";
 import { LoadingContext } from "@/components/contexts/LoadingContext";
 import { createClient } from "@/pages/api/client";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
+import Image from "next/image";
 
 const { Title } = Typography;
 
@@ -61,7 +62,13 @@ function BiographyEditModal({ data, isOpen, setIsOpen, title, refresh }) {
             {tempImage ? (
               ""
             ) : (
-              <img src={imageUrlBuilder(data.ImageUrl)} width={"98%"} />
+              <Image
+                src={imageUrlBuilder(data.ImageUrl)}
+                alt="Biography photo"
+                width={"470"}
+                height={"836"}
+                loading="lazy"
+              />
             )}
           </div>
           <div>
