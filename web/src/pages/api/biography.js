@@ -32,7 +32,7 @@ const Update = async (data) => {
   const directory = "biography-photo";
   if (data?.ImageUrl) {
     deleteImage(data.Id, directory);
-    saveImage(data.ImageUrl, data.Id, directory);
+    await saveImage(data.ImageUrl, data.Id, directory);
   }
   const model = { Text: data.Text, Title: data.Title };
   let updatedEntry = await BiographyModel.findByIdAndUpdate(data.Id, model, {

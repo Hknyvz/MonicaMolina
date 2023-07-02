@@ -43,7 +43,7 @@ const handler = async (req, res) => {
 
 const directory = "discography-photo";
 const save = async (data, guid) => {
-  const relativePath = saveImage(data.ImageUrl, guid, directory);
+  const relativePath = await saveImage(data.ImageUrl, guid, directory);
   const model = new DiscographyModel({ _id: guid });
   model.Year = data.Year;
   model.ImageUrl = relativePath;
@@ -56,7 +56,7 @@ const save = async (data, guid) => {
 const update = async (data) => {
   if (data.ImageUrl) {
     deleteImage(data.Id, directory);
-    saveImage(data.ImageUrl, data.Id, directory);
+    await saveImage(data.ImageUrl, data.Id, directory);
   }
   const model = { Year: data.Year, Name: data.Name };
   let updatedEntry = await DiscographyModel.findByIdAndUpdate(data.Id, model, {

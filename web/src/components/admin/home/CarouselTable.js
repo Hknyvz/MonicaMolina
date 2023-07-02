@@ -44,7 +44,12 @@ function CarouselTable({ data }) {
       key: "ImageUrl",
       width: 170,
       render: (image) => (
-        <Image src={imageUrlBuilder(image)} width={160} height={90}></Image>
+        <Image
+          src={imageUrlBuilder(image)}
+          width={160}
+          height={90}
+          loading="lazy"
+        ></Image>
       ),
     },
     {
