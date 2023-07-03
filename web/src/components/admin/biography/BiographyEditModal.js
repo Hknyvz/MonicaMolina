@@ -5,6 +5,8 @@ import CropContainer from "../shared/CropContainer";
 import { FullSpace } from "../shared/StyledComponent";
 import { LoadingContext } from "@/components/contexts/LoadingContext";
 import { createClient } from "@/pages/api/client";
+import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
+import Image from "next/image";
 
 const { Title } = Typography;
 
@@ -22,7 +24,6 @@ function BiographyEditModal({ data, isOpen, setIsOpen, title, refresh }) {
     onSubmit: async (values) => {
       setLoading(true);
       values.ImageUrl = tempImage;
-      console.log(values);
       const client = createClient();
       await client.put("/biography", values);
       await refresh();
@@ -58,7 +59,17 @@ function BiographyEditModal({ data, isOpen, setIsOpen, title, refresh }) {
               cropImage={(e) => setTempImage(e)}
               aspect={9 / 16}
             ></CropContainer>
-            {tempImage ? "" : <img src={data.ImageUrl} width={"98%"} />}
+            {tempImage ? (
+              ""
+            ) : (
+              <Image
+                src={imageUrlBuilder(data.ImageUrl)}
+                alt="Biography photo"
+                width={"470"}
+                height={"836"}
+                loading="lazy"
+              />
+            )}
           </div>
           <div>
             <Title level={4}>Biography Text</Title>

@@ -4,6 +4,8 @@ import { EditOutlined } from "@ant-design/icons";
 import { FullSpace } from "../shared/StyledComponent";
 import BiographyEditModal from "./BiographyEditModal";
 import { createClient } from "@/pages/api/client";
+import Image from "next/image";
+import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 
 const { Title } = Typography;
 
@@ -40,10 +42,12 @@ const BiographyContainer = ({ data }) => {
               alignItems: "center",
             }}
           >
-            <img
-              src={containerData.ImageUrl}
+            <Image
+              src={imageUrlBuilder(containerData.ImageUrl)}
               alt="Biography photo"
-              width={"70%"}
+              width={"600"}
+              height={"1066"}
+              loading="lazy"
             />
           </div>
           <div>

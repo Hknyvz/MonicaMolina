@@ -43,7 +43,7 @@ const handler = async (req, res) => {
 
 const directory = "home-photo";
 const save = async (data, guid) => {
-  const relativePath = saveImage(data.ImageUrl, guid, directory);
+  const relativePath = await saveImage(data.ImageUrl, guid, directory);
   const model = new CarouselModel({ _id: guid });
   model.Order = data.Order;
   model.ImageUrl = relativePath;
@@ -56,7 +56,7 @@ const save = async (data, guid) => {
 const update = async (data) => {
   if (data.ImageUrl) {
     deleteImage(data.Id, directory);
-    saveImage(data.ImageUrl, data.Id, directory);
+    await saveImage(data.ImageUrl, data.Id, directory);
   }
   const model = { Order: data.Order, ImageText: data.ImageText };
   let updatedEntry = await CarouselModel.findByIdAndUpdate(data.Id, model, {
