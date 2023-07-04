@@ -40,7 +40,9 @@ function Header() {
       <div style={headerBackground}>
         <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
           <Col>
-            <Title style={titleStyle}>MÓNICA MOLINA</Title>
+            <Title style={titleStyle}>
+              <Link href="/home" style={{color:"black"}}>MÓNICA MOLINA</Link>
+            </Title>
           </Col>
           <Col span={9}>
             <Menu mode="horizontal" style={textStyle}>
