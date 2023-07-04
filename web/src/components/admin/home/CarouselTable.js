@@ -21,6 +21,23 @@ function CarouselTable({ data }) {
     setTableData(data);
   }, [data]);
 
+  useEffect(() => {
+    // Sayfa yüklendiğinde resim önizlemesini ve önbelleğini temizle
+    const clearImageCache = () => {
+      if (typeof window !== "undefined" && "caches" in window) {
+        caches.keys().then((cacheNames) => {
+          cacheNames.forEach((cacheName) => {
+            if (cacheName.startsWith("next/image")) {
+              caches.delete(cacheName);
+            }
+          });
+        });
+      }
+    };
+
+    clearImageCache();
+  }, []);
+
   const handleDelete = async (id) => {
     const client = createClient();
     await client.delete(`/carousel?id=${id}`);
@@ -34,9 +51,9 @@ function CarouselTable({ data }) {
       key: "Order",
     },
     {
-      title: "ImageText",
-      dataIndex: "ImageText",
-      key: "ImageText",
+      title: "Link",
+      dataIndex: "Link",
+      key: "Link",
     },
     {
       title: "Image",
@@ -49,6 +66,8 @@ function CarouselTable({ data }) {
           width={160}
           height={90}
           loading="lazy"
+          alt="Carousel Image"
+          unoptimized
         ></Image>
       ),
     },

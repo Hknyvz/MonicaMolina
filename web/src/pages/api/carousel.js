@@ -47,7 +47,7 @@ const save = async (data, guid) => {
   const model = new CarouselModel({ _id: guid });
   model.Order = data.Order;
   model.ImageUrl = relativePath;
-  model.ImageText = data.ImageText;
+  model.Link = data.Link;
   await model.save();
   const res = { message: "Saved successful", data: model };
   return res;
@@ -58,7 +58,7 @@ const update = async (data) => {
     deleteImage(data.Id, directory);
     await saveImage(data.ImageUrl, data.Id, directory);
   }
-  const model = { Order: data.Order, ImageText: data.ImageText };
+  const model = { Order: data.Order, Link: data.Link };
   let updatedEntry = await CarouselModel.findByIdAndUpdate(data.Id, model, {
     new: true,
   });

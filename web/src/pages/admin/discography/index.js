@@ -13,7 +13,7 @@ export const getServerSideProps = async () => {
   try {
     const client = createClient();
     const res = await client.get("/discography");
-    const data = res.data.sort((a, b) => b.Year - a.Year);
+    const data = res.data;
     return { props: { data } };
   } catch (error) {
     logger.error(`AdminHome:${error}`);

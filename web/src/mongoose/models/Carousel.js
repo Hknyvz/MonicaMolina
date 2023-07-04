@@ -16,7 +16,7 @@ const CarouselSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    ImageText: {
+    Link: {
       type: String,
       required: false,
     },
