@@ -18,7 +18,7 @@ const handler = async (req, res) => {
   try {
     if (method === "GET") {
       let carousels = await CarouselModel.find().exec();
-      return res.status(200).json(carousels);
+      return res.status(200).json(carousels.sort((a, b) => a.Order - b.Order));
     } else if (method === "POST") {
       const newGuid = uuidv4();
       const response = await save(req.body, newGuid);

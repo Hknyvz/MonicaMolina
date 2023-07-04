@@ -1,9 +1,8 @@
-import { Carousel } from 'antd';
-import React from 'react';
-import { useRef, useEffect } from 'react';
-import Link from 'next/link'
+import { Carousel } from "antd";
+import React from "react";
+import { useRef, useEffect } from "react";
+import Link from "next/link";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
-
 
 const slideStyles = {
   width: "100%",
@@ -13,53 +12,44 @@ const slideStyles = {
   backgroundPosition: "center",
 };
 
-
-
-function MainCarousel({data}) {
-
+function MainCarousel({ data }) {
   useEffect(() => {
     window.addEventListener("resize", () => {
       window.location.reload();
     });
   }, []);
 
-    const windowSize = useRef([window.innerWidth, window.innerHeight]);
-    
-    const contentStyle = 
-    {
-      position: "relative",
-      width: windowSize.current[0],
-      height: windowSize.current[1]-86,
-    };
-    const carouselStyle = 
-    {
-      width: windowSize.current[0],
-      height: windowSize.current[1]-86,
-    };
+  const windowSize = useRef([window.innerWidth, window.innerHeight]);
 
-
-  const imageStyles = 
-  {   
+  const contentStyle = {
+    position: "relative",
     width: windowSize.current[0],
-    height: windowSize.current[1]-86,
-    objectFit: "cover"
-  }
+    height: windowSize.current[1] - 86,
+  };
+  const carouselStyle = {
+    width: windowSize.current[0],
+    height: windowSize.current[1] - 86,
+  };
+
+  const imageStyles = {
+    width: windowSize.current[0],
+    height: windowSize.current[1] - 86,
+    objectFit: "cover",
+  };
 
   return (
-
     <div style={contentStyle}>
-        <Carousel style={carouselStyle} autoplay>
-          {data.map((item) => (
-            <div>
-              <Link href="https://www.google.com">
-                  <img style={imageStyles} src={imageUrlBuilder(item.ImageUrl)}/>
-              </Link>
-            </div>
-          ))}          
-        </Carousel>
+      <Carousel style={carouselStyle} autoplay>
+        {data.map((item) => (
+          <div>
+            <Link href={item.Link}>
+              <img style={imageStyles} src={imageUrlBuilder(item.ImageUrl)} />
+            </Link>
+          </div>
+        ))}
+      </Carousel>
     </div>
-
-  )
+  );
 }
 
-export default MainCarousel
+export default MainCarousel;
