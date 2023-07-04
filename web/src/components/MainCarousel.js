@@ -1,9 +1,8 @@
 import { Carousel } from 'antd';
 import React from 'react';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import Link from 'next/link'
-
-
+import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 
 
 const slideStyles = {
@@ -16,8 +15,13 @@ const slideStyles = {
 
 
 
+function MainCarousel({data}) {
 
-function MainCarousel({slides}) {
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      window.location.reload();
+    });
+  }, []);
 
     const windowSize = useRef([window.innerWidth, window.innerHeight]);
     
@@ -33,14 +37,9 @@ function MainCarousel({slides}) {
       height: windowSize.current[1]-86,
     };
 
-  const imageStyle = {
-    ...slideStyles,
-    //backgroundImage: `url(${slides[currentIndex].url})`,
-    backgroundImage: `url(images/monicaS1.jpg)`,
-  };
 
   const imageStyles = 
-  {
+  {   
     width: windowSize.current[0],
     height: windowSize.current[1]-86,
     objectFit: "cover"
@@ -50,21 +49,13 @@ function MainCarousel({slides}) {
 
     <div style={contentStyle}>
         <Carousel style={carouselStyle} autoplay>
-          <div>
-            <Link href="https://www.google.com">
-                <img style={imageStyles} src="images/slider1.jpg"/>
-            </Link>
-          </div>
-          <div>
-            <Link href="https://www.google.com">
-                <img style={imageStyles} src="images/slider2.jpg"/>
-            </Link>
-            </div>
+          {data.map((item) => (
             <div>
-            <Link href="https://www.google.com">
-                <img style={imageStyles} src="images/slider3.jpg"/>
-            </Link>
-          </div>
+              <Link href="https://www.google.com">
+                  <img style={imageStyles} src={imageUrlBuilder(item.ImageUrl)}/>
+              </Link>
+            </div>
+          ))}          
         </Carousel>
     </div>
 

@@ -65,7 +65,6 @@ function CarouselTable({ data }) {
           src={imageUrlBuilder(image)}
           width={160}
           height={90}
-          loading="lazy"
           alt="Carousel Image"
           unoptimized
         ></Image>

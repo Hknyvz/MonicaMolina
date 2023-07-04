@@ -1,10 +1,12 @@
 import React from 'react'
 import Bio from 'src/components/Bio.js'
+import logger from "@/helpers/logger";
+import { createClient } from "@/pages/api/client";
 
-function index() {
+function index({data}) {
   return (
     <>
-      <Bio/>
+      <Bio data={data}/>
     </>
     )
 }
@@ -12,3 +14,14 @@ function index() {
 export default index
 
 index.layout = "web";
+
+export const getServerSideProps = async () => {
+  try {
+    const client = createClient();
+    const res = await client.get("/biography");
+    const data = res.data;
+    return { props: { data } };
+  } catch (error) {
+    logger.error(`AdminHome:${error}`);
+  }
+};
