@@ -50,11 +50,11 @@ function MainCarousel({data}) {
     <div style={contentStyle}>
         <Carousel style={carouselStyle} autoplay>
           {data.map((item) => (
-          <div>
-            <Link href="https://www.google.com">
-                <img style={imageStyles} src={imageUrlBuilder(item.ImageUrl)}/>
-            </Link>
-          </div>
+            <div>
+              <Link href="https://www.google.com">
+                  <img style={imageStyles} src={imageUrlBuilder(item.ImageUrl)}/>
+              </Link>
+            </div>
           ))}          
         </Carousel>
     </div>
