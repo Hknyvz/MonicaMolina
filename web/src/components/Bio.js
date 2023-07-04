@@ -1,6 +1,7 @@
 import React from 'react'
 import { Col, Row } from 'antd';
 import { Typography} from 'antd';
+import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
@@ -32,20 +33,21 @@ const rightColStyle = {
   paddingTop: "110px",
   width: "60%",
 }
-function Bio() {
+function Bio({data}) {
   return (
   <div style={mainDivStyle}>
     <Row> 
       <Col className="gutter-row">
-        <img src="images/bio_pic.png"/>
+        <img height="840px" width="560px" style={{objectFit: "cover"}} src={imageUrlBuilder(data.ImageUrl)}/>
       </Col>
       <Col className="gutter-row" style={rightColStyle}>
         <Row>
-          <Title level={1} style={titleStyle}>Mónica Molina
+          <Title level={1} style={titleStyle}>{data.Title}
           </Title>
         </Row>
         <Row>
-          <Paragraph style={textStyle}><p>Mónica Molina stands out artistically thanks to her personal way of shaping the
+           <Paragraph style={textStyle}>{data.Text}
+          {/*<p>Mónica Molina stands out artistically thanks to her personal way of shaping the
                                       Mediterranean spirit through her voice and unique interpretation of her songs. Her
                                       elegance, her own style and unconditional commitment to quality have earned her
                                       great respect among the public and critics alike from the moment she released her first
@@ -84,7 +86,7 @@ function Bio() {
                                       Orchestra) with performances in Turkey, Spain, Mexico, and Italy among others.</p>
 
                                       <p>In 2023 Monica records “Mi Fortuna”, her 7th album, produced for the first time by
-                                      herself.</p>
+                                      herself.</p> */}
           </Paragraph>
         </Row>
       </Col>
