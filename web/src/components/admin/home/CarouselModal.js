@@ -24,7 +24,7 @@ function CarouselModal({
       Id: "",
       Order: "",
       ImageUrl: "",
-      ImageText: "",
+      Link: "",
     },
     onSubmit: async (values) => {
       setLoading(true);
@@ -58,7 +58,7 @@ function CarouselModal({
 
   const setFormikField = () => {
     formik.setFieldValue("Id", data?._id);
-    formik.setFieldValue("ImageText", data?.ImageText);
+    formik.setFieldValue("Link", data?.Link);
     formik.setFieldValue("ImageUrl", data?.ImageUrl);
     formik.setFieldValue("Order", data?.Order);
   };
@@ -77,9 +77,9 @@ function CarouselModal({
             <label>
               Image Text
               <Input
-                id="ImageText"
-                name="ImageText"
-                value={formik.values.ImageText}
+                id="Link"
+                name="Link"
+                value={formik.values.Link}
                 placeholder="Image Text"
                 onChange={formik.handleChange}
               />

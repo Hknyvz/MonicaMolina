@@ -32,7 +32,8 @@ function DiscographyTable({ data }) {
           src={imageUrlBuilder(image)}
           width={160}
           height={170}
-          loading="lazy"
+          alt="Albume Cover"
+          unoptimized
         ></Image>
       ),
     },
