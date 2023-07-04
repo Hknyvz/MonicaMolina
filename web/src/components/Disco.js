@@ -1,6 +1,6 @@
 import React from 'react'
 import AlbumCard from 'src/components/AlbumCard.js'
-
+import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 import { Col, Row } from 'antd';
 import { Typography} from 'antd';
 
@@ -31,7 +31,7 @@ const bodyStyle = {
     paddingTop: 110
 }
 
-function Disco() {
+function Disco({data}) {
   return (
     <div width="100%">
         <Row justify="space-evenly" style={bodyStyle}>
@@ -41,7 +41,9 @@ function Disco() {
             <Paragraph style={textStyle}>Check out my newest albums.</Paragraph>
         </Row>
         <Row justify="space-evenly" style={bodyStyle}>
-            {Album.map(AlbumCard)}
+            {data.map((item) => 
+            <AlbumCard coverImage={imageUrlBuilder(item.ImageUrl)} title={item.Name} date={item.Year}/>
+            )}            
         </Row>
     </div>
   )

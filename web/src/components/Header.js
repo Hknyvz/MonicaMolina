@@ -23,11 +23,16 @@ const titleStyle = {
 
 const textStyle = {
   fontFamily: "Montserrat",
-  fontWeight: 300,
+  fontWeight: 400,
   color: "black",
   fontSize: 16,
   margin: 0,
+  padding:0
 };
+
+const itemStyle = {
+  //paddingInline: 12
+}
 
 function Header() {
   return (
@@ -35,29 +40,31 @@ function Header() {
       <div style={headerBackground}>
         <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
           <Col>
-            <Title style={titleStyle}>MÓNICA MOLINA</Title>
+            <Title style={titleStyle}>
+              <Link href="/home" style={{color:"black"}}>MÓNICA MOLINA</Link>
+            </Title>
           </Col>
           <Col span={9}>
             <Menu mode="horizontal" style={textStyle}>
-              <Menu.Item key="home">
+              <Menu.Item key="home" style={itemStyle}>
                 <Link href="/home">Home</Link>
               </Menu.Item>
-              <Menu.Item key="biography">
+              <Menu.Item key="biography" style={itemStyle}>
                 <Link href="/biography">Biography</Link>
               </Menu.Item>
-              <Menu.Item key="discography">
+              <Menu.Item key="discography" style={itemStyle}>
                 <Link href="/discography">Discography</Link>
               </Menu.Item>
-              <Menu.Item key="news">
+              <Menu.Item key="news" style={itemStyle}>
                 <Link href="/news">News</Link>
               </Menu.Item>
-              <Menu.Item key="gallery">
+              <Menu.Item key="gallery" style={itemStyle}>
                 <Link href="/gallery">Gallery</Link>
               </Menu.Item>
-              <Menu.Item key="concerts">
+              <Menu.Item key="concerts" style={itemStyle}>
                 <Link href="/concerts">Concerts</Link>
               </Menu.Item>
-              <Menu.Item key="contact">
+              <Menu.Item key="contact" style={itemStyle}>
                 <Link href="/contact">Contact</Link>
               </Menu.Item>
             </Menu>

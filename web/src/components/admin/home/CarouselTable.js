@@ -49,6 +49,7 @@ function CarouselTable({ data }) {
           width={160}
           height={90}
           loading="lazy"
+          unoptimized
         ></Image>
       ),
     },
