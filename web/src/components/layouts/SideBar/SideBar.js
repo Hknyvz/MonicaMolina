@@ -22,7 +22,10 @@ const items = [
   getItem("Biography", "/admin/biography", <HomeOutlined />),
   getItem("Discography", "/admin/discography", <HomeOutlined />),
   getItem("News", "/admin/news", <HomeOutlined />),
-  getItem("Gallery", "/admin/gallery", <HomeOutlined />),
+  getItem("Gallery", "/admin/gallery", <HomeOutlined />, [
+    getItem("Photo", "/admin/gallery/photo", <HomeOutlined />),
+    getItem("Video", "/admin/gallery/video", <HomeOutlined />),
+  ]),
   getItem("Concert", "/admin/concert", <HomeOutlined />),
   getItem("Contact", "/admin/contact", <HomeOutlined />),
 ];

@@ -4,7 +4,7 @@ import { createClient } from "@/pages/api/client";
 import React from "react";
 
 function AdminBiography({ data }) {
-  return <BiographyContainer data={data}></BiographyContainer>;
+  return <BiographyContainer data={data} />;
 }
 AdminBiography.layout = "admin";
 export default AdminBiography;

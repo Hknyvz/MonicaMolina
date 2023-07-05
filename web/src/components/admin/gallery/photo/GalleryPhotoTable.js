@@ -1,49 +1,23 @@
-import { Button, Space, Table } from "antd";
 import React, { useEffect, useState } from "react";
-import CarouselModal from "./CarouselModal";
-import { createClient } from "@/pages/api/client";
 import {
   FullSpace,
   TableContainer,
   TableGeneralOperationContainer,
-} from "../shared/StyledComponent";
+} from "../../shared/StyledComponent";
+import { Button, Image, Space, Table } from "antd";
+import GalleryPhotoModal from "./GalleryPhotoModal";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
-import Image from "next/image";
+import { createClient } from "@/pages/api/client";
 
-function CarouselTable({ data }) {
+function GalleryPhotoTable({ data }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isCreate, setIsCreate] = useState(false);
   const [updateData, setUpdateData] = useState();
   const [title, setTitle] = useState();
-  const [tableData, setTableData] = useState();
-
+  const [tableData, setTableData] = useState([]);
   useEffect(() => {
     setTableData(data);
   }, [data]);
-
-  useEffect(() => {
-    // Sayfa yüklendiğinde resim önizlemesini ve önbelleğini temizle
-    const clearImageCache = () => {
-      if (typeof window !== "undefined" && "caches" in window) {
-        caches.keys().then((cacheNames) => {
-          cacheNames.forEach((cacheName) => {
-            if (cacheName.startsWith("next/image")) {
-              caches.delete(cacheName);
-            }
-          });
-        });
-      }
-    };
-
-    clearImageCache();
-  }, []);
-
-  const handleDelete = async (id) => {
-    const client = createClient();
-    await client.delete(`/carousel?id=${id}`);
-    await refreshTableData();
-  };
-
   const columns = [
     {
       title: "Order",
@@ -64,23 +38,11 @@ function CarouselTable({ data }) {
       ),
     },
     {
-      title: "Link",
-      dataIndex: "Link",
-      key: "Link",
-    },
-    {
       title: "Image",
       dataIndex: "ImageUrl",
       key: "ImageUrl",
-      width: 170,
       render: (image) => (
-        <Image
-          src={imageUrlBuilder(image)}
-          width={160}
-          height={90}
-          alt="Carousel Image"
-          unoptimized
-        ></Image>
+        <Image width={170} src={imageUrlBuilder(image)} alt="Gallery"></Image>
       ),
     },
     {
@@ -90,12 +52,7 @@ function CarouselTable({ data }) {
         <Space>
           <Button
             style={{ backgroundColor: "#ffa100", color: "white" }}
-            onClick={(e) => {
-              setUpdateData(renderData);
-              setIsOpen(true);
-              setIsCreate(false);
-              setTitle("Update Carousel Modal");
-            }}
+            onClick={(e) => updateModalOpenHandle(renderData)}
           >
             Edit
           </Button>
@@ -110,7 +67,18 @@ function CarouselTable({ data }) {
       ),
     },
   ];
+  const updateModalOpenHandle = (renderData) => {
+    setUpdateData(renderData);
+    setIsOpen(true);
+    setIsCreate(false);
+    setTitle("Update Gallery Photo Modal");
+  };
 
+  const handleDelete = async (id) => {
+    const client = createClient();
+    await client.delete(`/gallery/photo?id=${id}`);
+    await refreshTableData();
+  };
   const refreshTableData = async () => {
     window.location.reload();
   };
@@ -127,7 +95,7 @@ function CarouselTable({ data }) {
                   setIsOpen(true);
                   setIsCreate(true);
                   setUpdateData(null);
-                  setTitle("Create Carousel Modal");
+                  setTitle("Create Gallery Photo Modal");
                 }}
               >
                 Add a Row
@@ -140,11 +108,11 @@ function CarouselTable({ data }) {
             bordered
             columns={columns}
             dataSource={tableData}
-            rowKey="_id"
+            rowKey={(record) => record._id}
           ></Table>
         </FullSpace>
       </TableContainer>
-      <CarouselModal
+      <GalleryPhotoModal
         data={updateData}
         setData={setUpdateData}
         isCreate={isCreate}
@@ -158,4 +126,4 @@ function CarouselTable({ data }) {
   );
 }
 
-export default CarouselTable;
+export default GalleryPhotoTable;

@@ -4,7 +4,7 @@ import { createClient } from "@/pages/api/client";
 import React from "react";
 
 function AdminDiscography({ data }) {
-  return <DiscographyContainer data={data}></DiscographyContainer>;
+  return <DiscographyContainer data={data} />;
 }
 AdminDiscography.layout = "admin";
 export default AdminDiscography;
