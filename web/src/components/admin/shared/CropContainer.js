@@ -108,9 +108,11 @@ export default function CropContainer({ image, cropImage, time, aspect }) {
           onChange={antUpload}
           ref={uploadRef}
           onRemove={handleRemoveFiles}
+          multiple={false}
         >
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
         </Upload>
+        <label>Max 10 mb</label>
         {uploadRef?.current?.fileList.length > 0
           ? selectedImage && (
               <ReactCrop

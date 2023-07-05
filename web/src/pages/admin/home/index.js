@@ -6,7 +6,7 @@ import React, { useState } from "react";
 function AdminHome({ data }) {
   return (
     <>
-      <HomeContainer data={data}></HomeContainer>
+      <HomeContainer data={data} />
     </>
   );
 }
