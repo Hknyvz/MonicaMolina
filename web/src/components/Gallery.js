@@ -5,7 +5,6 @@ import { Tabs } from 'antd';
 import ImageGallery from 'src/components/ImageGallery.js'
 import VideoGallery from 'src/components/VideoGallery.js'
 
-
 const { Title, Paragraph, Text, Link } = Typography;
 
 const titleStyle = {
@@ -26,7 +25,7 @@ const bodyStyle = {
 
 
 
-function Gallery() {
+function Gallery({data,data2}) {
   return (
     <div>
         <Row justify="space-evenly" style={bodyStyle}>
@@ -35,10 +34,10 @@ function Gallery() {
         <Row justify="space-evenly" style={{paddingBottom: 35}}>
             <Tabs defaultActiveKey="1" centered style={{width:"70%"}}>
                 <Tabs.TabPane tab="Photos" key="1" style={{marginTop: 30}}>
-                    <ImageGallery/>
+                    <ImageGallery data={data} />
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="Videos" key="2" style={{marginTop: 30}}>
-                    <VideoGallery/>
+                    <VideoGallery data={data2}/>
                 </Tabs.TabPane>
             </Tabs>
         </Row>
