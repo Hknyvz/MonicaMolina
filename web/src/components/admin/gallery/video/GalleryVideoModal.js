@@ -54,7 +54,6 @@ function GalleryVideoModal({
     setIsCreate(false);
   };
   const setFormikField = () => {
-    console.log(data);
     formik.setFieldValue("Id", data?._id);
     formik.setFieldValue("Order", data?.Order);
     formik.setFieldValue("VideoUrl", data?.VideoUrl);

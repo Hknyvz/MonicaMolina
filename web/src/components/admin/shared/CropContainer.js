@@ -24,11 +24,16 @@ function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
   );
 }
 
-export default function CropContainer({ image, cropImage, time, aspect }) {
+export default function CropContainer({
+  image,
+  cropImage,
+  time,
+  aspect,
+  fullImage,
+}) {
   const previewCanvasRef = useRef(null);
   const imgRef = useRef(null);
   const uploadRef = useRef();
-  const hiddenAnchorRef = useRef(null);
   const [completedCrop, setCompletedCrop] = useState();
   const [crop, setCrop] = useState();
   const [selectedImage, setSelectedImage] = useState();
@@ -56,6 +61,7 @@ export default function CropContainer({ image, cropImage, time, aspect }) {
         base64String = reader.result;
         cropImage(base64String);
       };
+      fullImage(selectedImage);
       reader.readAsDataURL(blob);
     });
   }

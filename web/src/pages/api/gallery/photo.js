@@ -44,11 +44,18 @@ const handler = async (req, res) => {
 };
 
 const directory = "gallery-photo";
+const thumnailDirectory = "thumnail-gallery-photo";
 const save = async (data, guid) => {
   const relativePath = await saveImage(data.ImageUrl, guid, directory);
+  const thumbnailRelativePath = await saveImage(
+    data.ThumbnailUrl,
+    guid,
+    thumnailDirectory
+  );
   const model = new GalleryPhotoModel({ _id: guid });
   model.Order = data.Order;
   model.ImageUrl = relativePath;
+  model.ThumbnailUrl = thumbnailRelativePath;
   await model.save();
   const res = { message: "Saved successful", data: model };
   return res;
@@ -58,6 +65,10 @@ const update = async (data) => {
   if (data.ImageUrl) {
     deleteImage(data.Id, directory);
     await saveImage(data.ImageUrl, data.Id, directory);
+  }
+  if (data.ThumbnailUrl) {
+    deleteImage(data.Id, thumnailDirectory);
+    await saveImage(data.ThumbnailUrl, data.Id, thumnailDirectory);
   }
   const model = { Order: data.Order };
   let updatedEntry = await GalleryPhotoModel.findByIdAndUpdate(data.Id, model, {
@@ -70,6 +81,7 @@ const update = async (data) => {
 const remove = async (id) => {
   const res = await GalleryPhotoModel.findByIdAndDelete(id);
   deleteImage(id, directory);
+  deleteImage(id, thumnailDirectory);
   return res;
 };
 
