@@ -80,6 +80,7 @@ function CarouselTable({ data }) {
           height={90}
           alt="Carousel Image"
           unoptimized
+          priority
         ></Image>
       ),
     },
