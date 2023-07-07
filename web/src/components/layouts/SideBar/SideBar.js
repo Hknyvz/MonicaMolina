@@ -1,4 +1,14 @@
-import { HomeOutlined } from "@ant-design/icons";
+import {
+  CalendarOutlined,
+  CustomerServiceOutlined,
+  FileImageOutlined,
+  FolderOutlined,
+  HomeOutlined,
+  ProfileOutlined,
+  ProjectOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
 import { useRouter } from "next/router";
 import React from "react";
@@ -19,15 +29,14 @@ function getItem(label, key, icon, children, type) {
 
 const items = [
   getItem("Home", "/admin/home", <HomeOutlined />),
-  getItem("Biography", "/admin/biography", <HomeOutlined />),
-  getItem("Discography", "/admin/discography", <HomeOutlined />),
-  getItem("News", "/admin/news", <HomeOutlined />),
-  getItem("Gallery", "/admin/gallery", <HomeOutlined />, [
-    getItem("Photo", "/admin/gallery/photo", <HomeOutlined />),
-    getItem("Video", "/admin/gallery/video", <HomeOutlined />),
+  getItem("Biography", "/admin/biography", <ProfileOutlined />),
+  getItem("Discography", "/admin/discography", <CustomerServiceOutlined />),
+  getItem("News", "/admin/news", <ProjectOutlined />),
+  getItem("Gallery", "/admin/gallery", <FolderOutlined />, [
+    getItem("Photo", "/admin/gallery/photo", <FileImageOutlined />),
+    getItem("Video", "/admin/gallery/video", <VideoCameraOutlined />),
   ]),
-  getItem("Concert", "/admin/concert", <HomeOutlined />),
-  getItem("Contact", "/admin/contact", <HomeOutlined />),
+  getItem("Concert", "/admin/concert", <CalendarOutlined />),
 ];
 
 export default function SideBar({ collapsed }) {
