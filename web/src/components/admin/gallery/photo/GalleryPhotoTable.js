@@ -39,8 +39,8 @@ function GalleryPhotoTable({ data }) {
     },
     {
       title: "Image",
-      dataIndex: "ImageUrl",
-      key: "ImageUrl",
+      dataIndex: "ThumbnailUrl",
+      key: "ThumbnailUrl",
       render: (image) => (
         <Image width={170} src={imageUrlBuilder(image)} alt="Gallery"></Image>
       ),

@@ -16,7 +16,8 @@ function GalleryPhotoModal({
   refresh,
 }) {
   const [time, setTime] = useState();
-  const [tempImage, setTempImage] = useState(data?.ImageUrl);
+  const [cropImage, setCropImage] = useState(data?.ThumbnailUrl);
+  const [fullImage, setFullImage] = useState(data?.ImageUrl);
   const { setLoading } = useContext(LoadingContext);
 
   useEffect(() => {
@@ -32,14 +33,16 @@ function GalleryPhotoModal({
       Id: "",
       Order: "",
       ImageUrl: "",
+      ThumbnailUrl: "",
     },
     onSubmit: async (values) => {
       setLoading(true);
-      values.ImageUrl = tempImage;
+      values.ThumbnailUrl = cropImage;
+      values.ImageUrl = fullImage;
       const client = createClient();
       if (isCreate) {
         await client.post("/gallery/photo", values);
-        setTempImage(null);
+        setCropImage(null);
       } else {
         await client.put("/gallery/photo", values);
       }
@@ -55,10 +58,10 @@ function GalleryPhotoModal({
     setIsCreate(false);
   };
   const setFormikField = () => {
-    console.log(data);
     formik.setFieldValue("Id", data?._id);
     formik.setFieldValue("Order", data?.Order);
     formik.setFieldValue("ImageUrl", data?.ImageUrl);
+    formik.setFieldValue("ThumbnailUrl", data?.ThumbnailUrl);
   };
   return (
     <>
@@ -85,9 +88,10 @@ function GalleryPhotoModal({
               Gallery Photo
               <CropContainer
                 image={undefined}
-                cropImage={(e) => setTempImage(e)}
+                cropImage={(e) => setCropImage(e)}
+                fullImage={(e) => setFullImage(e)}
                 time={time}
-                aspect={undefined}
+                aspect={1 / 1}
               ></CropContainer>
             </Space>
           </FullSpace>

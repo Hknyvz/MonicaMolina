@@ -10,6 +10,10 @@ const GalleryPhotoSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    ThumbnailUrl: {
+      type: String,
+      required: true,
+    },
     ImageUrl: {
       type: String,
       required: true,
