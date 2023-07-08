@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { LoadingContext } from "@/components/contexts/LoadingContext";
 import LoadingSpinner from "@/components/admin/LoadingSpinner";
 import { FullLayout } from "./styledComponents/StyledAdminLayout";
+import { useSession } from "next-auth/react";
 
 const SideBar = dynamic(() => import("./SideBar/SideBar"));
 const NavBar = dynamic(() => import("./Navbar/Navbar"));
@@ -12,6 +13,7 @@ const ContentWrapper = dynamic(() => import("./ContentWrapper/ContentWrapper"));
 function AdminLayout({ children }) {
   const [collapsed, setCollapsed] = useState(false);
   const { isLoading } = useContext(LoadingContext);
+
   return (
     <>
       <Head>
