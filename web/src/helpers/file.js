@@ -4,7 +4,11 @@ import path from "path";
 import logger from "./logger";
 
 const saveImage = async (image, guid, directory) => {
-  const base64Data = image.replace(/^data:image\/png;base64,/, "");
+  let base64Data = image.replace(/^data:image\/png;base64,/, "");
+  base64Data = base64Data.replace(/^data:image\/jpeg;base64,/, "");
+  base64Data = base64Data.replace(/^data:image\/jpg;base64,/, "");
+  base64Data = base64Data.replace(/^data:image\/gif;base64,/, "");
+  base64Data = base64Data.replace(/^data:image\/bmp;base64,/, "");
   let fileName = `${guid}.webp`;
   let relativePath = path.join(directory, fileName);
   let filePath = path.join(process.cwd(), "public", relativePath);
