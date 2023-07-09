@@ -6,7 +6,6 @@ const handler = async (req, res) => {
   await dbConnect("Monica");
 
   const { method } = req;
-  debugger;
   try {
     if (method === "POST") {
       const user = await User.findOne({ UserName: req.body.UserName });
