@@ -5,7 +5,6 @@ import React from "react";
 
 const NavbarMenu = React.memo(function NavBarMenu() {
   const { status } = useSession();
-  console.log(status);
 
   return (
     <div

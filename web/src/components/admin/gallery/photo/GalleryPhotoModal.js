@@ -5,6 +5,8 @@ import { useFormik } from "formik";
 import { createClient } from "@/pages/api/client";
 import CropContainer from "../../shared/CropContainer";
 import { LoadingContext } from "@/components/contexts/LoadingContext";
+import { NotificationContext } from "../../shared/NotificationContext";
+import * as Yup from "yup";
 
 function GalleryPhotoModal({
   data,
@@ -19,7 +21,7 @@ function GalleryPhotoModal({
   const [cropImage, setCropImage] = useState(data?.ThumbnailUrl);
   const [fullImage, setFullImage] = useState(data?.ImageUrl);
   const { setLoading } = useContext(LoadingContext);
-
+  const notification = useContext(NotificationContext);
   useEffect(() => {
     setTime(Date.now());
   }, [isOpen]);
@@ -27,6 +29,11 @@ function GalleryPhotoModal({
   useEffect(() => {
     setFormikField();
   }, [data]);
+
+  const validationSchema = Yup.object().shape({
+    Order: Yup.string().required("Order field is required"),
+    ImageUrl: Yup.string().required("Image data is required"),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -36,22 +43,32 @@ function GalleryPhotoModal({
       ThumbnailUrl: "",
     },
     onSubmit: async (values) => {
-      setLoading(true);
-      values.ThumbnailUrl = cropImage;
-      values.ImageUrl = fullImage;
-      const client = createClient();
-      if (isCreate) {
-        await client.post("/gallery/photo", values);
-        setCropImage(null);
-      } else {
-        await client.put("/gallery/photo", values);
-      }
+      try {
+        setLoading(true);
+        values.ThumbnailUrl = cropImage;
+        values.ImageUrl = fullImage;
 
-      handleCancel();
-      await refresh();
-      setLoading(false);
+        const client = createClient();
+        let response;
+        if (isCreate) {
+          response = await client.post("/gallery/photo", values);
+          console.log(response);
+          setCropImage(null);
+        } else {
+          response = await client.put("/gallery/photo", values);
+        }
+        handleCancel();
+        await refresh();
+      } catch (error) {
+        console.log(error);
+        notification.error(error.response.data);
+      } finally {
+        setLoading(false);
+      }
     },
+    validationSchema: validationSchema,
   });
+
   const handleCancel = async () => {
     setFormikField();
     setIsOpen(false);
@@ -84,7 +101,7 @@ function GalleryPhotoModal({
                 onChange={formik.handleChange}
               />
             </label>
-            <Space direction="vertical">
+            <FullSpace direction="vertical">
               Gallery Photo
               <CropContainer
                 image={undefined}
@@ -92,8 +109,8 @@ function GalleryPhotoModal({
                 fullImage={(e) => setFullImage(e)}
                 time={time}
                 aspect={1 / 1}
-              ></CropContainer>
-            </Space>
+              />
+            </FullSpace>
           </FullSpace>
         </Form>
       </Modal>

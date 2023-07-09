@@ -39,7 +39,7 @@ const handler = async (req, res) => {
     }
   } catch (err) {
     logger.error(`Api GalleryPhoto:${err}`);
-    return res.status(500).json({ message: "Couldn't save file", err: err });
+    return res.status(200).json({ message: err.toString() });
   }
 };
 
