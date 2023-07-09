@@ -14,4 +14,32 @@ const TableGeneralOperationContainer = styled.div`
   justify-content: end;
 `;
 
-export { FullSpace, TableContainer, TableGeneralOperationContainer };
+const FormLabel = styled.label`
+  ::after {
+    content: ":";
+    margin-inline-end: 8px;
+    margin-inline-start: 2px;
+    margin-block: 0;
+    position: relative;
+  }
+`;
+
+const RequiredFormLabel = styled(FormLabel)`
+  ::before {
+    content: "*";
+    font-size: 1em;
+    color: #ff4d4f;
+    font-family: SimSun, sans-serif;
+    line-height: 1;
+    margin-inline-end: 4px;
+    display: inline-block;
+  }
+`;
+
+export {
+  FullSpace,
+  TableContainer,
+  TableGeneralOperationContainer,
+  RequiredFormLabel,
+  FormLabel,
+};

@@ -1,7 +1,7 @@
 import { Form, Input, Modal, Space } from "antd";
 import React, { useContext, useEffect, useState } from "react";
-import { FullSpace } from "../../shared/StyledComponent";
-import { useFormik } from "formik";
+import { FullSpace, RequiredFormLabel } from "../../shared/StyledComponent";
+import { ErrorMessage, useFormik } from "formik";
 import { createClient } from "@/pages/api/client";
 import CropContainer from "../../shared/CropContainer";
 import { LoadingContext } from "@/components/contexts/LoadingContext";
@@ -91,18 +91,17 @@ function GalleryPhotoModal({
       >
         <Form>
           <FullSpace direction="vertical">
-            <label>
-              Order
-              <Input
-                id="Order"
-                name="Order"
-                value={formik.values.Order}
-                placeholder="Photo Order"
-                onChange={formik.handleChange}
-              />
-            </label>
+            <RequiredFormLabel>Order</RequiredFormLabel>
+            <Input
+              id="Order"
+              name="Order"
+              value={formik.values.Order}
+              placeholder="Photo Order"
+              onChange={formik.handleChange}
+            />
+            <ErrorMessage name="Order"></ErrorMessage>
             <FullSpace direction="vertical">
-              Gallery Photo
+              <RequiredFormLabel>Gallery Photo</RequiredFormLabel>
               <CropContainer
                 image={undefined}
                 cropImage={(e) => setCropImage(e)}
