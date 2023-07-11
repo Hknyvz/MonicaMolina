@@ -1,86 +1,76 @@
-import { Form, Input, Modal, Typography } from "antd";
-import { useFormik } from "formik";
-import React, { useContext, useState } from "react";
+import { Form, Input, Modal } from "antd";
+import React, { useState } from "react";
 import CropContainer from "../shared/CropContainer";
-import { FullSpace } from "../shared/StyledComponent";
-import { LoadingContext } from "@/components/contexts/LoadingContext";
-import { createClient } from "@/pages/api/client";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 import Image from "next/image";
 
-const { Title } = Typography;
+function BiographyEditModal({ visible, record, onCancel, onOk }) {
+  const [cropImage, setCropImage] = useState();
+  const [loading, setLoading] = useState(false);
+  const [form] = Form.useForm();
 
-function BiographyEditModal({ data, isOpen, setIsOpen, title, refresh }) {
-  const [tempImage, setTempImage] = useState();
-  const { setLoading } = useContext(LoadingContext);
+  const handleOk = async () => {
+    const values = await form.validateFields();
+    values.ImageUrl = cropImage;
+    setLoading(true);
+    await onOk(values);
+    setLoading(false);
+    form.resetFields();
+  };
 
-  const formik = useFormik({
-    initialValues: {
-      Id: data._id,
-      Title: data.Title,
-      Text: data.Text,
-      ImageUrl: "",
-    },
-    onSubmit: async (values) => {
-      setLoading(true);
-      values.ImageUrl = tempImage;
-      const client = createClient();
-      await client.put("/biography", values);
-      await refresh();
-      handleCancel();
-      setLoading(false);
-    },
-  });
   const handleCancel = () => {
-    setIsOpen(false);
+    form.resetFields();
+    onCancel();
   };
   return (
     <Modal
-      title={title}
-      open={isOpen}
-      onOk={formik.handleSubmit}
+      title="Biography Edit"
+      open={visible}
+      onOk={handleOk}
       onCancel={handleCancel}
       maskClosable={false}
+      centered
+      confirmLoading={loading}
+      width={1000}
     >
-      <Form>
-        <FullSpace direction="vertical">
-          <div>
-            <Title level={4}>Title</Title>
-            <Input
-              name="Title"
-              value={formik.values.Title}
-              onChange={formik.handleChange}
-            />
-          </div>
-          <div>
-            <Title level={4}>Photo</Title>
-            <CropContainer
-              image={""}
-              cropImage={(e) => setTempImage(e)}
-              aspect={9 / 16}
-            ></CropContainer>
-            {tempImage ? (
+      <Form form={form} layout="vertical" initialValues={record}>
+        <Form.Item name="_id" hidden>
+          <Input type="hidden" name="_id" id="_id" />
+        </Form.Item>
+        <Form.Item
+          label="Title"
+          name="Title"
+          rules={[{ required: true, message: "Title field is required" }]}
+        >
+          <Input name="Title" id="Title" />
+        </Form.Item>
+        <Form.Item label="Upload">
+          <CropContainer
+            image={""}
+            cropImage={(e) => setCropImage(e)}
+            aspect={9 / 16}
+          ></CropContainer>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            {cropImage ? (
               ""
             ) : (
               <Image
-                src={imageUrlBuilder(data.ImageUrl)}
+                src={imageUrlBuilder(record.ImageUrl)}
                 alt="Biography photo"
                 width={"470"}
                 height={"836"}
-                loading="lazy"
+                unoptimized
               />
             )}
           </div>
-          <div>
-            <Title level={4}>Biography Text</Title>
-            <Input.TextArea
-              name="Text"
-              value={formik.values.Text}
-              onChange={formik.handleChange}
-              style={{ minHeight: 250 }}
-            />
-          </div>
-        </FullSpace>
+        </Form.Item>
+        <Form.Item
+          label="Biography Text"
+          name="Text"
+          rules={[{ required: true, message: "Biography text is required" }]}
+        >
+          <Input.TextArea name="Text" style={{ minHeight: 250 }} />
+        </Form.Item>
       </Form>
     </Modal>
   );

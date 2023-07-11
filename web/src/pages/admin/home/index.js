@@ -1,12 +1,12 @@
-import HomeContainer from "@/components/admin/home/HomeContainer";
+import CarouselContainer from "@/components/admin/home/carousel/CarouselContainer";
 import logger from "@/helpers/logger";
 import { createClient } from "@/pages/api/client";
-import React, { useState } from "react";
+import React from "react";
 
 function AdminHome({ data }) {
   return (
     <>
-      <HomeContainer data={data} />
+      <CarouselContainer data={data} />
     </>
   );
 }
@@ -16,7 +16,7 @@ export default AdminHome;
 export const getServerSideProps = async () => {
   try {
     const client = createClient();
-    const res = await client.get("/carousel");
+    const res = await client.get("/home/carousel");
     const data = res.data;
     return { props: { data } };
   } catch (error) {

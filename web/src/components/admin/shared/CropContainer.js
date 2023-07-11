@@ -5,8 +5,9 @@ import { canvasPreview } from "../../utils/crop/canvasPreview";
 import { useDebounceEffect } from "../../utils/crop/useDebounceEffect";
 
 import "react-image-crop/dist/ReactCrop.css";
-import { Button, Space, Upload } from "antd";
+import { Alert, Button, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
+import { FullSpace } from "./StyledComponent";
 
 function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
   return centerCrop(
@@ -24,20 +25,15 @@ function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
   );
 }
 
-export default function CropContainer({
-  image,
-  cropImage,
-  time,
-  aspect,
-  fullImage,
-}) {
+export default function CropContainer({ cropImage, aspect, fullImage }) {
   const previewCanvasRef = useRef(null);
   const imgRef = useRef(null);
   const uploadRef = useRef();
   const [completedCrop, setCompletedCrop] = useState();
-  const [crop, setCrop] = useState();
-  const [selectedImage, setSelectedImage] = useState();
+  const [crop, setCrop] = useState(undefined);
+  const [selectedImage, setSelectedImage] = useState(undefined);
   const [fileList, setFileList] = useState([]);
+  const [sizeError, setSizeError] = useState(false);
 
   function onImageLoad(e) {
     const { width, height } = e.currentTarget;
@@ -61,15 +57,10 @@ export default function CropContainer({
         base64String = reader.result;
         cropImage(base64String);
       };
-      fullImage(selectedImage);
+      if (fullImage) fullImage(selectedImage);
       reader.readAsDataURL(blob);
     });
   }
-
-  useEffect(() => {
-    setSelectedImage(image);
-    handleRemoveFiles();
-  }, [image, time]);
 
   useDebounceEffect(
     async () => {
@@ -92,6 +83,12 @@ export default function CropContainer({
   );
 
   const antUpload = (file) => {
+    if (file.file.size > 10000000) {
+      setSizeError(true);
+      return;
+    } else {
+      setSizeError(false);
+    }
     if (file.fileList.length > 0) {
       const reader = new FileReader();
       reader.addEventListener("load", () =>
@@ -108,7 +105,20 @@ export default function CropContainer({
 
   return (
     <>
-      <Space direction="vertical">
+      <FullSpace direction="vertical">
+        {sizeError ? (
+          <Alert
+            message="The image size to be uploaded is 10 mb max"
+            type="error"
+            style={{ width: "100%" }}
+          />
+        ) : (
+          <Alert
+            message="The image size to be uploaded is 10 mb max"
+            type="info"
+            style={{ width: "100%" }}
+          />
+        )}
         <Upload
           fileList={fileList}
           onChange={antUpload}
@@ -118,7 +128,6 @@ export default function CropContainer({
         >
           <Button icon={<UploadOutlined />}>Click to Upload</Button>
         </Upload>
-        <label>Max 10 mb</label>
         {uploadRef?.current?.fileList.length > 0
           ? selectedImage && (
               <ReactCrop
@@ -152,7 +161,7 @@ export default function CropContainer({
             objectFit: "contain",
           }}
         />
-      </Space>
+      </FullSpace>
     </>
   );
 }

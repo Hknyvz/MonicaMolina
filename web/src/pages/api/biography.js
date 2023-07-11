@@ -31,11 +31,11 @@ const handler = async (req, res) => {
 const Update = async (data) => {
   const directory = "biography-photo";
   if (data?.ImageUrl) {
-    deleteImage(data.Id, directory);
-    await saveImage(data.ImageUrl, data.Id, directory);
+    deleteImage(data._id, directory);
+    await saveImage(data.ImageUrl, data._id, directory);
   }
   const model = { Text: data.Text, Title: data.Title };
-  let updatedEntry = await BiographyModel.findByIdAndUpdate(data.Id, model, {
+  let updatedEntry = await BiographyModel.findByIdAndUpdate(data._id, model, {
     new: true,
   });
   const res = { message: "Updated successful", data: updatedEntry };

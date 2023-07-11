@@ -39,7 +39,7 @@ const handler = async (req, res) => {
     }
   } catch (err) {
     logger.error(`Api GalleryPhoto:${err}`);
-    return res.status(500).json({ message: "Couldn't save file", err: err });
+    return res.status(200).json({ message: err.toString() });
   }
 };
 
@@ -63,17 +63,21 @@ const save = async (data, guid) => {
 
 const update = async (data) => {
   if (data.ImageUrl) {
-    deleteImage(data.Id, directory);
-    await saveImage(data.ImageUrl, data.Id, directory);
+    deleteImage(data._id, directory);
+    await saveImage(data.ImageUrl, data._id, directory);
   }
   if (data.ThumbnailUrl) {
-    deleteImage(data.Id, thumnailDirectory);
-    await saveImage(data.ThumbnailUrl, data.Id, thumnailDirectory);
+    deleteImage(data._id, thumnailDirectory);
+    await saveImage(data.ThumbnailUrl, data._id, thumnailDirectory);
   }
   const model = { Order: data.Order };
-  let updatedEntry = await GalleryPhotoModel.findByIdAndUpdate(data.Id, model, {
-    new: true,
-  });
+  let updatedEntry = await GalleryPhotoModel.findByIdAndUpdate(
+    data._id,
+    model,
+    {
+      new: true,
+    }
+  );
   const res = { message: "Updated successful", data: updatedEntry };
   return res;
 };

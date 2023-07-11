@@ -12,7 +12,7 @@ export default function handler(req, res) {
       res.status(404).end();
       return;
     }
-    res.setHeader("Content-Type", "image/jpeg");
+    res.setHeader("Content-Type", "image/webp");
     return res.end(data);
   });
 }

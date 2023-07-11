@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   FullSpace,
   TableContainer,
   TableGeneralOperationContainer,
 } from "../../shared/StyledComponent";
 import { Button, Image, Space, Table } from "antd";
-import GalleryPhotoModal from "./GalleryPhotoModal";
+import GalleryPhotoCreateModal from "./GalleryPhotoCreateModal";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 import { createClient } from "@/pages/api/client";
+import GalleryPhotoUpdateModal from "./GalleryPhotoUpdateModal";
+import { NotificationContext } from "../../shared/NotificationContext";
 
 function GalleryPhotoTable({ data }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isCreate, setIsCreate] = useState(false);
+  const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
   const [updateData, setUpdateData] = useState();
-  const [title, setTitle] = useState();
+  const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const client = createClient();
+  const notification = useContext(NotificationContext);
+  const apiUrl = "/gallery/photo";
+
   useEffect(() => {
     setTableData(data);
   }, [data]);
@@ -42,7 +47,7 @@ function GalleryPhotoTable({ data }) {
       dataIndex: "ThumbnailUrl",
       key: "ThumbnailUrl",
       render: (image) => (
-        <Image width={170} src={imageUrlBuilder(image)} alt="Gallery"></Image>
+        <Image width={170} src={imageUrlBuilder(image)} alt="Gallery" />
       ),
     },
     {
@@ -52,7 +57,7 @@ function GalleryPhotoTable({ data }) {
         <Space>
           <Button
             style={{ backgroundColor: "#ffa100", color: "white" }}
-            onClick={(e) => updateModalOpenHandle(renderData)}
+            onClick={() => updateModalOpenHandle(renderData)}
           >
             Edit
           </Button>
@@ -69,18 +74,24 @@ function GalleryPhotoTable({ data }) {
   ];
   const updateModalOpenHandle = (renderData) => {
     setUpdateData(renderData);
-    setIsOpen(true);
-    setIsCreate(false);
-    setTitle("Update Gallery Photo Modal");
+    setIsOpenUpdateModal(true);
   };
 
   const handleDelete = async (id) => {
-    const client = createClient();
-    await client.delete(`/gallery/photo?id=${id}`);
-    await refreshTableData();
+    await client.delete(`${apiUrl}?id=${id}`);
+    notification.success({ message: "Successful" });
+    await refreshData();
   };
-  const refreshTableData = async () => {
-    window.location.reload();
+
+  const refreshData = async () => {
+    const res = await client.get(apiUrl);
+    setTableData(res.data);
+  };
+
+  const refreshPage = async () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 700);
   };
 
   return (
@@ -91,11 +102,8 @@ function GalleryPhotoTable({ data }) {
             <Space>
               <Button
                 type="primary"
-                onClick={(e) => {
-                  setIsOpen(true);
-                  setIsCreate(true);
-                  setUpdateData(null);
-                  setTitle("Create Gallery Photo Modal");
+                onClick={() => {
+                  setIsOpenCreateModal(true);
                 }}
               >
                 Add a Row
@@ -112,16 +120,49 @@ function GalleryPhotoTable({ data }) {
           ></Table>
         </FullSpace>
       </TableContainer>
-      <GalleryPhotoModal
-        data={updateData}
-        setData={setUpdateData}
-        isCreate={isCreate}
-        isOpen={isOpen}
-        setIsCreate={setIsCreate}
-        setIsOpen={setIsOpen}
-        title={title}
-        refresh={refreshTableData}
-      />
+      {isOpenCreateModal ? (
+        <GalleryPhotoCreateModal
+          visible={isOpenCreateModal}
+          onOk={async (data) => {
+            try {
+              const res = await client.post(apiUrl, data);
+              if (res.status === 201) {
+                setIsOpenCreateModal(false);
+                notification.success({ message: "Successful" });
+                refreshData();
+              }
+            } catch (error) {
+              notification.success({ message: error.toString() });
+            }
+          }}
+          onCancel={() => {
+            setIsOpenCreateModal(false);
+          }}
+        />
+      ) : null}
+      {updateData && (
+        <GalleryPhotoUpdateModal
+          record={updateData}
+          visible={isOpenUpdateModal}
+          onCancel={() => {
+            setIsOpenUpdateModal(false);
+            setUpdateData(undefined);
+          }}
+          onOk={async (data) => {
+            try {
+              const res = await client.put(apiUrl, data);
+              if (res.status === 200) {
+                setIsOpenUpdateModal(false);
+                setUpdateData(undefined);
+                await refreshPage();
+                notification.success({ message: "Successful" });
+              }
+            } catch (error) {
+              notification.error({ message: error.toString() });
+            }
+          }}
+        />
+      )}
     </>
   );
 }
