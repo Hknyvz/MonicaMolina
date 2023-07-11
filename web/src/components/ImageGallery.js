@@ -11,7 +11,7 @@ function ImageGallery({data}) {
           <List itemLayout="vertical" size="large" pagination={{ positin:"bottom", align: "center", pageSize: 12 }} grid={{ gutter: 18 ,column: 6 }}  dataSource={data} renderItem=
           {(item) =>( 
             <List.Item>                
-                      <Image width={160} height={160} src={imageUrlBuilder(item.ImageUrl)}  preview={{src: imageUrlBuilder(item.ImageUrl)}} />            
+                      <Image width={160} height={160} src={imageUrlBuilder(item.ThumbnailUrl)}  preview={{src: imageUrlBuilder(item.ImageUrl)}} />            
             </List.Item>           
           )}/> 
                    
