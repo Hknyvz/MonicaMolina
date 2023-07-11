@@ -1,21 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   FullSpace,
   TableContainer,
   TableGeneralOperationContainer,
 } from "../shared/StyledComponent";
 import { Button, Space, Table } from "antd";
-import DiscographyModal from "./DiscographyModal";
+import DiscographyCreateModal from "./DiscographyCreateModal";
 import { createClient } from "@/pages/api/client";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 import Image from "next/image";
+import DiscographyUpdateModal from "./DiscographyUpdateModal";
+import { NotificationContext } from "../shared/NotificationContext";
 
 function DiscographyTable({ data }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isCreate, setIsCreate] = useState(false);
+  const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
+  const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
   const [updateData, setUpdateData] = useState();
-  const [title, setTitle] = useState();
   const [tableData, setTableData] = useState([]);
+  const client = createClient();
+  const notification = useContext(NotificationContext);
+
+  const apiUrl = "/discography";
 
   useEffect(() => {
     setTableData(data);
@@ -72,19 +77,23 @@ function DiscographyTable({ data }) {
 
   const updateModalOpenHandle = (renderData) => {
     setUpdateData(renderData);
-    setIsOpen(true);
-    setIsCreate(false);
-    setTitle("Update Album Modal");
+    setIsOpenUpdateModal(true);
   };
 
   const handleDelete = async (id) => {
-    const client = createClient();
-    await client.delete(`/discography?id=${id}`);
-    await refreshTableData();
+    await client.delete(`${apiUrl}?id=${id}`);
+    await refreshData();
   };
 
-  const refreshTableData = async () => {
-    window.location.reload();
+  const refreshPage = async () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 700);
+  };
+
+  const refreshData = async () => {
+    const res = await client.get(apiUrl);
+    setTableData(res.data);
   };
 
   return (
@@ -95,11 +104,8 @@ function DiscographyTable({ data }) {
             <Space>
               <Button
                 type="primary"
-                onClick={(e) => {
-                  setIsOpen(true);
-                  setIsCreate(true);
-                  setUpdateData(null);
-                  setTitle("Create Album Modal");
+                onClick={() => {
+                  setIsOpenCreateModal(true);
                 }}
               >
                 Add a Row
@@ -116,16 +122,49 @@ function DiscographyTable({ data }) {
           ></Table>
         </FullSpace>
       </TableContainer>
-      <DiscographyModal
-        data={updateData}
-        setData={setUpdateData}
-        isCreate={isCreate}
-        isOpen={isOpen}
-        setIsCreate={setIsCreate}
-        setIsOpen={setIsOpen}
-        title={title}
-        refresh={refreshTableData}
-      />
+      {isOpenCreateModal && (
+        <DiscographyCreateModal
+          visible={isOpenCreateModal}
+          onOk={async (data) => {
+            try {
+              const res = await client.post(apiUrl, data);
+              if (res.status === 201) {
+                setIsOpenCreateModal(false);
+                notification.success({ message: "Successful" });
+                refreshData();
+              }
+            } catch (error) {
+              notification.success({ message: error.toString() });
+            }
+          }}
+          onCancel={() => {
+            setIsOpenCreateModal(false);
+          }}
+        />
+      )}
+      {updateData && (
+        <DiscographyUpdateModal
+          visible={isOpenUpdateModal}
+          record={updateData}
+          onCancel={() => {
+            setIsOpenUpdateModal(false);
+            setUpdateData(undefined);
+          }}
+          onOk={async (data) => {
+            try {
+              const res = await client.put(apiUrl, data);
+              if (res.status === 200) {
+                setIsOpenUpdateModal(false);
+                setUpdateData(undefined);
+                await refreshPage();
+                notification.success({ message: "Successful" });
+              }
+            } catch (error) {
+              notification.error({ message: error.toString() });
+            }
+          }}
+        />
+      )}
     </>
   );
 }

@@ -5,7 +5,7 @@ import { canvasPreview } from "../../utils/crop/canvasPreview";
 import { useDebounceEffect } from "../../utils/crop/useDebounceEffect";
 
 import "react-image-crop/dist/ReactCrop.css";
-import { Alert, Button, Space, Upload } from "antd";
+import { Alert, Button, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { FullSpace } from "./StyledComponent";
 
@@ -25,19 +25,13 @@ function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
   );
 }
 
-export default function CropContainer({
-  image,
-  cropImage,
-  time,
-  aspect,
-  fullImage,
-}) {
+export default function CropContainer({ cropImage, aspect, fullImage }) {
   const previewCanvasRef = useRef(null);
   const imgRef = useRef(null);
   const uploadRef = useRef();
   const [completedCrop, setCompletedCrop] = useState();
-  const [crop, setCrop] = useState();
-  const [selectedImage, setSelectedImage] = useState();
+  const [crop, setCrop] = useState(undefined);
+  const [selectedImage, setSelectedImage] = useState(undefined);
   const [fileList, setFileList] = useState([]);
   const [sizeError, setSizeError] = useState(false);
 
@@ -63,15 +57,10 @@ export default function CropContainer({
         base64String = reader.result;
         cropImage(base64String);
       };
-      fullImage(selectedImage);
+      if (fullImage) fullImage(selectedImage);
       reader.readAsDataURL(blob);
     });
   }
-
-  useEffect(() => {
-    setSelectedImage(image);
-    handleRemoveFiles();
-  }, [image, time]);
 
   useDebounceEffect(
     async () => {

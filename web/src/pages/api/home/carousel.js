@@ -55,11 +55,11 @@ const save = async (data, guid) => {
 
 const update = async (data) => {
   if (data.ImageUrl) {
-    deleteImage(data.Id, directory);
-    await saveImage(data.ImageUrl, data.Id, directory);
+    deleteImage(data._id, directory);
+    await saveImage(data.ImageUrl, data._id, directory);
   }
   const model = { Order: data.Order, Link: data.Link };
-  let updatedEntry = await CarouselModel.findByIdAndUpdate(data.Id, model, {
+  let updatedEntry = await CarouselModel.findByIdAndUpdate(data._id, model, {
     new: true,
   });
   const res = { message: "Updated successful", data: updatedEntry };

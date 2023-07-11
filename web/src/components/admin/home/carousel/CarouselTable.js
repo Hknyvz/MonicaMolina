@@ -1,47 +1,34 @@
 import { Button, Space, Table } from "antd";
-import React, { useEffect, useState } from "react";
-import CarouselModal from "./CarouselModal";
+import React, { useContext, useEffect, useState } from "react";
+import CarouselCreateModal from "./CarouselCreateModal";
 import { createClient } from "@/pages/api/client";
 import {
   FullSpace,
   TableContainer,
   TableGeneralOperationContainer,
-} from "../shared/StyledComponent";
+} from "@/components/admin/shared/StyledComponent";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 import Image from "next/image";
+import CarouselUpdateModal from "./CarouselUpdateModal";
+import { NotificationContext } from "../../shared/NotificationContext";
 
 function CarouselTable({ data }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isCreate, setIsCreate] = useState(false);
+  const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
+  const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
   const [updateData, setUpdateData] = useState();
-  const [title, setTitle] = useState();
   const [tableData, setTableData] = useState();
+  const client = createClient();
+  const apiUrl = "/home/carousel";
+  const notification = useContext(NotificationContext);
 
   useEffect(() => {
     setTableData(data);
   }, [data]);
 
-  useEffect(() => {
-    // Sayfa yüklendiğinde resim önizlemesini ve önbelleğini temizle
-    const clearImageCache = () => {
-      if (typeof window !== "undefined" && "caches" in window) {
-        caches.keys().then((cacheNames) => {
-          cacheNames.forEach((cacheName) => {
-            if (cacheName.startsWith("next/image")) {
-              caches.delete(cacheName);
-            }
-          });
-        });
-      }
-    };
-
-    clearImageCache();
-  }, []);
-
   const handleDelete = async (id) => {
-    const client = createClient();
-    await client.delete(`/carousel?id=${id}`);
-    await refreshTableData();
+    await client.delete(`${apiUrl}?id=${id}`);
+    notification.success({ message: "Successful" });
+    await refreshData();
   };
 
   const columns = [
@@ -93,9 +80,7 @@ function CarouselTable({ data }) {
             style={{ backgroundColor: "#ffa100", color: "white" }}
             onClick={(e) => {
               setUpdateData(renderData);
-              setIsOpen(true);
-              setIsCreate(false);
-              setTitle("Update Carousel Modal");
+              setIsOpenUpdateModal(true);
             }}
           >
             Edit
@@ -112,8 +97,15 @@ function CarouselTable({ data }) {
     },
   ];
 
-  const refreshTableData = async () => {
-    window.location.reload();
+  const refreshPage = async () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 700);
+  };
+
+  const refreshData = async () => {
+    const res = await client.get(apiUrl);
+    setTableData(res.data);
   };
 
   return (
@@ -125,10 +117,7 @@ function CarouselTable({ data }) {
               <Button
                 type="primary"
                 onClick={(e) => {
-                  setIsOpen(true);
-                  setIsCreate(true);
-                  setUpdateData(null);
-                  setTitle("Create Carousel Modal");
+                  setIsOpenCreateModal(true);
                 }}
               >
                 Add a Row
@@ -145,16 +134,49 @@ function CarouselTable({ data }) {
           ></Table>
         </FullSpace>
       </TableContainer>
-      <CarouselModal
-        data={updateData}
-        setData={setUpdateData}
-        isCreate={isCreate}
-        isOpen={isOpen}
-        setIsCreate={setIsCreate}
-        setIsOpen={setIsOpen}
-        title={title}
-        refresh={refreshTableData}
-      />
+      {isOpenCreateModal && (
+        <CarouselCreateModal
+          visible={isOpenCreateModal}
+          onOk={async (data) => {
+            try {
+              const res = await client.post(apiUrl, data);
+              if (res.status === 201) {
+                setIsOpenCreateModal(false);
+                notification.success({ message: "Successful" });
+                refreshData();
+              }
+            } catch (error) {
+              notification.error({ message: error.toString() });
+            }
+          }}
+          onCancel={() => {
+            setIsOpenCreateModal(false);
+          }}
+        />
+      )}
+      {updateData && (
+        <CarouselUpdateModal
+          record={updateData}
+          visible={isOpenUpdateModal}
+          onOk={async (data) => {
+            try {
+              const res = await client.put(apiUrl, data);
+              if (res.status === 200) {
+                setIsOpenUpdateModal(false);
+                setUpdateData(undefined);
+                notification.success({ message: "Successful" });
+                await refreshPage();
+              }
+            } catch (error) {
+              notification.error({ message: error.toString() });
+            }
+          }}
+          onCancel={() => {
+            setIsOpenUpdateModal(false);
+            setUpdateData(undefined);
+          }}
+        />
+      )}
     </>
   );
 }

@@ -3,7 +3,7 @@ const nextConfig = {
   images: {
     domains: ["localhost", "wizardly-curie.31-193-136-53.plesk.page"],
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.module.rules.push({

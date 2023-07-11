@@ -15,11 +15,9 @@ const handler = async (req, res) => {
     } else if (method === "POST") {
       const newGuid = uuidv4();
       const response = await save(req.body, newGuid);
-
       return res.status(201).json(response);
     } else if (method === "PUT") {
       const response = await update(req.body);
-
       return res.status(200).json(response);
     } else if (method === "DELETE") {
       const { id } = req.query;
@@ -45,9 +43,13 @@ const save = async (data, guid) => {
 
 const update = async (data) => {
   const model = { Order: data.Order, VideoUrl: data.VideoUrl };
-  let updatedEntry = await GalleryVideoModel.findByIdAndUpdate(data.Id, model, {
-    new: true,
-  });
+  let updatedEntry = await GalleryVideoModel.findByIdAndUpdate(
+    data._id,
+    model,
+    {
+      new: true,
+    }
+  );
   const res = { message: "Updated successful", data: updatedEntry };
   return res;
 };

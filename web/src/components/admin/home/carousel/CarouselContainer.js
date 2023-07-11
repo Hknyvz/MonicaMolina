@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import CarouselTable from "./CarouselTable";
 
-function HomeContainer({ data }) {
+function CarouselContainer({ data }) {
   return (
     <>
       <CarouselTable data={data}></CarouselTable>
@@ -9,4 +9,4 @@ function HomeContainer({ data }) {
   );
 }
 
-export default HomeContainer;
+export default CarouselContainer;

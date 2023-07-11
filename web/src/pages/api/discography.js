@@ -55,11 +55,11 @@ const save = async (data, guid) => {
 
 const update = async (data) => {
   if (data.ImageUrl) {
-    deleteImage(data.Id, directory);
-    await saveImage(data.ImageUrl, data.Id, directory);
+    deleteImage(data._id, directory);
+    await saveImage(data.ImageUrl, data._id, directory);
   }
   const model = { Year: data.Year, Name: data.Name };
-  let updatedEntry = await DiscographyModel.findByIdAndUpdate(data.Id, model, {
+  let updatedEntry = await DiscographyModel.findByIdAndUpdate(data._id, model, {
     new: true,
   });
   const res = { message: "Updated successful", data: updatedEntry };

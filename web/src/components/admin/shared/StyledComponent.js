@@ -14,15 +14,7 @@ const TableGeneralOperationContainer = styled.div`
   justify-content: end;
 `;
 
-const FormLabel = styled.label`
-  ::after {
-    content: ":";
-    margin-inline-end: 8px;
-    margin-inline-start: 2px;
-    margin-block: 0;
-    position: relative;
-  }
-`;
+const FormLabel = styled.label``;
 
 const RequiredFormLabel = styled(FormLabel)`
   ::before {
