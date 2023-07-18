@@ -36,7 +36,7 @@ Home.layout = "web";
 export const getServerSideProps = async () => {
   try {
     const client = createClient();
-    const res = await client.get("/carousel");
+    const res = await client.get("/home/carousel");
     const data = res.data;
     return { props: { data } };
   } catch (error) {

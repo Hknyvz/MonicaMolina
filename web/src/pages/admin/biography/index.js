@@ -1,3 +1,4 @@
+import "react-quill/dist/quill.snow.css";
 import BiographyContainer from "@/components/admin/biography/BiographyContainer";
 import logger from "@/helpers/logger";
 import { createClient } from "@/pages/api/client";

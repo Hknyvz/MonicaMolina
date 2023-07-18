@@ -7,6 +7,8 @@ import { createClient } from "@/pages/api/client";
 import Image from "next/image";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 import { NotificationContext } from "../shared/NotificationContext";
+import dynamic from "next/dynamic";
+import EditorRead from "@/components/shared/EditorRead";
 
 const { Title } = Typography;
 
@@ -21,7 +23,10 @@ const BiographyContainer = ({ data }) => {
       window.location.reload();
     }, 700);
   };
-
+  const Editor = dynamic(import("./Editor"), {
+    ssr: false,
+    loading: () => <p>Loading ...</p>,
+  });
   return (
     <div
       style={{
@@ -54,7 +59,7 @@ const BiographyContainer = ({ data }) => {
           </div>
           <div>
             <Title level={5}>Biography Text</Title>
-            <p>{data.Text}</p>
+            <EditorRead text={data.Text ?? ""} />
           </div>
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button

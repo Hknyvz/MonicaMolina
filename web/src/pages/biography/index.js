@@ -1,17 +1,17 @@
-import React from 'react'
-import Bio from 'src/components/Bio.js'
+import React from "react";
+import Bio from "@/components/Bio";
 import logger from "@/helpers/logger";
 import { createClient } from "@/pages/api/client";
 
-function index({data}) {
+function index({ data }) {
   return (
     <>
-      <Bio data={data}/>
+      <Bio data={data} />
     </>
-    )
+  );
 }
 
-export default index
+export default index;
 
 index.layout = "web";
 

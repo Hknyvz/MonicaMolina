@@ -1,7 +1,8 @@
-import React from 'react'
-import { Col, Row } from 'antd';
-import { Typography} from 'antd';
+import React from "react";
+import { Col, Row } from "antd";
+import { Typography } from "antd";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
+import EditorRead from "./shared/EditorRead";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
@@ -12,42 +13,45 @@ const textStyle = {
   paddingLeft: "20%",
 };
 
-
-
 const titleStyle = {
   fontFamily: "Bacalisties",
   fontSize: 100,
   fontWeight: 100,
   paddingLeft: "10%",
-
 };
 
 const mainDivStyle = {
   paddingTop: "110px",
   paddingRight: "10%",
   paddingLeft: "10%",
-
-}
+};
 
 const rightColStyle = {
-  paddingTop: "110px",
+  paddingTop: "5px",
   width: "60%",
-}
-function Bio({data}) {
+};
+function Bio({ data }) {
   return (
-  <div style={mainDivStyle}>
-    <Row> 
-      <Col className="gutter-row">
-        <img height="840px" width="560px" style={{objectFit: "cover"}} src={imageUrlBuilder(data.ImageUrl)}/>
-      </Col>
-      <Col className="gutter-row" style={rightColStyle}>
-        <Row>
-          <Title level={1} style={titleStyle}>{data.Title}
-          </Title>
-        </Row>
-        <Row>
-           <Paragraph style={textStyle}>{data.Text}
-          {/*<p>Mónica Molina stands out artistically thanks to her personal way of shaping the
+    <div style={mainDivStyle}>
+      <Row>
+        <Col className="gutter-row">
+          <img
+            height="840px"
+            width="560px"
+            style={{ objectFit: "cover" }}
+            src={imageUrlBuilder(data.ImageUrl)}
+          />
+        </Col>
+        <Col className="gutter-row" style={rightColStyle}>
+          <Row>
+            <Title level={1} style={titleStyle}>
+              {data.Title}
+            </Title>
+          </Row>
+          <Row>
+            <Paragraph style={textStyle}>
+              <EditorRead text={data.Text} />
+              {/*<p>Mónica Molina stands out artistically thanks to her personal way of shaping the
                                       Mediterranean spirit through her voice and unique interpretation of her songs. Her
                                       elegance, her own style and unconditional commitment to quality have earned her
                                       great respect among the public and critics alike from the moment she released her first
@@ -87,12 +91,12 @@ function Bio({data}) {
 
                                       <p>In 2023 Monica records “Mi Fortuna”, her 7th album, produced for the first time by
                                       herself.</p> */}
-          </Paragraph>
-        </Row>
-      </Col>
-    </Row>
-  </div>
-  )
+            </Paragraph>
+          </Row>
+        </Col>
+      </Row>
+    </div>
+  );
 }
 
-export default Bio
+export default Bio;
