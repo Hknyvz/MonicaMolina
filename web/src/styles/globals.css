@@ -113,6 +113,18 @@ a {
   width: 100%;
 }
 
+.ql-container.ql-snow {
+  border: none !important;
+}
+
+.ql-editor.ql-blank {
+  padding: 0;
+}
+
+.ql-editor .ql-align-justify {
+  text-align: justify;
+}
+
 @font-face {
   font-family: "Bacalisties";
   src: url("/fonts/Bacalisties.ttf");
