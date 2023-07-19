@@ -42,7 +42,8 @@ function MainCarousel({ data }) {
       <Carousel style={carouselStyle} autoplay>
         {data.map((item) => (
           <div>
-            <Link href={item.Link}>
+            {/* <Link href={item.Link}> */}
+            <Link href="/redirection">
               <img style={imageStyles} src={imageUrlBuilder(item.ImageUrl)} />
             </Link>
           </div>
