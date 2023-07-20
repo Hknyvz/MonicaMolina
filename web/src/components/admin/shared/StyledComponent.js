@@ -28,10 +28,18 @@ const RequiredFormLabel = styled(FormLabel)`
   }
 `;
 
+const TableCell = styled.span`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100px;
+`;
+
 export {
   FullSpace,
   TableContainer,
   TableGeneralOperationContainer,
   RequiredFormLabel,
   FormLabel,
+  TableCell,
 };

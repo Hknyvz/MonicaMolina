@@ -16,7 +16,27 @@ const CarouselSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    Link: {
+    HaveDetail: {
+      type: Boolean,
+      required: false,
+    },
+    DetailTitle: {
+      type: String,
+      required: false,
+    },
+    DetailImageUrl: {
+      type: String,
+      required: false,
+    },
+    SPotifyLink: {
+      type: String,
+      required: false,
+    },
+    YoutubeLink: {
+      type: String,
+      required: false,
+    },
+    ItunesLink: {
       type: String,
       required: false,
     },
