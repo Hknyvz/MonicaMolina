@@ -28,7 +28,7 @@ const CarouselSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    SPotifyLink: {
+    SpotifyLink: {
       type: String,
       required: false,
     },

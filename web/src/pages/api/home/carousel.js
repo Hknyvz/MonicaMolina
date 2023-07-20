@@ -17,7 +17,12 @@ const handler = async (req, res) => {
   const method = req.method;
   try {
     if (method === "GET") {
-      let carousels = await CarouselModel.find().exec();
+      const { admin } = req.query;
+      let projection;
+      if (admin) projection = {};
+      else projection = { Order: 1, ImageUrl: 1, HaveDetail: 1 };
+
+      let carousels = await CarouselModel.find({}, projection).exec();
       return res.status(200).json(carousels.sort((a, b) => a.Order - b.Order));
     } else if (method === "POST") {
       const newGuid = uuidv4();

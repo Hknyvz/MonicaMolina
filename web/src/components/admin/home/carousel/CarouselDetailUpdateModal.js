@@ -43,11 +43,7 @@ function CarouselDetailEditModal({ visible, record, onCancel, onOk }) {
           <Form.Item name="_id" hidden>
             <Input type="hidden" name="_id" id="_id" />
           </Form.Item>
-          <Form.Item
-            label="Detail Title"
-            name="DetailTitle"
-            rules={[{ required: true, message: "Title field is required" }]}
-          >
+          <Form.Item label="Detail Title" name="DetailTitle">
             <Input
               id="DetailTitle"
               name="DetailTitle"
@@ -70,10 +66,10 @@ function CarouselDetailEditModal({ visible, record, onCancel, onOk }) {
               prefix={<SlSocialSpotify />}
             />
           </Form.Item>
-          <Form.Item label="ITunes Link" name="ITunesLink">
+          <Form.Item label="Itunes Link" name="ItunesLink">
             <Input
-              id="ITunesLink"
-              name="ITunesLink"
+              id="ItunesLink"
+              name="ItunesLink"
               placeholder="https://www.itunes.com"
               prefix={<SiItunes />}
             />

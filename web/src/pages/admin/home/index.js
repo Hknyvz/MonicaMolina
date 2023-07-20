@@ -16,7 +16,7 @@ export default AdminHome;
 export const getServerSideProps = async () => {
   try {
     const client = createClient();
-    const res = await client.get("/home/carousel");
+    const res = await client.get("/home/carousel?admin=true");
     const data = res.data;
     return { props: { data } };
   } catch (error) {
