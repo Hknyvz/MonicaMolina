@@ -1,6 +1,5 @@
-import React from 'react'
-import Header from 'src/components/Header.js'
-import MainCarousel from 'src/components/MainCarousel.js'
+import React from "react";
+import MainCarousel from "@/components/MainCarousel";
 import logger from "@/helpers/logger";
 import { createClient } from "@/pages/api/client";
 
@@ -9,19 +8,17 @@ const contentStyle = {
   height: "100%",
 };
 
-function index({data}) {
-
+function index({ data }) {
   return (
-      <div style={contentStyle}>
-          <MainCarousel data={data}/>
-      </div>
-  )
+    <div style={contentStyle}>
+      <MainCarousel data={data} />
+    </div>
+  );
 }
 
-export default index
+export default index;
 
-index.layout = "web"
-
+index.layout = "web";
 
 export const getServerSideProps = async () => {
   try {

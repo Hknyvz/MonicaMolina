@@ -3,15 +3,23 @@ import React, { useState } from "react";
 import CropContainer from "../shared/CropContainer";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const Editor = dynamic(import("./Editor"), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+});
 
 function BiographyEditModal({ visible, record, onCancel, onOk }) {
   const [cropImage, setCropImage] = useState();
   const [loading, setLoading] = useState(false);
+  const [text, setText] = useState(record.Text);
   const [form] = Form.useForm();
 
   const handleOk = async () => {
     const values = await form.validateFields();
     values.ImageUrl = cropImage;
+    values.Text = text;
     setLoading(true);
     await onOk(values);
     setLoading(false);
@@ -69,8 +77,11 @@ function BiographyEditModal({ visible, record, onCancel, onOk }) {
           name="Text"
           rules={[{ required: true, message: "Biography text is required" }]}
         >
-          <Input.TextArea name="Text" style={{ minHeight: 250 }} />
+          {/* <Input.TextArea name="Text" style={{ minHeight: 250 }} /> */}
+          <Editor value={text} onChange={(p) => setText(p)} />
         </Form.Item>
+        {/* <div> */}
+        {/* </div> */}
       </Form>
     </Modal>
   );
