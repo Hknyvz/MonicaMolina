@@ -4,11 +4,10 @@ import {
   TableContainer,
   TableGeneralOperationContainer,
 } from "../shared/StyledComponent";
-import { Button, Space, Table } from "antd";
+import { Button, Space, Table, Image } from "antd";
 import DiscographyCreateModal from "./DiscographyCreateModal";
 import { createClient } from "@/pages/api/client";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
-import Image from "next/image";
 import DiscographyUpdateModal from "./DiscographyUpdateModal";
 import { NotificationContext } from "../shared/NotificationContext";
 
@@ -36,9 +35,7 @@ function DiscographyTable({ data }) {
         <Image
           src={imageUrlBuilder(image)}
           width={160}
-          height={170}
           alt="Albume Cover"
-          unoptimized
         ></Image>
       ),
     },

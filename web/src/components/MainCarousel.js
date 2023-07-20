@@ -36,14 +36,14 @@ function MainCarousel({ data }) {
     height: windowSize.current[1] - 86,
     objectFit: "cover",
   };
-
   return (
     <div style={contentStyle}>
       <Carousel style={carouselStyle} autoplay>
         {data.map((item) => (
           <div>
-            {/* <Link href={item.Link}> */}
-            <Link href="/redirection">
+            <Link
+              href={`${process.env.NEXT_PUBLIC_WEPPATH_URL}/home/${item._id}`}
+            >
               <img style={imageStyles} src={imageUrlBuilder(item.ImageUrl)} />
             </Link>
           </div>

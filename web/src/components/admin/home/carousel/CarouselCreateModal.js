@@ -1,7 +1,9 @@
-import { Form, Input, Modal, Space } from "antd";
-import React, { useEffect, useState } from "react";
+import { Divider, Form, Input, Modal } from "antd";
+import React, { useState } from "react";
 import CropContainer from "@/components/admin/shared/CropContainer";
 import { FullSpace, RequiredFormLabel } from "../../shared/StyledComponent";
+import { SiItunes } from "react-icons/si";
+import { SlSocialSpotify, SlSocialYoutube } from "react-icons/sl";
 
 function CarouselCreateModal({ onOk, onCancel, visible }) {
   const [cropImage, setCropImage] = useState();
@@ -48,22 +50,11 @@ function CarouselCreateModal({ onOk, onCancel, visible }) {
         confirmLoading={loading}
       >
         <Form form={form} layout="vertical">
-          <Form.Item label="Carousel Link" name="Link">
-            <Input
-              id="Link"
-              name="Link"
-              placeholder="https://www.monicamolina.com"
-            />
-          </Form.Item>
-          <Form.Item
-            label="Order"
-            name="Order"
-            rules={[{ required: true, message: "Order field is required" }]}
-          >
+          <Form.Item label="Order" name="Order">
             <Input id="Order" name="Order" placeholder="Order Number" />
           </Form.Item>
           <FullSpace direction="vertical">
-            <RequiredFormLabel>Upload</RequiredFormLabel>
+            <RequiredFormLabel>Upload Carousel Image</RequiredFormLabel>
             <CropContainer cropImage={(e) => setCropImage(e)} aspect={16 / 9} />
             {visibleUploadError ? (
               <span style={{ color: "#ff4d4f" }}>Image is required</span>

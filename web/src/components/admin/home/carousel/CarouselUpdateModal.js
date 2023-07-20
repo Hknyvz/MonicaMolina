@@ -35,13 +35,6 @@ function CarouselUpdateModal({ visible, record, onCancel, onOk }) {
         <Form.Item name="_id" hidden>
           <Input type="hidden" name="_id" id="_id" />
         </Form.Item>
-        <Form.Item label="Carousel Link" name="Link">
-          <Input
-            id="Link"
-            name="Link"
-            placeholder="https://www.monicamolina.com"
-          />
-        </Form.Item>
         <Form.Item
           label="Order"
           name="Order"

@@ -1,29 +1,34 @@
-import { Button, Space, Table } from "antd";
+import { Button, Popconfirm, Space, Table, Image, Switch, Tooltip } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import CarouselCreateModal from "./CarouselCreateModal";
 import { createClient } from "@/pages/api/client";
 import {
   FullSpace,
+  TableCell,
   TableContainer,
   TableGeneralOperationContainer,
 } from "@/components/admin/shared/StyledComponent";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
-import Image from "next/image";
 import CarouselUpdateModal from "./CarouselUpdateModal";
 import { NotificationContext } from "../../shared/NotificationContext";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
+import TableRowAction from "../../shared/TableRowAction";
+import CarouselDetailEditModal from "./CarouselDetailUpdateModal";
 
 function CarouselTable({ data }) {
   const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
+  const [isOpenUpdateDetailModal, setIsOpenUpdateDetailModal] = useState(false);
   const [updateData, setUpdateData] = useState();
-  const [tableData, setTableData] = useState();
+  const [tableData, setTableData] = useState(data);
   const client = createClient();
   const apiUrl = "/home/carousel";
+  const detailApiUrl = "/home/carousel-detail";
   const notification = useContext(NotificationContext);
-
-  useEffect(() => {
-    setTableData(data);
-  }, [data]);
 
   const handleDelete = async (id) => {
     await client.delete(`${apiUrl}?id=${id}`);
@@ -31,68 +36,132 @@ function CarouselTable({ data }) {
     await refreshData();
   };
 
+  const handleStatusChange = (checked, item) => {
+    if (!item.DetailImageUrl || !item.DetailTitle) {
+      return;
+    }
+    const updatedTableData = tableData.map((dataItem) =>
+      dataItem === item ? { ...dataItem, HaveDetail: checked } : dataItem
+    );
+    setTableData(updatedTableData);
+  };
+
   const columns = [
     {
-      title: "Order",
-      dataIndex: "Order",
-      key: "Order",
-      width: 50,
-      render: (item) => (
-        <div
-          style={{
-            display: "flex",
-            width: "100%",
-            justifyContent: "center",
-            fontWeight: "600",
-          }}
-        >
-          <label>{item}</label>
-        </div>
-      ),
+      title: "Carousel",
+      children: [
+        {
+          title: "Order",
+          dataIndex: "Order",
+          key: "Order",
+          width: 50,
+          render: (item) => (
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "center",
+                fontWeight: "600",
+              }}
+            >
+              <label>{item}</label>
+            </div>
+          ),
+        },
+        {
+          title: "Image",
+          dataIndex: "ImageUrl",
+          key: "ImageUrl",
+          width: 170,
+          render: (image) => (
+            <Image
+              src={imageUrlBuilder(image)}
+              width={160}
+              alt="Carousel Image"
+            ></Image>
+          ),
+        },
+      ],
     },
     {
-      title: "Link",
-      dataIndex: "Link",
-      key: "Link",
+      title: "Carousel Detail",
+      children: [
+        {
+          title: "Status",
+          dataIndex: "HaveDetail",
+          key: "HaveDetail",
+          width: 50,
+          render: (data, item) => (
+            <Switch
+              checked={item.HaveDetail}
+              onChange={(checked) => handleStatusChange(checked, item)}
+            ></Switch>
+          ),
+        },
+        {
+          title: "Dateail Title",
+          dataIndex: "DetailTitle",
+          key: "DetailTitle",
+          className: "custom-column-width",
+        },
+        {
+          title: "Detail Image",
+          dataIndex: "DetailImageUrl",
+          key: "DetailImageUrl",
+          width: 170,
+          render: (image) =>
+            image && (
+              <Image
+                src={imageUrlBuilder(image)}
+                width={160}
+                alt="Carousel Detail Image"
+              ></Image>
+            ),
+        },
+      ],
     },
     {
-      title: "Image",
-      dataIndex: "ImageUrl",
-      key: "ImageUrl",
-      width: 170,
-      render: (image) => (
-        <Image
-          src={imageUrlBuilder(image)}
-          width={160}
-          height={90}
-          alt="Carousel Image"
-          unoptimized
-          priority
-        ></Image>
-      ),
-    },
-    {
-      title: "Operation",
-      width: 100,
-      render: (renderData) => (
-        <Space>
-          <Button
-            style={{ backgroundColor: "#ffa100", color: "white" }}
-            onClick={(e) => {
-              setUpdateData(renderData);
-              setIsOpenUpdateModal(true);
-            }}
-          >
-            Edit
-          </Button>
-          <Button
-            type="primary"
-            style={{ backgroundColor: "#ff0000", color: "white" }}
-            onClick={() => handleDelete(renderData._id)}
-          >
-            Delete
-          </Button>
-        </Space>
+      title: "Action",
+      width: 20,
+      render: (record) => (
+        <TableRowAction
+          record={record}
+          actions={[
+            {
+              title: "Edit",
+              icon: <EditOutlined />,
+              action: () => {
+                setUpdateData(record);
+                setIsOpenUpdateModal(true);
+              },
+            },
+            {
+              title: "Edit Detail",
+              icon: <EditOutlined />,
+              action: () => {
+                setUpdateData(record);
+                setIsOpenUpdateDetailModal(true);
+              },
+            },
+            {
+              icon: <DeleteOutlined />,
+              title: (
+                <Popconfirm
+                  title={`Delete "${record.name}"`}
+                  description={`Are you sure to delete this Carousel?`}
+                  icon={<QuestionCircleOutlined style={{ color: "red" }} />}
+                  placement="left"
+                  showArrow={false}
+                  onConfirm={() => {
+                    handleDelete(record._id);
+                  }}
+                >
+                  Delete
+                </Popconfirm>
+              ),
+            },
+          ]}
+        />
       ),
     },
   ];
@@ -173,6 +242,29 @@ function CarouselTable({ data }) {
           }}
           onCancel={() => {
             setIsOpenUpdateModal(false);
+            setUpdateData(undefined);
+          }}
+        />
+      )}
+      {updateData && (
+        <CarouselDetailEditModal
+          record={updateData}
+          visible={isOpenUpdateDetailModal}
+          onOk={async (data) => {
+            try {
+              const res = await client.put(detailApiUrl, data);
+              if (res.status === 200) {
+                setIsOpenUpdateModal(false);
+                setUpdateData(undefined);
+                notification.success({ message: "Successful" });
+                await refreshPage();
+              }
+            } catch (error) {
+              notification.error({ message: error.toString() });
+            }
+          }}
+          onCancel={() => {
+            setIsOpenUpdateDetailModal(false);
             setUpdateData(undefined);
           }}
         />
