@@ -26,6 +26,7 @@
     "react-icons": "^4.10.1",
     "react-image-crop": "^10.1.4",
     "react-quill": "^2.0.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "styled-components": "^5.3.3",
     "uuid": "^9.0.0",
     "winston": "^3.9.0",
