@@ -56,7 +56,7 @@ function Redirection({data}) {
             <Row justify="space-around" align="middle" style={middleArea}>
                 <Row justify="space-around" style={LowerArea} align="middle">
                     
-                    <Link href="www.google.com">
+                    <Link href="https://www.google.com">
                         <img src="../apple_music.svg" width="50px"/>
                     </Link>
                     <Link href="www.google.com">
