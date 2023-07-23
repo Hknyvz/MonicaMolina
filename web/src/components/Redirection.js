@@ -55,16 +55,23 @@ function Redirection({data}) {
         <Row justify="space-around" align="middle" style={container}>        
             <Row justify="space-around" align="middle" style={middleArea}>
                 <Row justify="space-around" style={LowerArea} align="middle">
-                    
+                    {data.ItunesLink === undefined ? "" :
                     <Link href={data.ItunesLink}>
                         <img src="../apple_music.svg" width="50px"/>
                     </Link>
+                    }
+                    {data.SpotifyLink === undefined ? "" 
+                    :  
                     <Link href={data.SpotifyLink}>
                         <img src="../spotify.svg" width="50px"/>
-                    </Link>            
+                    </Link>           
+                    }
+                     {data.YoutubeLink === undefined ? ""
+                    :  
                     <Link href={data.YoutubeLink}>
                         <img src="../youtube.svg" width="50px"/>
-                    </Link>
+                    </Link>     
+                    }
                 </Row>
             </Row>
         </Row>

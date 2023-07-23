@@ -4,6 +4,7 @@ import { useRef, useEffect } from "react";
 import Link from "next/link";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 
+
 const slideStyles = {
   width: "100%",
   height: "100%",
@@ -12,7 +13,7 @@ const slideStyles = {
   backgroundPosition: "center",
 };
 
-function MainCarousel({ data }) {
+function MainCarousel({ data,status }) {
   useEffect(() => {
     window.addEventListener("resize", () => {
       window.location.reload();
@@ -41,11 +42,15 @@ function MainCarousel({ data }) {
       <Carousel style={carouselStyle} autoplay>
         {data.map((item) => (
           <div>
-            <Link
+            {item.HaveDetail ? <Link
               href={`${process.env.NEXT_PUBLIC_WEPPATH_URL}/home/${item._id}`}
             >
               <img style={imageStyles} src={imageUrlBuilder(item.ImageUrl)} />
-            </Link>
+            </Link> : 
+
+            <img style={imageStyles} src={imageUrlBuilder(item.ImageUrl)} />
+          }
+            
           </div>
         ))}
       </Carousel>
