@@ -1,54 +1,133 @@
-import React from 'react'
+import React , { useEffect, useState } from 'react';
 import { Col, Row } from 'antd';
 import { Typography} from 'antd';
-import MusicGallery from 'src/components/MusicGallery.js'
-import { List } from 'antd';
+import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
+import { Image } from 'antd';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { Divider, List, Skeleton } from 'antd';
+import EditorRead from "./shared/EditorRead";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
 const titleStyle = {
-    fontFamily: "Raleway",
-    fontSize: 52,
-    fontWeight: 300,  
+    fontFamily: "Montserrat",
+    fontSize: 28,
+    fontWeight: 500,
+    paddingTop: 20, 
 };
 const textStyle = {
-    fontFamily: "Raleway",
-    fontWeight: 300,
-    fontSize: 18,
-    color: "grey",
+    fontFamily: "Montserrat",
+    fontWeight: 500,
+    fontSize: 24,
+    paddingTop: 20, 
+
   };
 
 const bodyStyle = {
-    paddingTop: 110
+    paddingTop: 110,
+}
+const MainRow = {
+  marginLeft:"5%",
+  marginRight: "%5",
+  paddingBottom: 30
 }
 
 
-const VideoList = [
-    {Embed:"https://www.youtube.com/embed/kJxuPL0EEPA"},
-    {Embed:"https://www.youtube.com/embed/N9U-vFMNPvw"},
-    {Embed:"https://www.youtube.com/embed/5b6bxMyiXyw"},
-    {Embed:"https://www.youtube.com/embed/_4gmrs_5ncU"},
-    {Embed:"https://www.youtube.com/embed/nY4wtUayQJ0"},
-    {Embed:"https://www.youtube.com/embed/ksFlSvO9yS8"},
-    {Embed:"https://www.youtube.com/embed/yl5tSno_hWI"},
-    {Embed:"https://www.youtube.com/embed/I9LxKbIXoBQ"},
-    {Embed:"https://www.youtube.com/embed/7U0vGos0Mds"},
-  
-  ]
 function News() {
+  
+  const [bigNews, setBigNews] = useState({Title:"",Text:"",ImageUrl:""});
+
+  const [isFirst, setIsFirst ] = useState(true);
+
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const loadMoreData = () => {
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+    fetch(`${process.env.NEXT_PUBLIC_WEPPATH_URL}/api/news`)
+      .then((res) => res.json())
+      .then((body) => {
+        setData([...data, ...body]);
+        if(isFirst)
+        { console.log("girdi");
+          setBigNews({Title:body[0].Title,Text:body[0].Text,ImageUrl:body[0].ImageUrl});
+        }
+        setLoading(false);
+        setIsFirst(false);
+      })
+      .catch(() => {
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    loadMoreData();
+  }, []);
+
+const newsChoice = (data) => {
+  setBigNews({Title:data.Title,Text:data.Text,ImageUrl:data.ImageUrl});
+}
+
   return (
-    <div width="100%">
-        <Row justify="space-evenly" style={bodyStyle}>
-            <Title level={1} style={titleStyle}>Feature News</Title>
+
+    <div width="100%" style={bodyStyle}>
+        <Row justify="space-around" style={MainRow} gutter={[12, 8]}>
+          <Col span={11}>
+                <Image src={imageUrlBuilder(bigNews.ImageUrl)} height="390px" width="848px" />
+                <Title style={titleStyle} >{bigNews.Title}</Title>
+                <Paragraph>
+                  <EditorRead text={bigNews.Text}/>
+                </Paragraph>
+          </Col>      
+          <Col span={11}>
+            <div id="scrollableDiv" style={{ height: 400, overflow: 'auto', marginRight: 50,}}>
+              <InfiniteScroll
+                dataLength={data.length}
+                next={loadMoreData}
+                hasMore={data.length < 2}
+                loader={
+                  <Skeleton
+                    avatar
+                    paragraph={{
+                      rows: 1,
+                    }}
+                    active
+                  />
+                }
+                endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
+                scrollableTarget="scrollableDiv"
+              >
+                <List
+                  dataSource={data}
+                  renderItem={(item) => (
+                    <List.Item key={item._id}>
+                      <Link onClick={() => newsChoice(item)}>
+                        <Row style={{ margin: 5, backgroundColor:"white"}}>
+                          <Col span={6}>                  
+                            <Image src={imageUrlBuilder(item.ImageUrl)} height="190px" width="190px" preview={false} style={{padding: 20}}/>
+                          </Col>
+                          <Col span={16}>
+                            <Row>
+                              <Title style={textStyle} >{item.Title}</Title>
+                            </Row>
+                            <Row>
+                              <Paragraph ellipsis={{rows: 3,}} height="100px"><EditorRead text={item.Text}/></Paragraph>
+                            </Row>
+                            <Row>
+                              <Paragraph style={{color:"red"}} >Read More</Paragraph>
+                            </Row>
+                          </Col>
+                        </Row>
+                      </Link>
+                    </List.Item>
+                  )}
+                />
+              </InfiniteScroll>
+            </div>
+          </Col>
         </Row>
-        <Row justify="space-evenly" style={{paddingBottom: 35}}>
-            <Paragraph style={textStyle}>Music can change lives. Whether you are having a good or bad day, the power of music can change one’s mood.</Paragraph>
-        </Row>
-        <List itemLayout="vertical" size="large" pagination={{ positin:"bottom", align: "center", pageSize: 1}} grid={{ gutter: 18 ,column: 1 }}  dataSource={VideoList} renderItem={(item) => (
-            <List.Item>                
-                <MusicGallery/>         
-            </List.Item>           
-          )}/>  
+
         
     </div>
   )
