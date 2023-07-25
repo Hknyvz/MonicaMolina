@@ -37,7 +37,7 @@ function CarouselTable({ data }) {
   const [updateData, setUpdateData] = useState();
   const [tableData, setTableData] = useState(data);
   const client = createClient();
-  const apiUrl = "/home/carousel?admin=true";
+  const apiUrl = "/home/carousel";
   const detailApiUrl = "/home/carousel-detail";
   const detailStatusApiUrl = "/home/carousel-status";
   const notification = useContext(NotificationContext);
@@ -231,7 +231,7 @@ function CarouselTable({ data }) {
               icon: <DeleteOutlined />,
               title: (
                 <Popconfirm
-                  title={`Delete "${record.name}"`}
+                  title={`Delete`}
                   description={`Are you sure to delete this Carousel?`}
                   icon={<QuestionCircleOutlined style={{ color: "red" }} />}
                   placement="left"
@@ -257,7 +257,7 @@ function CarouselTable({ data }) {
   };
 
   const refreshData = async () => {
-    const res = await client.get(apiUrl);
+    const res = await client.get(`${apiUrl}?admin=true`);
     setTableData(res.data);
   };
 
