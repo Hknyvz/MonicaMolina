@@ -15,14 +15,11 @@ function GalleryPhotoTable({ data }) {
   const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
   const [updateData, setUpdateData] = useState();
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState(data);
   const client = createClient();
   const notification = useContext(NotificationContext);
   const apiUrl = "/gallery/photo";
 
-  useEffect(() => {
-    setTableData(data);
-  }, [data]);
   const columns = [
     {
       title: "Order",
@@ -120,7 +117,7 @@ function GalleryPhotoTable({ data }) {
           ></Table>
         </FullSpace>
       </TableContainer>
-      {isOpenCreateModal ? (
+      {isOpenCreateModal && (
         <GalleryPhotoCreateModal
           visible={isOpenCreateModal}
           onOk={async (data) => {
@@ -139,7 +136,7 @@ function GalleryPhotoTable({ data }) {
             setIsOpenCreateModal(false);
           }}
         />
-      ) : null}
+      )}
       {updateData && (
         <GalleryPhotoUpdateModal
           record={updateData}

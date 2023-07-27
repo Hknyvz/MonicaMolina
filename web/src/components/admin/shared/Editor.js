@@ -1,12 +1,12 @@
 import React from "react";
 
 import { QuillEditor } from "./Editor.styled";
-import EditorToolbar, { formats, modules } from "./EditorToolbar";
+import QuillToolbar, { formats, modules } from "./EditorToolbar";
 
 function Editor({ onChange, value }) {
   return (
     <div>
-      <EditorToolbar />
+      <QuillToolbar />
       <QuillEditor
         theme="snow"
         value={value}
