@@ -74,7 +74,7 @@ const newsChoice = (data) => {
     <div width="100%" style={bodyStyle}>
         <Row justify="start" style={MainRow} gutter={[12, 8]}>
           <Col flex="55%">
-                <Image src={imageUrlBuilder(bigNews.ImageUrl)} height="390px" width="100%" /> 
+                <Image src={imageUrlBuilder(bigNews.ImageUrl)} height="390px" width="100%" style={{objectFit: "cover"}}/> 
                 {/* 848px */}
                 <Title style={titleStyle} >{bigNews.Title}</Title>
                 <Paragraph>
@@ -96,7 +96,7 @@ const newsChoice = (data) => {
                     active
                   />
                 }
-                endMessage={<Divider plain>It is all, nothing more 🤐</Divider>}
+                endMessage={<Divider plain>End of the news</Divider>}
                 scrollableTarget="scrollableDiv"
               >
                 <List
@@ -106,7 +106,7 @@ const newsChoice = (data) => {
                       <Link onClick={() => newsChoice(item)}>
                         <Row style={{ margin: 5, backgroundColor:"white"}}>
                           <Col flex="0 1 200px">                  
-                            <Image src={imageUrlBuilder(item.ImageUrl)} height="190px" width="190px" preview={false} style={{padding: 20}}/>
+                            <Image src={imageUrlBuilder(item.ImageUrl)} height="190px" width="190px" preview={false} style={{padding: 20,objectFit: "cover"}}/>
                           </Col>
                           <Col flex="1 1 100px">
                             <Row>
