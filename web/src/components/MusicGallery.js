@@ -28,16 +28,12 @@ const MainRow = {
   marginRight: "%5"
 }
 
-function MusicGallery({emdedCode1, emdedCode2, emdedCode3, emdedCode4}) {
+function MusicGallery({title,text,ImageUrl}) {
   return (
     <div>
         <Row justify="space-between" style={MainRow}>
           
-            <Col span={8}>
-              <Image src={"test"} height="390px" width="848px" />
-              <Title style={titleStyle} >News Title</Title>
-              <Paragraph>Music can change lives. Whether you are having a good or bad day, the power of music can change one’s mood.Music can change lives. Whether you are having a good or bad day, the power of music can change one’s mood.Music can change lives. Whether you are having a good or bad day, the power of music can change one’s mood.Music can change lives. Whether you are having a good or bad day, the power of music can change one’s mood.</Paragraph>
-            </Col>
+            
             <Col span={10}>
               <Link href="www.google.com">
                   <Row style={{paddingBottom: 5}}>

@@ -15,7 +15,7 @@ const titleStyle = {
 };
 
 const bodyStyle = {
-    paddingTop: 110
+    paddingTop: 80
 }
 
 const LowerArea = {
@@ -26,7 +26,7 @@ const LowerArea = {
     boxShadow: "0px 0px 2px 0px rgb(200, 200, 200)",
 }
 const middleArea = {
-    marginTop: 40,
+    marginTop: 10,
     paddingBottom: 50,
     padding:20,
     backgroundColor: "white",

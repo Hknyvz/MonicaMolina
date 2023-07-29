@@ -61,9 +61,9 @@ function Header() {
               <Menu.Item key="gallery" style={itemStyle}>
                 <Link href="/gallery">Gallery</Link>
               </Menu.Item>
-              <Menu.Item key="concerts" style={itemStyle}>
+              {/* <Menu.Item key="concerts" style={itemStyle}>
                 <Link href="/concerts">Concerts</Link>
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item key="contact" style={itemStyle}>
                 <Link href="/contact">Contact</Link>
               </Menu.Item>
