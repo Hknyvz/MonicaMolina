@@ -72,15 +72,16 @@ const newsChoice = (data) => {
   return (
 
     <div width="100%" style={bodyStyle}>
-        <Row justify="space-around" style={MainRow} gutter={[12, 8]}>
-          <Col span={11}>
-                <Image src={imageUrlBuilder(bigNews.ImageUrl)} height="390px" width="848px" />
+        <Row justify="start" style={MainRow} gutter={[12, 8]}>
+          <Col flex="1 1 300px">
+                <Image src={imageUrlBuilder(bigNews.ImageUrl)} height="390px" width="848px" /> 
+                {/* 848px */}
                 <Title style={titleStyle} >{bigNews.Title}</Title>
                 <Paragraph>
                   <EditorRead text={bigNews.Text}/>
                 </Paragraph>
           </Col>      
-          <Col span={11}>
+          <Col flex="1 1 300px">
             <div id="scrollableDiv" style={{ height: 400, overflow: 'auto', marginRight: 50,}}>
               <InfiniteScroll
                 dataLength={data.length}
@@ -104,15 +105,15 @@ const newsChoice = (data) => {
                     <List.Item key={item._id}>
                       <Link onClick={() => newsChoice(item)}>
                         <Row style={{ margin: 5, backgroundColor:"white"}}>
-                          <Col span={6}>                  
+                          <Col flex="0 1 200px">                  
                             <Image src={imageUrlBuilder(item.ImageUrl)} height="190px" width="190px" preview={false} style={{padding: 20}}/>
                           </Col>
-                          <Col span={16}>
+                          <Col flex="1 1 100px">
                             <Row>
                               <Title style={textStyle} >{item.Title}</Title>
                             </Row>
                             <Row>
-                              <Paragraph ellipsis={{rows: 3,}} height="100px"><EditorRead text={item.Text}/></Paragraph>
+                              <Paragraph ellipsis={{rows: 3,}} height="100%"><EditorRead text={item.Text}/></Paragraph>
                             </Row>
                             <Row>
                               <Paragraph style={{color:"red"}} >Read More</Paragraph>
