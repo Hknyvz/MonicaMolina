@@ -1,5 +1,5 @@
 import { Form, Input, Modal } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FullSpace,
   RequiredFormLabel,
@@ -16,8 +16,12 @@ function NewsUpdateModal({ visible, record, onCancel, onOk }) {
   const [cropImage, setCropImage] = useState();
   const [loading, setLoading] = useState(false);
   const [visibleEditorError, setVisibleEditorError] = useState(false);
-  const [text, setText] = useState(record?.Text);
+  const [text, setText] = useState();
+  useEffect(() => {
+    setText(record?.Text);
+  }, [record]);
 
+  console.log(record);
   const [form] = Form.useForm();
 
   const handleOk = async () => {
@@ -36,6 +40,7 @@ function NewsUpdateModal({ visible, record, onCancel, onOk }) {
       return;
     }
     values.ImageUrl = cropImage;
+    values.Text = text;
     setLoading(true);
     console.log(values);
     await onOk(values);
@@ -82,9 +87,9 @@ function NewsUpdateModal({ visible, record, onCancel, onOk }) {
           <FullSpace direction="vertical">
             <RequiredFormLabel>News Photo</RequiredFormLabel>
             <Editor value={text} onChange={setText} />
-            {/* {visibleEditorError && (
+            {visibleEditorError && (
               <span style={{ color: "#ff4d4f" }}>News Text is required</span>
-            )} */}
+            )}
           </FullSpace>
         </Form>
       </Modal>

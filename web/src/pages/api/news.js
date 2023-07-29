@@ -59,8 +59,9 @@ const update = async (data) => {
     deleteImage(data._id, directory);
     await saveImage(data.ImageUrl, data._id, directory);
   }
+  console.log(data);
   const model = { Title: data.Title, Text: data.Text };
-  let updatedEntry = await DiscographyModel.findByIdAndUpdate(data._id, model, {
+  let updatedEntry = await NewsModel.findByIdAndUpdate(data._id, model, {
     new: true,
   });
   const res = { message: "Updated successful", data: updatedEntry };

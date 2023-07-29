@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   FullSpace,
   TableContainer,
@@ -155,22 +155,24 @@ function NewsTable({ data }) {
             if (res.status === 201) {
               setIsOpenCreateModal(false);
               notification.success({ message: "Successful" });
-              refreshData();
+              await refreshPage();
             }
           } catch (error) {
             notification.success({ message: error.toString() });
           }
         }}
-        onCancel={() => {
+        onCancel={async () => {
           setIsOpenCreateModal(false);
+          await refreshPage();
         }}
       />
       <NewsUpdateModal
         record={updateData}
         visible={isOpenUpdateModal}
-        onCancel={() => {
+        onCancel={async () => {
           setIsOpenUpdateModal(false);
           setUpdateData(undefined);
+          await refreshPage();
         }}
         onOk={async (data) => {
           try {
