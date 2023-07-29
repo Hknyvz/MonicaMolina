@@ -25,7 +25,7 @@ function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
   );
 }
 
-export default function CropContainer({ cropImage, aspect, fullImage }) {
+export default function CropContainer({ cropImage, aspect, fullImage, time }) {
   const previewCanvasRef = useRef(null);
   const imgRef = useRef(null);
   const uploadRef = useRef();
@@ -34,6 +34,11 @@ export default function CropContainer({ cropImage, aspect, fullImage }) {
   const [selectedImage, setSelectedImage] = useState(undefined);
   const [fileList, setFileList] = useState([]);
   const [sizeError, setSizeError] = useState(false);
+
+  useEffect(() => {
+    setFileList([]);
+    setSelectedImage(undefined);
+  }, [time]);
 
   function onImageLoad(e) {
     const { width, height } = e.currentTarget;

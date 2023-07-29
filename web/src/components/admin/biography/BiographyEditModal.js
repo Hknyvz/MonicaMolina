@@ -5,7 +5,7 @@ import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-const Editor = dynamic(import("./Editor"), {
+const Editor = dynamic(import("@/components/admin/shared/Editor"), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
 });
@@ -77,11 +77,8 @@ function BiographyEditModal({ visible, record, onCancel, onOk }) {
           name="Text"
           rules={[{ required: true, message: "Biography text is required" }]}
         >
-          {/* <Input.TextArea name="Text" style={{ minHeight: 250 }} /> */}
           <Editor value={text} onChange={(p) => setText(p)} />
         </Form.Item>
-        {/* <div> */}
-        {/* </div> */}
       </Form>
     </Modal>
   );

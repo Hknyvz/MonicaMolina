@@ -15,11 +15,11 @@ const QuillEditor = styled(Quill)`
   }
   .ql-editor {
     font-family: "Poppins";
+    min-height: 100px;
   }
 `;
 
 const ToolbarContainer = styled.div`
-  position: sticky;
   top: 0;
   z-index: 100;
 `;
