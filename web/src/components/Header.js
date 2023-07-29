@@ -13,6 +13,9 @@ const headerBackground = {
   width: "100%",
   boxShadow: "0px 25px 20px rgba(0, 0, 0, 0.50)",
   zIndex: 1,
+  paddingLeft:"5%",
+  paddingRight:"5%"
+
 };
 
 const titleStyle = {
@@ -44,7 +47,7 @@ function Header() {
               <Link href="/home" style={{color:"black"}}>MÓNICA MOLINA</Link>
             </Title>
           </Col>
-          <Col span={9}>
+          <Col flex="auto" style={{paddingRight:"5%",paddingLeft:"15%"}}>
             <Menu mode="horizontal" style={textStyle}>
               <Menu.Item key="home" style={itemStyle}>
                 <Link href="/home">Home</Link>
@@ -69,7 +72,7 @@ function Header() {
               </Menu.Item>
             </Menu>
           </Col>
-          <Col>
+          <Col flex="auto">
             <Title style={textStyle}>EN-ES</Title>
           </Col>
         </Row>
