@@ -14,7 +14,8 @@ const headerBackground = {
   boxShadow: "0px 25px 20px rgba(0, 0, 0, 0.50)",
   zIndex: 1,
   paddingLeft:"5%",
-  paddingRight:"5%"
+  paddingRight:"5%",
+  position:"relative"
 
 };
 

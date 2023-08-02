@@ -19,27 +19,35 @@ const bodyStyle = {
 }
 
 const LowerArea = {
-    padding:20,
+    padding:15,
     backgroundColor: "rgb(240, 240, 240)",
-    width: 400,
-    bottom: 0,
+    width: 300,
     boxShadow: "0px 0px 2px 0px rgb(200, 200, 200)",
 }
 const middleArea = {
     marginTop: 10,
     paddingBottom: 50,
-    padding:20,
+    padding:15,
     backgroundColor: "white",
-    width: 400,
-    bottom: 0,
+    width: 300,
 }
 
 const container = {
-    height:"100%"
+    // borderStyle: "dotted",
+    position: "absolute",
+    bottom: "0px",
+    width:"100%",
+
 }
 
 const divStyle = {
     background: "linear-gradient(90deg, rgba(230,230,230,1) 0%, rgba(255,255,255,1) 100%)",
+    top:"0px",
+    bottom:"0px",
+    zIndex: 0,
+    position: "absolute",
+    width:"100%",
+    paddingTop:80,
 
 }
 
@@ -57,19 +65,19 @@ function Redirection({data}) {
                 <Row justify="space-around" style={LowerArea} align="middle">
                     {data.ItunesLink === undefined ? "" :
                     <Link href={data.ItunesLink}>
-                        <img src="../apple_music.svg" width="50px"/>
+                        <img src="../apple_music.svg" width="30px"/>
                     </Link>
                     }
                     {data.SpotifyLink === undefined ? "" 
                     :  
                     <Link href={data.SpotifyLink}>
-                        <img src="../spotify.svg" width="50px"/>
+                        <img src="../spotify.svg" width="30px"/>
                     </Link>           
                     }
                      {data.YoutubeLink === undefined ? ""
                     :  
                     <Link href={data.YoutubeLink}>
-                        <img src="../youtube.svg" width="50px"/>
+                        <img src="../youtube.svg" width="30px"/>
                     </Link>     
                     }
                 </Row>
