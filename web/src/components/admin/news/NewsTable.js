@@ -149,9 +149,7 @@ function NewsTable({ data }) {
         visible={isOpenCreateModal}
         onOk={async (data) => {
           try {
-            console.log(data);
             const res = await client.post(apiUrl, data);
-            console.log(res);
             if (res.status === 201) {
               setIsOpenCreateModal(false);
               notification.success({ message: "Successful" });

@@ -36,7 +36,7 @@ const items = [
     getItem("Photo", "/admin/gallery/photo", <FileImageOutlined />),
     getItem("Video", "/admin/gallery/video", <VideoCameraOutlined />),
   ]),
-  getItem("Concert", "/admin/concert", <CalendarOutlined />),
+  // getItem("Concert", "/admin/concert", <CalendarOutlined />),
 ];
 
 export default function SideBar({ collapsed }) {

@@ -56,12 +56,10 @@ const update = async (data) => {
       directory
     );
   }
-  console.log(data._id, model);
 
   let updatedEntry = await CarouselModel.findByIdAndUpdate(data._id, model, {
     new: true,
   });
-  console.log(updatedEntry);
   const res = { message: "Updated successful", data: updatedEntry };
   return res;
 };
