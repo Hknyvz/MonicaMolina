@@ -76,7 +76,7 @@ const newsChoice = (data) => {
     <div width="100%" style={bodyStyle}>
         <Row justify="start" style={MainRow} gutter={[12, 8]}>
           <Col flex="55%">
-                <Image src={imageUrlBuilder(bigNews.ImageUrl)} height="390px" width="100%" style={{objectFit: "cover"}}/> 
+                <Image src={imageUrlBuilder(bigNews.ImageUrl)} height="400px" width="100%" style={{objectFit: "cover"}}/> 
                 {/* 848px */}
                 <Title style={titleStyle} >{bigNews.Title}</Title>
                 <Paragraph style={{overflow: "auto", height:220}}>

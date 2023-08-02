@@ -5,7 +5,7 @@ import { createClient } from "@/pages/api/client";
 
 function index({data}) {
   return (
-    <div style={{    background: "linear-gradient(180deg, rgba(240,240,240,1) 0%, rgba(255,255,255,1) 100%)"  }}>
+    <div>
       <News data={data} />
     </div>
   )
