@@ -26,7 +26,7 @@ const textStyle = {
 };
 
 
-function AlbumCard({coverImage, title, date}) {
+function AlbumCard({coverImage, title, date,ItunesLink,SpotifyLink,YoutubeLink}) {
 
     const [x,setX] = useState(0);
 
@@ -55,6 +55,10 @@ function AlbumCard({coverImage, title, date}) {
         marginLeft: x,
 
     }
+    const links = {
+        backgroundColor:'hsl(11, 0%, 100%, 0.5)',
+        paddingTop: 5
+    }
 
   return (
 
@@ -63,6 +67,27 @@ function AlbumCard({coverImage, title, date}) {
             <Row justify="space-evenly">
                 <div style={cover}>
                     <img src={coverImage} width="100%" height="100%" />
+                    <div style={{position: "absolute", bottom: "0px", width:"100%",}}>
+                    <Row justify="space-around" style={links} align="middle">
+                        {ItunesLink === null ? "" :
+                        <Link href={ItunesLink}>
+                            <img src="../apple_musicBlack.svg" width="30px"/>
+                        </Link>
+                        }
+                        {SpotifyLink === null ? "" 
+                        :  
+                        <Link href={SpotifyLink}>
+                            <img src="../spotifyBlack.svg" width="30px"/>
+                        </Link>           
+                        }
+                        {YoutubeLink === null ? ""
+                        :  
+                        <Link href={YoutubeLink}>
+                            <img src="../youtubeBlack.svg" width="30px"/>
+                        </Link>     
+                        }
+                     </Row>
+                    </div>                    
                 </div>
                 <div style={disc}>
                     <img src={"images/disc.png"} width="100%" height="100%"/> 

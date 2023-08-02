@@ -33,7 +33,7 @@ function Disco({data}) {
         </Row>
         <Row justify="space-evenly" style={bodyStyle}>
             {data.map((item) => 
-            <AlbumCard coverImage={imageUrlBuilder(item.ImageUrl)} title={item.Name} date={item.Year}/>
+            <AlbumCard coverImage={imageUrlBuilder(item.ImageUrl)} title={item.Name} date={item.Year} ItunesLink={item.ItunesLink} SpotifyLink={item.SpotifyLink} YoutubeLink={item.YoutubeLink} />
             )}            
         </Row>
     </div>
