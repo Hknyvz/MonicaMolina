@@ -48,8 +48,8 @@ const BiographyContainer = ({ data }) => {
             <Image
               src={imageUrlBuilder(data.ImageUrl)}
               alt="Biography photo"
-              width={"600"}
-              height={"1066"}
+              width={"400"}
+              height={"500"}
               unoptimized
             />
           </div>

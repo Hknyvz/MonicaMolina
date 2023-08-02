@@ -25,11 +25,13 @@ const textStyle = {
 
 const bodyStyle = {
     paddingTop: 110,
+    height: "100%"
 }
 const MainRow = {
   marginLeft:"5%",
   marginRight: "%5",
-  paddingBottom: 30
+  paddingBottom: 30,
+  height: "100%"
 }
 
 
@@ -77,7 +79,7 @@ const newsChoice = (data) => {
                 <Image src={imageUrlBuilder(bigNews.ImageUrl)} height="390px" width="100%" style={{objectFit: "cover"}}/> 
                 {/* 848px */}
                 <Title style={titleStyle} >{bigNews.Title}</Title>
-                <Paragraph>
+                <Paragraph style={{overflow: "auto", height:220}}>
                   <EditorRead text={bigNews.Text}/>
                 </Paragraph>
           </Col>      
@@ -98,11 +100,12 @@ const newsChoice = (data) => {
                 }
                 endMessage={<Divider plain>End of the news</Divider>}
                 scrollableTarget="scrollableDiv"
+                style={{backgroundColor:'white'}}
               >
                 <List
                   dataSource={data}
                   renderItem={(item) => (
-                    <List.Item key={item._id}>
+                    <List.Item key={item._id} >
                       <Link onClick={() => newsChoice(item)}>
                         <Row style={{ margin: 5, backgroundColor:"white"}}>
                           <Col flex="0 1 200px">                  
@@ -116,7 +119,7 @@ const newsChoice = (data) => {
                               <Paragraph ellipsis={{rows: 3,}} height="100%"><EditorRead text={item.Text}/></Paragraph>
                             </Row>
                             <Row>
-                              <Paragraph style={{color:"red"}} >Read More</Paragraph>
+                              <Paragraph style={{color:"red"}}>Read More</Paragraph>
                             </Row>
                           </Col>
                         </Row>

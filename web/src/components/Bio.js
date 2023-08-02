@@ -9,8 +9,9 @@ const { Title, Paragraph, Text, Link } = Typography;
 const textStyle = {
   fontFamily: "Raleway",
   fontWeight: 500,
-  height: "100%",
+  height: 400,
   paddingLeft: "20%",
+  overflow: "auto"
 };
 
 const titleStyle = {
@@ -29,18 +30,22 @@ const mainDivStyle = {
 const rightColStyle = {
   paddingTop: "5px",
   width: "60%",
+  position: "relative"
 };
 function Bio({ data }) {
   return (
     <div style={mainDivStyle}>
       <Row>
-        <Col flex="40%">
-          <img
+        <Col flex="40%" style={{ paddingTop:"50%"}}>
+          <div style={{position: "absolute", bottom: "0px", width:"100%",}}>
+            <img
             height="auto"
             width="100%"
             style={{ objectFit: "cover" }}
             src={imageUrlBuilder(data.ImageUrl)}
           />
+          </div>
+          
         </Col>
         <Col flex="auto" style={rightColStyle}>
           <Row>
