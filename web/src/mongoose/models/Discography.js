@@ -18,6 +18,18 @@ const DiscographySchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    SpotifyLink: {
+      type: String,
+      required: false,
+    },
+    YoutubeLink: {
+      type: String,
+      required: false,
+    },
+    ItunesLink: {
+      type: String,
+      required: false,
+    },
   },
   { timestamps: true }
 );

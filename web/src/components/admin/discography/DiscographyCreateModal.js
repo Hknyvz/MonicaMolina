@@ -2,6 +2,8 @@ import { Form, Input, Modal } from "antd";
 import React, { useState } from "react";
 import CropContainer from "../shared/CropContainer";
 import { FullSpace, RequiredFormLabel } from "../shared/StyledComponent";
+import { SiItunes } from "react-icons/si";
+import { SlSocialSpotify, SlSocialYoutube } from "react-icons/sl";
 
 function DiscographyCreateModal({ onOk, onCancel, visible }) {
   const [cropImage, setCropImage] = useState();
@@ -70,6 +72,30 @@ function DiscographyCreateModal({ onOk, onCancel, visible }) {
               <span style={{ color: "#ff4d4f" }}>Image is required</span>
             ) : null}
           </FullSpace>
+          <Form.Item label="Youtube Link" name="YoutubeLink">
+            <Input
+              id="YoutubeLink"
+              name="YoutubeLink"
+              placeholder="https://www.youtube.com"
+              prefix={<SlSocialYoutube />}
+            />
+          </Form.Item>
+          <Form.Item label="Spotify Link" name="SpotifyLink">
+            <Input
+              id="SpotifyLink"
+              name="SpotifyLink"
+              placeholder="https://www.spotify.com"
+              prefix={<SlSocialSpotify />}
+            />
+          </Form.Item>
+          <Form.Item label="Itunes Link" name="ItunesLink">
+            <Input
+              id="ItunesLink"
+              name="ItunesLink"
+              placeholder="https://www.itunes.com"
+              prefix={<SiItunes />}
+            />
+          </Form.Item>
         </Form>
       </Modal>
     </>
