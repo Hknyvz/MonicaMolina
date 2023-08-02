@@ -35,6 +35,13 @@ const TableCell = styled.span`
   width: 100px;
 `;
 
+const TableLabelContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  font-weight: 600;
+`;
+
 export {
   FullSpace,
   TableContainer,
@@ -42,4 +49,5 @@ export {
   RequiredFormLabel,
   FormLabel,
   TableCell,
+  TableLabelContainer,
 };

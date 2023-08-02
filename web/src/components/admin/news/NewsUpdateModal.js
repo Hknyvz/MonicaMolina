@@ -21,7 +21,6 @@ function NewsUpdateModal({ visible, record, onCancel, onOk }) {
     setText(record?.Text);
   }, [record]);
 
-  console.log(record);
   const [form] = Form.useForm();
 
   const handleOk = async () => {
@@ -42,7 +41,6 @@ function NewsUpdateModal({ visible, record, onCancel, onOk }) {
     values.ImageUrl = cropImage;
     values.Text = text;
     setLoading(true);
-    console.log(values);
     await onOk(values);
     setLoading(false);
     form.resetFields();

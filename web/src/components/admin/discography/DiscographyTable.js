@@ -10,6 +10,11 @@ import { createClient } from "@/pages/api/client";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 import DiscographyUpdateModal from "./DiscographyUpdateModal";
 import { NotificationContext } from "../shared/NotificationContext";
+import TableLabel from "../shared/TableLabel";
+import Link from "next/link";
+import LinkUpdateModal from "../shared/LinkUpdateModal";
+import { SiItunes } from "react-icons/si";
+import { SlSocialSpotify, SlSocialYoutube } from "react-icons/sl";
 
 function DiscographyTable({ data }) {
   const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
@@ -18,6 +23,14 @@ function DiscographyTable({ data }) {
   const [tableData, setTableData] = useState([]);
   const client = createClient();
   const notification = useContext(NotificationContext);
+  const [isOpenUpdateYoutubeModal, setIsOpenUpdateYoutubeModal] =
+    useState(false);
+  const [isOpenUpdateSpotifyModal, setIsOpenUpdateSpotifyModal] =
+    useState(false);
+  const [isOpenUpdateITunesModal, setIsOpenUpdateITunesModal] = useState(false);
+  const [iconUpdateLinkModal, setIconUpdateLinkModal] = useState();
+  const [titleUpdateLinkModal, setTitleUpdateLinkModal] = useState();
+  const [linkUpdateLinkModal, setLinkUpdateLinkModal] = useState();
 
   const apiUrl = "/discography";
 
@@ -48,6 +61,66 @@ function DiscographyTable({ data }) {
       title: "Year",
       dataIndex: "Year",
       key: "Year",
+      render: (item) => <TableLabel>{item}</TableLabel>,
+      width: 100,
+    },
+    {
+      title: "Links",
+      width: 500,
+      render: (data) => (
+        <>
+          <FullSpace style={{ justifyContent: "center" }} size={(0, 20)}>
+            {data.YoutubeLink && (
+              <Link
+                href=""
+                onClick={() => {
+                  setIsOpenUpdateYoutubeModal(true);
+                  setTitleUpdateLinkModal("Youtube Link");
+                  setIconUpdateLinkModal(<SlSocialYoutube />);
+                  setLinkUpdateLinkModal({
+                    _id: data._id,
+                    Link: data.YoutubeLink,
+                  });
+                }}
+              >
+                <img src="/youtube.svg" width={75} />
+              </Link>
+            )}
+            {data.ItunesLink && (
+              <Link
+                href=""
+                onClick={() => {
+                  setIsOpenUpdateITunesModal(true);
+                  setTitleUpdateLinkModal("Itunes Link");
+                  setIconUpdateLinkModal(<SiItunes />);
+                  setLinkUpdateLinkModal({
+                    _id: data._id,
+                    Link: data.ItunesLink,
+                  });
+                }}
+              >
+                <img src="/apple_music.svg" width={75} />
+              </Link>
+            )}
+            {data.SpotifyLink && (
+              <Link
+                href=""
+                onClick={() => {
+                  setIsOpenUpdateSpotifyModal(true);
+                  setTitleUpdateLinkModal("Spotify Link");
+                  setIconUpdateLinkModal(<SlSocialSpotify />);
+                  setLinkUpdateLinkModal({
+                    _id: data._id,
+                    Link: data.SpotifyLink,
+                  });
+                }}
+              >
+                <img src="/spotify.svg" width={75} />
+              </Link>
+            )}
+          </FullSpace>
+        </>
+      ),
     },
     {
       title: "Operation",
@@ -91,6 +164,13 @@ function DiscographyTable({ data }) {
   const refreshData = async () => {
     const res = await client.get(apiUrl);
     setTableData(res.data);
+  };
+
+  const resetLinkModal = (setVisible) => {
+    setVisible(false);
+    setIconUpdateLinkModal("");
+    setLinkUpdateLinkModal("");
+    setTitleUpdateLinkModal("");
   };
 
   return (
@@ -161,6 +241,82 @@ function DiscographyTable({ data }) {
             }
           }}
         />
+      )}
+      {linkUpdateLinkModal && (
+        <>
+          <LinkUpdateModal
+            onOk={async (data) => {
+              try {
+                const res = await client.put(apiUrl, {
+                  _id: data._id,
+                  YoutubeLink: data.Link,
+                });
+                if (res.status === 200) {
+                  await refreshData();
+                  resetLinkModal(setIsOpenUpdateYoutubeModal);
+                  notification.success({ message: "Successful" });
+                }
+              } catch (error) {
+                notification.error({ message: error.toString() });
+              }
+            }}
+            onCancel={() => {
+              resetLinkModal(setIsOpenUpdateYoutubeModal);
+            }}
+            record={linkUpdateLinkModal}
+            icon={iconUpdateLinkModal}
+            title={titleUpdateLinkModal}
+            visible={isOpenUpdateYoutubeModal}
+          />
+          <LinkUpdateModal
+            onOk={async (data) => {
+              try {
+                const res = await client.put(apiUrl, {
+                  _id: data._id,
+                  SpotifyLink: data.Link,
+                });
+                if (res.status === 200) {
+                  await refreshData();
+                  resetLinkModal(setIsOpenUpdateSpotifyModal);
+                  notification.success({ message: "Successful" });
+                }
+              } catch (error) {
+                notification.error({ message: error.toString() });
+              }
+            }}
+            onCancel={() => {
+              resetLinkModal(setIsOpenUpdateSpotifyModal);
+            }}
+            record={linkUpdateLinkModal}
+            icon={iconUpdateLinkModal}
+            title={titleUpdateLinkModal}
+            visible={isOpenUpdateSpotifyModal}
+          />
+          <LinkUpdateModal
+            onOk={async (data) => {
+              try {
+                const res = await client.put(apiUrl, {
+                  _id: data._id,
+                  ItunesLink: data.Link,
+                });
+                if (res.status === 200) {
+                  await refreshData();
+                  resetLinkModal(setIsOpenUpdateITunesModal);
+                  notification.success({ message: "Successful" });
+                }
+              } catch (error) {
+                notification.error({ message: error.toString() });
+              }
+            }}
+            onCancel={() => {
+              resetLinkModal(setIsOpenUpdateITunesModal);
+            }}
+            record={linkUpdateLinkModal}
+            icon={iconUpdateLinkModal}
+            title={titleUpdateLinkModal}
+            visible={isOpenUpdateITunesModal}
+          />
+        </>
       )}
     </>
   );

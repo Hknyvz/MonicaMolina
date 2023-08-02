@@ -45,9 +45,14 @@ const directory = "discography-photo";
 const save = async (data, guid) => {
   const relativePath = await saveImage(data.ImageUrl, guid, directory);
   const model = new DiscographyModel({ _id: guid });
+
   model.Year = data.Year;
   model.ImageUrl = relativePath;
   model.Name = data.Name;
+  model.SpotifyLink = data.SpotifyLink;
+  model.YoutubeLink = data.YoutubeLink;
+  model.ItunesLink = data.ItunesLink;
+
   await model.save();
   const res = { message: "Saved successful", data: model };
   return res;
@@ -58,7 +63,13 @@ const update = async (data) => {
     deleteImage(data._id, directory);
     await saveImage(data.ImageUrl, data._id, directory);
   }
-  const model = { Year: data.Year, Name: data.Name };
+  const model = {};
+  if (data.Year) model.Year = data.Year;
+  if (data.Name) model.Name = data.Name;
+  if (data.SpotifyLink) model.SpotifyLink = data.SpotifyLink;
+  if (data.YoutubeLink) model.YoutubeLink = data.YoutubeLink;
+  if (data.ItunesLink) model.ItunesLink = data.ItunesLink;
+
   let updatedEntry = await DiscographyModel.findByIdAndUpdate(data._id, model, {
     new: true,
   });

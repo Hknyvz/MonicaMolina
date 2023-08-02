@@ -18,9 +18,10 @@ import {
 import TableRowAction from "../../shared/TableRowAction";
 import CarouselDetailEditModal from "./CarouselDetailUpdateModal";
 import Link from "next/link";
-import LinkUpdateModal from "@/components/admin/home/carousel/LinkUpdateModal";
 import { SiItunes } from "react-icons/si";
 import { SlSocialSpotify, SlSocialYoutube } from "react-icons/sl";
+import TableLabel from "../../shared/TableLabel";
+import LinkUpdateModal from "@/components/admin/shared/LinkUpdateModal";
 
 function CarouselTable({ data }) {
   const [isOpenCreateModal, setIsOpenCreateModal] = useState(false);
@@ -82,18 +83,7 @@ function CarouselTable({ data }) {
           dataIndex: "Order",
           key: "Order",
           width: 50,
-          render: (item) => (
-            <div
-              style={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "center",
-                fontWeight: "600",
-              }}
-            >
-              <label>{item}</label>
-            </div>
-          ),
+          render: (item) => <TableLabel>{item}</TableLabel>,
         },
         {
           title: "Image",

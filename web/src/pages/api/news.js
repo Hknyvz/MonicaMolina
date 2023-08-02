@@ -21,7 +21,6 @@ const handler = async (req, res) => {
       return res.status(200).json(news);
     } else if (method === "POST") {
       const newGuid = uuidv4();
-      console.log(res.body);
       const response = await save(req.body, newGuid);
 
       return res.status(201).json(response);
@@ -59,7 +58,6 @@ const update = async (data) => {
     deleteImage(data._id, directory);
     await saveImage(data.ImageUrl, data._id, directory);
   }
-  console.log(data);
   const model = { Title: data.Title, Text: data.Text };
   let updatedEntry = await NewsModel.findByIdAndUpdate(data._id, model, {
     new: true,
