@@ -56,7 +56,7 @@ function BiographyEditModal({ visible, record, onCancel, onOk }) {
           <CropContainer
             image={""}
             cropImage={(e) => setCropImage(e)}
-            aspect={9 / 16}
+            aspect={4 / 5}
           ></CropContainer>
           <div style={{ display: "flex", justifyContent: "center" }}>
             {cropImage ? (
