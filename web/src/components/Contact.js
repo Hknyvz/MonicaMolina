@@ -68,7 +68,7 @@ function Contact() {
     const sendEmail = (e) => {
         e.preventDefault();
 
-        emailjs.sendForm('test_service', 'template_1ylmhhq', form.current, 'xb4YdklVLADZv3Epn') //Service ID güncellenecek test_service
+        emailjs.sendForm('musicarium.entertainment', 'template_1ylmhhq', form.current, 'xb4YdklVLADZv3Epn')
         .then((result) => {
             console.log(result.text);
             mail_success();
