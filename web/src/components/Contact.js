@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useRef } from 'react';
 import { Col, Row } from 'antd';
 import { Typography} from 'antd';
 import { Input } from 'antd';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
+import emailjs from '@emailjs/browser';
 
 const { TextArea } = Input;
 
@@ -29,21 +30,28 @@ const rowStyle = {
 const inputStyle = {
     width:"100%",
     borderRadius: 0,
+    borderStyle: "none",
     borderBottom: "1px solid rgba(0, 0, 0, .6)",
     height: 60,
     fontFamily: "Raleway",
-    fontSize: 16,
-    fontWeight: 600,
+    fontSize: 14,
+    fontWeight: 400,
+    backgroundColor: "rgb(245,245,245)",
+    textColor: "rgb(245,245,245)",
+    padding: 10,
 };
 const textAreaStyle = {
     width:"100%",
     borderRadius: 0,
+    borderStyle: "none",
     borderBottom: "1px solid rgba(0, 0, 0, .6)",
     resize: 'none',
     height: 150,
     fontFamily: "Raleway",
-    fontSize: 16,
-    fontWeight: 600,
+    fontSize: 14,
+    fontWeight: 400,
+    backgroundColor: "rgb(245,245,245)",
+    padding: 10,
 };
 const buttonStyle = {
     borderRadius: 5,
@@ -51,9 +59,42 @@ const buttonStyle = {
 };
 
 
+
 function Contact() {
+
+
+    const form = useRef();
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+
+        emailjs.sendForm('test_service', 'template_1ylmhhq', form.current, 'xb4YdklVLADZv3Epn') //Service ID güncellenecek test_service
+        .then((result) => {
+            console.log(result.text);
+            mail_success();
+        }, (error) => {
+            console.log(error.text);
+            mail_error();
+            });
+        };
+
+    const [messageApi, contextHolder] = message.useMessage();
+    const mail_success = () => {
+        messageApi.open({
+        type: 'success',
+        content: 'Mail Sent',
+        });
+    };
+    const mail_error = () => {
+        messageApi.open({
+        type: 'error',
+        content: 'There was an error. Mail sending is failed',
+        });
+    };
+
   return (
     <div style={{paddingTop: 300, paddingRight: "15%", paddingLeft: "15%"}}>
+        {contextHolder}
         <Row gutter={24} justify="center">
             <Col span={10}>
                 <Row>
@@ -75,28 +116,26 @@ function Contact() {
                 </Row>          
             </Col>
             <Col span={14} >
-                <Row gutter={8}>
-                    <Col style={{width:"50%"}}> 
-                        <Input placeholder="Name" bordered={false} style={inputStyle}/>
-                    </Col> 
-                    <Col style={{width:"50%"}}> 
-                        <Input placeholder="E-mail" bordered={false} style={inputStyle}/> 
-                    </Col>
-                </Row>
-                <Row>
-                    <Col style={{width:"100%"}}> 
-                        <Input placeholder="Title" bordered={false} style={inputStyle}/>
-                    </Col>
-                </Row>
-                <Row style={{paddingTop:20}}>
-                    <Col style={{width:"100%"}}>
-                        <TextArea showCount maxLength={200} style={textAreaStyle} bordered={false} placeholder="Message"/>
-                    </Col>
-                </Row>
-                <Row justify="center" style={{paddingTop:20}}>
-                    <Button style={buttonStyle} size="large">Send Message</Button>
-                </Row>
+                <form ref={form} onSubmit={sendEmail}>
+                    <Row gutter={8}>
+                        <Col style={{width:"50%"}}> 
+                            <input type="text" className="form__input" id="name" placeholder="Name" required="" name="from_name"  style={inputStyle}/>
+                        </Col> 
+                        <Col style={{width:"50%"}}> 
+                            <input type="text" className="form__input" id="e-posta" placeholder="E-mail" required="" name="from_email" style={inputStyle} /> 
+                        </Col>
+                    </Row>
+                    <Row style={{paddingTop:20}}>
+                        <Col style={{width:"100%"}}>
+                            <textarea name="message" placeholder="Message" className="form__input" style={textAreaStyle}/>
+                        </Col>
+                    </Row>
+                    <Row justify="center" style={{paddingTop:20}}>
+                        <Button style={buttonStyle} size="large" value="Send" onClick={sendEmail}>Send Message</Button>
+                    </Row>
+                </form>
             </Col>
+            
         </Row>
     </div>
   )
