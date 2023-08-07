@@ -18,6 +18,10 @@ const NewsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    ThumbnailUrl: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

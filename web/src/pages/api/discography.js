@@ -66,9 +66,12 @@ const update = async (data) => {
   const model = {};
   if (data.Year) model.Year = data.Year;
   if (data.Name) model.Name = data.Name;
-  if (data.SpotifyLink) model.SpotifyLink = data.SpotifyLink;
-  if (data.YoutubeLink) model.YoutubeLink = data.YoutubeLink;
-  if (data.ItunesLink) model.ItunesLink = data.ItunesLink;
+  if (data.SpotifyLink || data.SpotifyLink == "")
+    model.SpotifyLink = data.SpotifyLink;
+  if (data.YoutubeLink || data.YoutubeLink == "")
+    model.YoutubeLink = data.YoutubeLink;
+  if (data.ItunesLink || data.YoutubeLink == "")
+    model.ItunesLink = data.ItunesLink;
 
   let updatedEntry = await DiscographyModel.findByIdAndUpdate(data._id, model, {
     new: true,

@@ -14,6 +14,7 @@ const Editor = dynamic(import("@/components/admin/shared/Editor"), {
 
 function NewsCreateModal({ onOk, onCancel, visible }) {
   const [cropImage, setCropImage] = useState();
+  const [fullImage, setFullImage] = useState();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [visibleUploadError, setVisibleUploadError] = useState(false);
@@ -42,7 +43,8 @@ function NewsCreateModal({ onOk, onCancel, visible }) {
     if (visibleCheck) {
       return;
     }
-    values.ImageUrl = cropImage;
+    values.ImageUrl = fullImage;
+    values.ThumbnailUrl = cropImage;
     values.Text = text;
     setLoading(true);
     await onOk(values);
@@ -73,8 +75,8 @@ function NewsCreateModal({ onOk, onCancel, visible }) {
             <RequiredFormLabel>News Photo</RequiredFormLabel>
             <CropContainer
               cropImage={(e) => setCropImage(e)}
+              fullImage={(e) => setFullImage(e)}
               aspect={424 / 195}
-              time={new Date()}
             />
             {visibleUploadError ? (
               <span style={{ color: "#ff4d4f" }}>Image is required</span>

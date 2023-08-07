@@ -3,7 +3,7 @@ require("winston-mongodb");
 
 const mongodbOptions = {
   level: "error",
-  db: process.env.MONGODB_URI.replace("{0}", "Sys"),
+  db: process.env.MONGODB_LOG,
   options: {
     useUnifiedTopology: true,
   },

@@ -14,6 +14,7 @@ const Editor = dynamic(import("@/components/admin/shared/Editor"), {
 
 function NewsUpdateModal({ visible, record, onCancel, onOk }) {
   const [cropImage, setCropImage] = useState();
+  const [fullImage, setFullImage] = useState();
   const [loading, setLoading] = useState(false);
   const [visibleEditorError, setVisibleEditorError] = useState(false);
   const [text, setText] = useState();
@@ -38,7 +39,8 @@ function NewsUpdateModal({ visible, record, onCancel, onOk }) {
     if (visibleCheck) {
       return;
     }
-    values.ImageUrl = cropImage;
+    values.ImageUrl = fullImage;
+    values.ThumbnailUrl = cropImage;
     values.Text = text;
     setLoading(true);
     await onOk(values);
@@ -72,6 +74,7 @@ function NewsUpdateModal({ visible, record, onCancel, onOk }) {
             <RequiredFormLabel>News Photo</RequiredFormLabel>
             <CropContainer
               cropImage={(e) => setCropImage(e)}
+              fullImage={(e) => setFullImage(e)}
               aspect={424 / 195}
             />
           </FullSpace>

@@ -44,9 +44,12 @@ const directory = "home-detail-photo";
 const update = async (data) => {
   const model = {};
   if (data.DetailTitle) model.DetailTitle = data.DetailTitle;
-  if (data.SpotifyLink) model.SpotifyLink = data.SpotifyLink;
-  if (data.YoutubeLink) model.YoutubeLink = data.YoutubeLink;
-  if (data.ItunesLink) model.ItunesLink = data.ItunesLink;
+  if (data.SpotifyLink || data.SpotifyLink == "")
+    model.SpotifyLink = data.SpotifyLink;
+  if (data.YoutubeLink || data.YoutubeLink == "")
+    model.YoutubeLink = data.YoutubeLink;
+  if (data.ItunesLink || data.YoutubeLink == "")
+    model.ItunesLink = data.ItunesLink;
 
   if (data.DetailImageUrl) {
     deleteImage(data._id, directory);

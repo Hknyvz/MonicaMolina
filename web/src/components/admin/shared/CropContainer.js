@@ -36,8 +36,8 @@ export default function CropContainer({ cropImage, aspect, fullImage, time }) {
   const [sizeError, setSizeError] = useState(false);
 
   useEffect(() => {
-    setFileList([]);
-    setSelectedImage(undefined);
+    // setFileList([]);
+    // setSelectedImage(undefined);
   }, [time]);
 
   function onImageLoad(e) {

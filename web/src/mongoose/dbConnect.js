@@ -23,10 +23,7 @@ async function dbConnect(dbName) {
     const opts = {
       bufferCommands: false,
     };
-    const connectionString = MONGODB_URI.replace(
-      "{0}",
-      dbName ? dbName : defaultDbName
-    );
+    const connectionString = MONGODB_URI;
     cached.promise = mongoose
       .connect(connectionString, opts)
       .then((mongoose) => {
