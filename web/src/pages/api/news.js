@@ -42,11 +42,18 @@ const handler = async (req, res) => {
 };
 
 const directory = "news-photo";
+const thumnailDirectory = "thumnail-news";
 const save = async (data, guid) => {
   const relativePath = await saveImage(data.ImageUrl, guid, directory);
+  const thumbnailRelativePath = await saveImage(
+    data.ThumbnailUrl,
+    guid,
+    thumnailDirectory
+  );
   const model = new NewsModel({ _id: guid });
   model.Title = data.Title;
   model.ImageUrl = relativePath;
+  model.ThumbnailUrl = thumbnailRelativePath;
   model.Text = data.Text;
   await model.save();
   const res = { message: "Saved successful", data: model };
@@ -57,6 +64,10 @@ const update = async (data) => {
   if (data.ImageUrl) {
     deleteImage(data._id, directory);
     await saveImage(data.ImageUrl, data._id, directory);
+  }
+  if (data.ThumbnailUrl) {
+    deleteImage(data._id, thumnailDirectory);
+    await saveImage(data.ThumbnailUrl, data._id, thumnailDirectory);
   }
   const model = { Title: data.Title, Text: data.Text };
   let updatedEntry = await NewsModel.findByIdAndUpdate(data._id, model, {
@@ -69,6 +80,7 @@ const update = async (data) => {
 const remove = async (id) => {
   const res = await NewsModel.findByIdAndDelete(id);
   deleteImage(id, directory);
+  deleteImage(id, thumnailDirectory);
   return res;
 };
 
