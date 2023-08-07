@@ -7,6 +7,7 @@ const saveImage = async (image, guid, directory) => {
   let base64Data = image.replace(/^data:image\/png;base64,/, "");
   base64Data = base64Data.replace(/^data:image\/jpeg;base64,/, "");
   base64Data = base64Data.replace(/^data:image\/jpg;base64,/, "");
+  base64Data = base64Data.replace(/^data:image\/webp;base64,/, "");
   let fileName = `${guid}.webp`;
   let relativePath = path.join(directory, fileName);
   let filePath = path.join(process.cwd(), "public", relativePath);
