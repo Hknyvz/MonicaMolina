@@ -109,7 +109,7 @@ const newsChoice = (data) => {
                       <Link onClick={() => newsChoice(item)}>
                         <Row style={{ margin: 5, backgroundColor:"white"}}>
                           <Col flex="0 1 200px">                  
-                            <Image src={imageUrlBuilder(item.ImageUrl)} height="190px" width="190px" preview={false} style={{padding: 20,objectFit: "cover"}}/>
+                            <Image src={imageUrlBuilder(item.ThumbnailUrl)} preview={{src: imageUrlBuilder(item.ImageUrl)}} height="190px" width="190px" style={{padding: 20,objectFit: "cover"}}/>
                           </Col>
                           <Col flex="1 1 100px">
                             <Row>

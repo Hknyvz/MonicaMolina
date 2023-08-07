@@ -36,9 +36,9 @@ function Gallery({data,data2}) {
                 <Tabs.TabPane tab="Photos" key="1" style={{marginTop: 30}}>
                     <ImageGallery data={data} />
                 </Tabs.TabPane>
-                <Tabs.TabPane tab="Videos" key="2" style={{marginTop: 30}}>
+                {/* <Tabs.TabPane tab="Videos" key="2" style={{marginTop: 30}}>
                     <VideoGallery data={data2}/>
-                </Tabs.TabPane>
+                </Tabs.TabPane> */}
             </Tabs>
         </Row>
 
