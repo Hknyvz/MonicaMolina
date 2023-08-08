@@ -37,7 +37,7 @@ const MainRow = {
 
 function News() {
   
-  const [bigNews, setBigNews] = useState({Title:"",Text:"",ImageUrl:""});
+  const [bigNews, setBigNews] = useState({Title:"",Text:"",ImageUrl:"", ThumbnailUrl:""});
 
   const [isFirst, setIsFirst ] = useState(true);
 
@@ -54,7 +54,7 @@ function News() {
         setData([...data, ...body]);
         if(isFirst)
         { console.log("girdi");
-          setBigNews({Title:body[0].Title,Text:body[0].Text,ImageUrl:body[0].ImageUrl});
+          setBigNews({Title:body[0].Title,Text:body[0].Text,ImageUrl:body[0].ImageUrl, ThumbnailUrl:body[0].ThumbnailUrl});
         }
         setLoading(false);
         setIsFirst(false);
@@ -68,7 +68,7 @@ function News() {
   }, []);
 
 const newsChoice = (data) => {
-  setBigNews({Title:data.Title,Text:data.Text,ImageUrl:data.ImageUrl});
+  setBigNews({Title:data.Title,Text:data.Text,ImageUrl:data.ImageUrl, ThumbnailUrl:data.ThumbnailUrl});
 }
 
   return (
