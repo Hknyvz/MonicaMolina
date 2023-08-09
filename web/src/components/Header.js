@@ -74,7 +74,7 @@ function Header() {
             </Menu>
           </Col>
           <Col flex="auto">
-            <Title style={textStyle}>EN-ES</Title>
+            {/* <Title style={textStyle}>EN-ES</Title> */}
           </Col>
         </Row>
       </div>
