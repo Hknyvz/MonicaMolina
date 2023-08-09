@@ -59,7 +59,7 @@ function AlbumCard({coverImage, title, date,ItunesLink,SpotifyLink,YoutubeLink})
         backgroundColor:'hsl(11, 0%, 100%, 0.5)',
         paddingTop: 5
     }
-
+console.log("YoutubeLink: " + YoutubeLink);
   return (
 
     <div onMouseEnter={HandleMouseEnter} onMouseLeave={HandleMouseLeave}>
@@ -69,18 +69,18 @@ function AlbumCard({coverImage, title, date,ItunesLink,SpotifyLink,YoutubeLink})
                     <img src={coverImage} width="100%" height="100%" />
                     <div style={{position: "absolute", bottom: "0px", width:"100%",}}>
                     <Row justify="space-around" style={links} align="middle">
-                        {ItunesLink === null ? "" :
+                        {ItunesLink === null || ItunesLink === "" ? "" :
                         <Link href={ItunesLink}>
                             <img src="../apple_musicBlack.svg" width="30px"/>
                         </Link>
                         }
-                        {SpotifyLink === null ? "" 
+                        {SpotifyLink === null || SpotifyLink === "" ? "" 
                         :  
                         <Link href={SpotifyLink}>
                             <img src="../spotifyBlack.svg" width="30px"/>
                         </Link>           
                         }
-                        {YoutubeLink === null ? ""
+                        {YoutubeLink === null || YoutubeLink === "" ? ""
                         :  
                         <Link href={YoutubeLink}>
                             <img src="../youtubeBlack.svg" width="30px"/>
