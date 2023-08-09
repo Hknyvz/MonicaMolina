@@ -19,17 +19,17 @@ const textStyle = {
   };
 
 const bodyStyle = {
-    paddingTop: 110
+    paddingTop: 150
 }
 
 function Disco({data}) {
   return (
     <div width="100%">
         <Row justify="space-evenly" style={bodyStyle}>
-            <Title level={1} style={titleStyle}>Music Albums</Title>
+            {/* <Title level={1} style={titleStyle}>Music Albums</Title> */}
         </Row>
         <Row justify="space-evenly">
-            <Paragraph style={textStyle}>Check out my newest albums.</Paragraph>
+            {/* <Paragraph style={textStyle}>Check out my newest albums.</Paragraph> */}
         </Row>
         <Row justify="space-evenly" style={bodyStyle}>
             {data.map((item) => 
