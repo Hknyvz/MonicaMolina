@@ -11,12 +11,13 @@ const textStyle = {
   fontWeight: 500,
   height: 400,
   paddingLeft: "20%",
+  paddingRight: "15px",
   overflow: "auto"
 };
 
 const titleStyle = {
   fontFamily: "Bacalisties",
-  fontSize: 90,
+  fontSize: 60,
   fontWeight: 100,
   paddingLeft: "10%",
 };
