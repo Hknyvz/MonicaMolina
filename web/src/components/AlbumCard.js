@@ -9,7 +9,7 @@ const titleStyle = {
 
     fontFamily: "Raleway",
     fontSize: 24,
-    fontWeight: 700,
+    fontWeight: 500,
     paddingTop: 20,
     marginBottom: 0
   
