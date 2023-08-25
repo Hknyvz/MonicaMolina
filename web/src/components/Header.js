@@ -45,7 +45,7 @@ function Header() {
         <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
           <Col>
             <Title style={titleStyle}>
-              <Link href="/home" style={{color:"black"}}>MÓNICA MOLINA</Link>
+              <Link href="/home" style={{color:"black"}}>MONICA MOLINA</Link>
             </Title>
           </Col>
           <Col flex="auto" style={{paddingRight:"5%",paddingLeft:"15%"}}>
