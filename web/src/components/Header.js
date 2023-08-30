@@ -1,8 +1,11 @@
 import React from "react";
+import { useMediaQuery, useTheme, } from "@mui/material";
 import { Menu } from "antd";
 import { Typography } from "antd";
 import { Col, Row } from "antd";
 import Link from "next/link";
+    
+
 
 const { Title } = Typography;
 
@@ -39,9 +42,51 @@ const itemStyle = {
 }
 
 function Header() {
+
+  const theme = useTheme();
+  const isDownMD = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <>
       <div style={headerBackground}>
+      {isDownMD ? ( 
+        <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
+          <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
+            <Col>
+              <Title style={titleStyle}>
+                <Link href="/home" style={{color:"black", fontSize: 32}}>MONICA MOLINA</Link>
+              </Title>
+            </Col>
+          </Row>
+          <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
+              <Col style={{ width: "100%"}}>
+              <Menu mode="horizontal" style={textStyle}>
+                <Menu.Item key="home" style={itemStyle}>
+                  <Link href="/home">Home</Link>
+                </Menu.Item>
+                <Menu.Item key="biography" style={itemStyle}>
+                  <Link href="/biography">Biography</Link>
+                </Menu.Item>
+                <Menu.Item key="discography" style={itemStyle}>
+                  <Link href="/discography">Discography</Link>
+                </Menu.Item>
+                <Menu.Item key="news" style={itemStyle}>
+                  <Link href="/news">News</Link>
+                </Menu.Item>
+                <Menu.Item key="gallery" style={itemStyle}>
+                  <Link href="/gallery">Gallery</Link>
+                </Menu.Item>
+                {/* <Menu.Item key="concerts" style={itemStyle}>
+                  <Link href="/concerts">Concerts</Link>
+                </Menu.Item> */}
+                <Menu.Item key="contact" style={itemStyle}>
+                  <Link href="/contact">Contact</Link>
+                </Menu.Item>
+              </Menu>
+            </Col>
+          </Row>      
+        </Row>
+        ):(  
         <Row justify="space-evenly" align="middle" style={{ width: "100%" }}>
           <Col>
             <Title style={titleStyle}>
@@ -77,6 +122,8 @@ function Header() {
             {/* <Title style={textStyle}>EN-ES</Title> */}
           </Col>
         </Row>
+         )}  
+       
       </div>
     </>
   );

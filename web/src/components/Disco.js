@@ -3,6 +3,7 @@ import AlbumCard from 'src/components/AlbumCard.js'
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 import { Col, Row } from 'antd';
 import { Typography} from 'antd';
+import { useMediaQuery, useTheme, } from "@mui/material";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
@@ -21,21 +22,34 @@ const textStyle = {
 const bodyStyle = {
     paddingTop: 150
 }
-
+const bodyStyleSmall = {
+    paddingTop: 50
+}
 function Disco({data}) {
+
+    const theme = useTheme();
+    const isDownMD = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <div width="100%">
-        <Row justify="space-evenly" style={bodyStyle}>
-            {/* <Title level={1} style={titleStyle}>Music Albums</Title> */}
-        </Row>
-        <Row justify="space-evenly">
-            {/* <Paragraph style={textStyle}>Check out my newest albums.</Paragraph> */}
-        </Row>
-        <Row justify="space-evenly" style={bodyStyle}>
-            {data.map((item) => 
-            <AlbumCard coverImage={imageUrlBuilder(item.ImageUrl)} title={item.Name} date={item.Year} ItunesLink={item.ItunesLink} SpotifyLink={item.SpotifyLink} YoutubeLink={item.YoutubeLink} />
-            )}            
-        </Row>
+         {isDownMD ? ( 
+            <div>
+                <Row justify="space-evenly" style={bodyStyleSmall}>
+                    {data.map((item) => 
+                    <AlbumCard coverImage={imageUrlBuilder(item.ImageUrl)} title={item.Name} date={item.Year} ItunesLink={item.ItunesLink} SpotifyLink={item.SpotifyLink} YoutubeLink={item.YoutubeLink} />
+                    )}            
+                </Row>
+            </div>
+           ):(
+            <div>  
+                <Row justify="space-evenly" style={bodyStyle}>
+                    {data.map((item) => 
+                    <AlbumCard coverImage={imageUrlBuilder(item.ImageUrl)} title={item.Name} date={item.Year} ItunesLink={item.ItunesLink} SpotifyLink={item.SpotifyLink} YoutubeLink={item.YoutubeLink} />
+                    )}            
+                </Row>
+            </div>
+           )}
+       
     </div>
   )
 }

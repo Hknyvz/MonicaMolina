@@ -3,6 +3,7 @@ import React from "react";
 import { useRef, useEffect } from "react";
 import Link from "next/link";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
+import { useMediaQuery, useTheme, } from "@mui/material";
 
 
 const slideStyles = {
@@ -31,31 +32,69 @@ function MainCarousel({ data,status }) {
     width: windowSize.current[0],
     height: windowSize.current[1] - 86,
   };
+  const carouselStyleSmall = {
+    width: windowSize.current[0],
+    height: "100%"
+  };
 
   const imageStyles = {
     width: windowSize.current[0],
     height: windowSize.current[1] - 86,
     objectFit: "cover",
   };
+  const imageStylesSmall = {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+  };
+
+  const theme = useTheme();
+  const isDownMD = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <div style={contentStyle}>
-      <Carousel style={carouselStyle} autoplay>
-        {data.map((item) => (
-          <div>
-            {item.HaveDetail ? <Link
-              href={`${process.env.NEXT_PUBLIC_WEPPATH_URL}/home/${item._id}`}
-            >
-              <img style={imageStyles} src={imageUrlBuilder(item.ImageUrl)} />
-            </Link> : 
-
-            <img style={imageStyles} src={imageUrlBuilder(item.ImageUrl)} />
-          }
-            
-          </div>
-        ))}
-      </Carousel>
+      {isDownMD ? ( 
+            <Carousel style={carouselStyleSmall} autoplay>
+              {data.map((item) => (
+                <div>
+                  {item.HaveDetail ? <Link
+                    href={`${process.env.NEXT_PUBLIC_WEPPATH_URL}/home/${item._id}`}
+                  >
+                    <img style={imageStylesSmall} src={imageUrlBuilder(item.ImageUrl)} />
+                  </Link> : 
+      
+                  <img style={imageStylesSmall} src={imageUrlBuilder(item.ImageUrl)} />
+                }
+                  
+                </div>
+              ))}
+            </Carousel>
+        ):(  
+          <Carousel style={carouselStyle} autoplay>
+            {data.map((item) => (
+              <div>
+                {item.HaveDetail ? <Link
+                  href={`${process.env.NEXT_PUBLIC_WEPPATH_URL}/home/${item._id}`}
+                >
+                  <img style={imageStyles} src={imageUrlBuilder(item.ImageUrl)} />
+                </Link> : 
+    
+                <img style={imageStyles} src={imageUrlBuilder(item.ImageUrl)} />
+              }
+                
+              </div>
+            ))}
+          </Carousel>
+      )}
+      
     </div>
   );
 }
 
 export default MainCarousel;
+
+// {isDownMD ? ( 
+        
+//   ):(  
+  
+//    )}
