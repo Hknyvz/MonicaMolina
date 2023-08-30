@@ -6,7 +6,7 @@ import { Image } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Divider, List, Skeleton } from 'antd';
 import EditorRead from "./shared/EditorRead";
-import { useMediaQuery, useTheme, } from "@mui/material";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
@@ -38,6 +38,9 @@ const MainRowSmall = {
   height: "100%",
   paddingLeft:"5%",
   paddingRight: "%5",
+  marginTop: "-60px",
+  paddingBottom: 30,
+
 }
 
 function News() {
@@ -84,16 +87,21 @@ const newsChoice = (data) => {
     <div width="100%" style={bodyStyle}>
       {isDownMD ? ( 
             <Row justify="center" style={MainRowSmall}>
-              <Row>
-                    <Image src={imageUrlBuilder(bigNews.ThumbnailUrl)} preview={{src: imageUrlBuilder(bigNews.ImageUrl)}} width="100%" style={{objectFit: "cover"}}/> 
+              <Row style={{width:"100%", paddingRight:"5%"}}>
+                  <Image src={imageUrlBuilder(bigNews.ThumbnailUrl)} preview={{src: imageUrlBuilder(bigNews.ImageUrl)}} height="100%" width="100%" style={{objectFit: "cover"}}/> 
                     {/* 848px */}
-                    <Title style={titleStyle} >{bigNews.Title}</Title>
-                    <Paragraph style={{overflow: "auto", height:220}}>
-                      <EditorRead text={bigNews.Text}/>
-                    </Paragraph>
-              </Row>      
-              <Row flex="1 1 300px">
-                <div id="scrollableDiv" style={{ height: 400, overflow: 'auto', marginRight: 50,}}>
+              </Row>    
+              <Row style={{paddingTop:10}}>                  
+                  <Title style={titleStyle} >{bigNews.Title}</Title>
+              </Row>    
+              <Row style={{paddingTop:10, width:"100%", paddingRight:"5%"}}>
+                  <Paragraph style={{overflow: "auto", height:220}}>
+                    <EditorRead text={bigNews.Text}/>
+                  </Paragraph>    
+              </Row>   
+              <Divider />   
+              <Row style={{paddingTop:20, width:"100%", paddingRight: "5%"}}>
+                <div id="scrollableDiv" style={{ height: 400, overflow: 'auto'}}>
                   <InfiniteScroll
                     dataLength={data.length}
                     next={loadMoreData}
@@ -117,10 +125,10 @@ const newsChoice = (data) => {
                         <List.Item key={item._id} >
                           <Link onClick={() => newsChoice(item)}>
                             <Row style={{ margin: 5, backgroundColor:"white"}}>
-                              <Col flex="0 1 200px">                  
-                                <Image src={imageUrlBuilder(item.ThumbnailUrl)} preview={{src: imageUrlBuilder(item.ImageUrl)}} height="190px" width="190px" style={{padding: 20,objectFit: "cover"}}/>
+                              <Col>                  
+                                <Image src={imageUrlBuilder(item.ThumbnailUrl)} preview={{src: imageUrlBuilder(item.ImageUrl)}} height="190px" width="100%" style={{padding: 10,objectFit: "cover"}}/>
                               </Col>
-                              <Col flex="1 1 100px">
+                              <Col>
                                 <Row>
                                   <Title style={textStyle} >{item.Title}</Title>
                                 </Row>
