@@ -21,7 +21,7 @@ function ImageGallery({data}) {
                 
 
                 <List.Item>                
-                          <Image width={250} height={160} src={imageUrlBuilder(item.ThumbnailUrl)}  preview={{src: imageUrlBuilder(item.ImageUrl)}} />            
+                          <Image width={250} height={250} src={imageUrlBuilder(item.ThumbnailUrl)}  preview={{src: imageUrlBuilder(item.ImageUrl)}} />            
                 </List.Item>
                           
               )}/> 
