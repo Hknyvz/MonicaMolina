@@ -34,7 +34,7 @@ function MainCarousel({ data,status }) {
   };
   const carouselStyleSmall = {
     width: windowSize.current[0],
-    height: "100%"
+    height: windowSize.current[1] - 132,
   };
 
   const imageStyles = {
@@ -44,9 +44,10 @@ function MainCarousel({ data,status }) {
   };
   const imageStylesSmall = {
     width: "100%",
-    height: "100%",
+    height: windowSize.current[1] - 132,
     objectFit: "cover",
   };
+
 
   const theme = useTheme();
   const isDownMD = useMediaQuery(theme.breakpoints.down("md"));
