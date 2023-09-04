@@ -26,7 +26,8 @@ function MainCarousel({ data,status }) {
   const contentStyle = {
     position: "relative",
     width: windowSize.current[0],
-    height: windowSize.current[1] - 86,
+    height: "100%",
+    minHeight: 0,
   };
   const carouselStyle = {
     width: windowSize.current[0],
@@ -34,7 +35,7 @@ function MainCarousel({ data,status }) {
   };
   const carouselStyleSmall = {
     width: windowSize.current[0],
-    height: windowSize.current[1] - 132,
+    height: "100%",
   };
 
   const imageStyles = {
@@ -50,7 +51,7 @@ function MainCarousel({ data,status }) {
 
 
   const theme = useTheme();
-  const isDownMD = useMediaQuery(theme.breakpoints.down("md"));
+  const isDownMD = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <div style={contentStyle}>
@@ -61,10 +62,10 @@ function MainCarousel({ data,status }) {
                   {item.HaveDetail ? <Link
                     href={`${process.env.NEXT_PUBLIC_WEPPATH_URL}/home/${item._id}`}
                   >
-                    <img style={imageStylesSmall} src={imageUrlBuilder(item.ImageUrl)} />
+                    <img style={imageStylesSmall} src={imageUrlBuilder(item.MobileImageUrl)} />
                   </Link> : 
       
-                  <img style={imageStylesSmall} src={imageUrlBuilder(item.ImageUrl)} />
+                  <img style={imageStylesSmall} src={imageUrlBuilder(item.MobileImageUrl)} />
                 }
                   
                 </div>
