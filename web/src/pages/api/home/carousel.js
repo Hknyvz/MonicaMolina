@@ -20,7 +20,13 @@ const handler = async (req, res) => {
       const { admin } = req.query;
       let projection;
       if (admin) projection = {};
-      else projection = { Order: 1, ImageUrl: 1, HaveDetail: 1 };
+      else
+        projection = {
+          Order: 1,
+          ImageUrl: 1,
+          HaveDetail: 1,
+          MobileImageUrl: 1,
+        };
 
       let carousels = await CarouselModel.find({}, projection).exec();
       return res.status(200).json(carousels.sort((a, b) => a.Order - b.Order));
