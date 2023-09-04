@@ -14,6 +14,10 @@ const CarouselSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    MobileImageUrl: {
+      type: String,
+      required: true,
+    },
     HaveDetail: {
       type: Boolean,
       required: false,

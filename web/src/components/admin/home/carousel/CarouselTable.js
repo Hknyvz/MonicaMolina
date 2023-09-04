@@ -98,6 +98,20 @@ function CarouselTable({ data }) {
             ></Image>
           ),
         },
+        {
+          title: "Mobile Image",
+          dataIndex: "MobileImageUrl",
+          key: "MobileImageUrl",
+          width: 170,
+          render: (image) =>
+            image && (
+              <Image
+                src={imageUrlBuilder(image)}
+                width={160}
+                alt="Carousel Mobile Image"
+              ></Image>
+            ),
+        },
       ],
     },
     {

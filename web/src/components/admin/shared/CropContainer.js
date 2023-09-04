@@ -25,7 +25,13 @@ function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
   );
 }
 
-export default function CropContainer({ cropImage, aspect, fullImage, time }) {
+export default function CropContainer({
+  cropImage,
+  aspect,
+  fullImage,
+  time,
+  onClick,
+}) {
   const previewCanvasRef = useRef(null);
   const imgRef = useRef(null);
   const uploadRef = useRef();
@@ -34,11 +40,6 @@ export default function CropContainer({ cropImage, aspect, fullImage, time }) {
   const [selectedImage, setSelectedImage] = useState(undefined);
   const [fileList, setFileList] = useState([]);
   const [sizeError, setSizeError] = useState(false);
-
-  useEffect(() => {
-    // setFileList([]);
-    // setSelectedImage(undefined);
-  }, [time]);
 
   function onImageLoad(e) {
     const { width, height } = e.currentTarget;
@@ -131,7 +132,9 @@ export default function CropContainer({ cropImage, aspect, fullImage, time }) {
           onRemove={handleRemoveFiles}
           multiple={false}
         >
-          <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          <Button onClick={() => onClick} icon={<UploadOutlined />}>
+            Click to Upload
+          </Button>
         </Upload>
         {uploadRef?.current?.fileList.length > 0
           ? selectedImage && (
