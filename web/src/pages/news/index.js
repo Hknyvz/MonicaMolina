@@ -1,17 +1,17 @@
-import React from 'react'
-import News from 'src/components/News.js'
+import React from "react";
+import News from "@/components/News.js";
 import logger from "@/helpers/logger";
 import { createClient } from "@/pages/api/client";
 
-function index({data}) {
+function index({ data }) {
   return (
     <div>
       <News data={data} />
     </div>
-  )
+  );
 }
 
-export default index
+export default index;
 
 index.layout = "web";
 

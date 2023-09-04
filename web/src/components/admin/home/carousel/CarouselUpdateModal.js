@@ -1,15 +1,17 @@
-import { Form, Input, Modal } from "antd";
+import { Divider, Form, Input, Modal } from "antd";
 import React, { useState } from "react";
 import CropContainer from "@/components/admin/shared/CropContainer";
 
 function CarouselUpdateModal({ visible, record, onCancel, onOk }) {
   const [cropImage, setCropImage] = useState();
+  const [cropMobileImage, setCropMobileImage] = useState();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
 
   const handleOk = async () => {
     const values = await form.validateFields();
     values.ImageUrl = cropImage;
+    values.MobileImageUrl = cropMobileImage;
     setLoading(true);
     await onOk(values);
     setLoading(false);
@@ -42,10 +44,17 @@ function CarouselUpdateModal({ visible, record, onCancel, onOk }) {
         >
           <Input id="Order" name="Order" placeholder="Order Number" />
         </Form.Item>
-        <Form.Item label="Upload">
+        <Form.Item label="Upload Carousel Image For Web">
           <CropContainer
             cropImage={(e) => setCropImage(e)}
             aspect={16 / 9}
+          ></CropContainer>
+        </Form.Item>
+        <Divider />
+        <Form.Item label="Upload Carousel Image For Mobile">
+          <CropContainer
+            cropImage={(e) => setCropMobileImage(e)}
+            aspect={9 / 16}
           ></CropContainer>
         </Form.Item>
       </Form>
