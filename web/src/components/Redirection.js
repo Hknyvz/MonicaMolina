@@ -44,6 +44,12 @@ const container = {
 
 }
 
+const smallContainer = {
+    // borderStyle: "dotted",
+    width:"100%",
+
+}
+
 const divStyle = {
     background: "linear-gradient(90deg, rgba(230,230,230,1) 0%, rgba(255,255,255,1) 100%)",
     top:"0px",
@@ -66,10 +72,12 @@ function Redirection({data}) {
                 <Row justify="space-evenly" style={bodyStyleSmall}>
                     <Image width={278} height={286} src={imageUrlBuilder(data.DetailImageUrl)} />
                 </Row>
-                <Row justify="space-evenly">
-                    <Title style={titleStyle}>{data.DetailTitle}</Title>
+                <Row justify="center" style={{paddingRight:"15%", paddingLeft:"15%",marginBottom: 10}}>
+                    <Row> 
+                        <Title style={titleStyle}>{data.DetailTitle}</Title> 
+                    </Row>                    
                 </Row>
-                <Row justify="space-around" align="middle" style={container}>        
+                <Row justify="space-around" align="middle" style={smallContainer}>        
                     <Row justify="space-around" align="middle" style={middleArea}>
                         <Row justify="space-around" style={LowerArea} align="middle">
                             {data.ItunesLink === undefined ? "" :

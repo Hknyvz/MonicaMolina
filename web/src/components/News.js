@@ -118,25 +118,8 @@ function News() {
           </Row>
           <Divider />
           <Row style={{ paddingTop: 20, width: "100%", paddingRight: "5%" }}>
-            <div id="scrollableDiv" style={{ height: 400, overflow: "auto" }}>
-              <InfiniteScroll
-                dataLength={data.length}
-                next={loadMoreData}
-                hasMore={data.length < 2}
-                loader={
-                  <Skeleton
-                    avatar
-                    paragraph={{
-                      rows: 1,
-                    }}
-                    active
-                  />
-                }
-                endMessage={<Divider plain>End of the news</Divider>}
-                scrollableTarget="scrollableDiv"
-                style={{ backgroundColor: "white" }}
-              >
                 <List
+                  pagination={{ position: "bottom", align: "center" }}
                   dataSource={data}
                   renderItem={(item) => (
                     <List.Item key={item._id}>
@@ -171,8 +154,6 @@ function News() {
                     </List.Item>
                   )}
                 />
-              </InfiniteScroll>
-            </div>
           </Row>
         </Row>
       ) : (
