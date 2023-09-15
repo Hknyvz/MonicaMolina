@@ -24,7 +24,7 @@ function NewsTable({ data }) {
   const [tableData, setTableData] = useState(data);
   const [updateData, setUpdateData] = useState();
   const notification = useContext(NotificationContext);
-  const apiUrl = "/news";
+  const apiUrl = "http://www.monicamolina.com/api/news";
   const client = createClient();
 
   const columns = [

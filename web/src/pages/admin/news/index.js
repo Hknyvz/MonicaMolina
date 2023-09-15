@@ -14,8 +14,8 @@ export default AdminNews;
 export const getServerSideProps = async () => {
   try {
     const client = createClient();
-    const res = await client.get("/news");
-    const data = res.data;
+    const res = await fetch("http://www.monicamolina.com/api/news");
+    const data = await res.json();
     return { props: { data } };
   } catch (error) {
     logger.error(`AdminHome:${error}`);

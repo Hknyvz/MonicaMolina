@@ -32,7 +32,7 @@ function DiscographyTable({ data }) {
   const [titleUpdateLinkModal, setTitleUpdateLinkModal] = useState();
   const [linkUpdateLinkModal, setLinkUpdateLinkModal] = useState();
 
-  const apiUrl = "/discography";
+  const apiUrl = "http://www.monicamolina.com/api/discography";
 
   useEffect(() => {
     setTableData(data);

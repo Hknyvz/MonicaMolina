@@ -38,9 +38,10 @@ function CarouselTable({ data }) {
   const [updateData, setUpdateData] = useState();
   const [tableData, setTableData] = useState(data);
   const client = createClient();
-  const apiUrl = "/home/carousel";
-  const detailApiUrl = "/home/carousel-detail";
-  const detailStatusApiUrl = "/home/carousel-status";
+  const apiUrl = "http://www.monicamolina.com/api/home/carousel";
+  const detailApiUrl = "http://www.monicamolina.com/api/home/carousel-detail";
+  const detailStatusApiUrl =
+    "http://www.monicamolina.com/api/home/carousel-status";
   const notification = useContext(NotificationContext);
 
   const handleDelete = async (id) => {

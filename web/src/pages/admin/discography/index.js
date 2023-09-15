@@ -11,9 +11,8 @@ export default AdminDiscography;
 
 export const getServerSideProps = async () => {
   try {
-    const client = createClient();
-    const res = await client.get("/discography");
-    const data = res.data;
+    const res = await fetch("http://www.monicamolina.com/api/discography");
+    const data = await res.json();
     return { props: { data } };
   } catch (error) {
     logger.error(`AdminHome:${error}`);

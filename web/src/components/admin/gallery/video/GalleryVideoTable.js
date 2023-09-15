@@ -17,7 +17,7 @@ function GalleryVideoTable({ data }) {
   const [tableData, setTableData] = useState([]);
   const notification = useContext(NotificationContext);
   const client = createClient();
-  const apiUrl = "/gallery/video";
+  const apiUrl = "http://www.monicamolina.com/api/gallery/video";
 
   useEffect(() => {
     setTableData(data);

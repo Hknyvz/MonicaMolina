@@ -61,7 +61,7 @@ function News() {
       return;
     }
     setLoading(true);
-    fetch(`${process.env.NEXT_PUBLIC_WEPPATH_URL}/api/news`)
+    fetch(`http://www.monicamolina.com/api/news`)
       .then((res) => res.json())
       .then((body) => {
         setData([...data, ...body]);
@@ -118,42 +118,42 @@ function News() {
           </Row>
           <Divider />
           <Row style={{ paddingTop: 20, width: "100%", paddingRight: "5%" }}>
-                <List
-                  pagination={{ position: "bottom", align: "center" }}
-                  dataSource={data}
-                  renderItem={(item) => (
-                    <List.Item key={item._id}>
-                      <Link onClick={() => newsChoice(item)}>
-                        <Row style={{ margin: 5, backgroundColor: "white" }}>
-                          <Col>
-                            <Image
-                              src={imageUrlBuilder(item.ThumbnailUrl)}
-                              preview={{ src: imageUrlBuilder(item.ImageUrl) }}
-                              height="190px"
-                              width="100%"
-                              style={{ padding: 10, objectFit: "cover" }}
-                            />
-                          </Col>
-                          <Col>
-                            <Row>
-                              <Title style={textStyle}>{item.Title}</Title>
-                            </Row>
-                            <Row>
-                              <Paragraph ellipsis={{ rows: 3 }} height="100%">
-                                <EditorRead text={item.Text} />
-                              </Paragraph>
-                            </Row>
-                            <Row>
-                              <Paragraph style={{ color: "red" }}>
-                                Read More
-                              </Paragraph>
-                            </Row>
-                          </Col>
+            <List
+              pagination={{ position: "bottom", align: "center" }}
+              dataSource={data}
+              renderItem={(item) => (
+                <List.Item key={item._id}>
+                  <Link onClick={() => newsChoice(item)}>
+                    <Row style={{ margin: 5, backgroundColor: "white" }}>
+                      <Col>
+                        <Image
+                          src={imageUrlBuilder(item.ThumbnailUrl)}
+                          preview={{ src: imageUrlBuilder(item.ImageUrl) }}
+                          height="190px"
+                          width="100%"
+                          style={{ padding: 10, objectFit: "cover" }}
+                        />
+                      </Col>
+                      <Col>
+                        <Row>
+                          <Title style={textStyle}>{item.Title}</Title>
                         </Row>
-                      </Link>
-                    </List.Item>
-                  )}
-                />
+                        <Row>
+                          <Paragraph ellipsis={{ rows: 3 }} height="100%">
+                            <EditorRead text={item.Text} />
+                          </Paragraph>
+                        </Row>
+                        <Row>
+                          <Paragraph style={{ color: "red" }}>
+                            Read More
+                          </Paragraph>
+                        </Row>
+                      </Col>
+                    </Row>
+                  </Link>
+                </List.Item>
+              )}
+            />
           </Row>
         </Row>
       ) : (

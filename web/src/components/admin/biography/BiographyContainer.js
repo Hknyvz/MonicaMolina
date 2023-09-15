@@ -15,7 +15,7 @@ const BiographyContainer = ({ data }) => {
   const [isOpenUpdateModal, setIsOpenUpdateModal] = useState(false);
   const notification = useContext(NotificationContext);
   const client = createClient();
-  const apiUrl = "/biography";
+  const apiUrl = "http://www.monicamolina.com/api/biography";
 
   const refreshPage = async () => {
     setTimeout(() => {

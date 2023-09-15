@@ -18,7 +18,7 @@ function GalleryPhotoTable({ data }) {
   const [tableData, setTableData] = useState(data);
   const client = createClient();
   const notification = useContext(NotificationContext);
-  const apiUrl = "/gallery/photo";
+  const apiUrl = "http://www.monicamolina.com/api/gallery/photo";
 
   const columns = [
     {

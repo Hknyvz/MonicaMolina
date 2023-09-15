@@ -14,9 +14,15 @@ export const authOptions = {
       },
       async authorize(credentials, req) {
         const client = createClient();
-        const res = await client.post("/login", credentials);
+        const res = await fetch("http://www.monicamolina.com/api/login", {
+          method: "Post",
+          body: JSON.stringify(credentials),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
-        const user = await res.data;
+        const user = await res.json();
 
         if (res.status === 200 && user.password === req.body.password) {
           return user;

@@ -1,5 +1,5 @@
 const imageUrlBuilder = (imagePath) => {
-  return `${process.env.NEXT_PUBLIC_WEPPATH_API_URL}images/${imagePath}`;
+  return `http://www.monicamolina.com/api/images/${imagePath}`;
 };
 
 export { imageUrlBuilder };

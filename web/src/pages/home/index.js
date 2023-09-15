@@ -23,8 +23,8 @@ index.layout = "web";
 export const getServerSideProps = async () => {
   try {
     const client = createClient();
-    const res = await client.get("/home/carousel");
-    const data = res.data;
+    const res = await fetch("http://www.monicamolina.com/api/home/carousel");
+    const data = await res.json();
     return { props: { data } };
   } catch (error) {
     logger.error(`AdminHome:${error}`);
