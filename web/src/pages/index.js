@@ -1,9 +1,10 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import styles from "@/styles/Home.module.css";
+import { createClient } from "./api/client";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
@@ -26,7 +27,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              By{' '}
+              By{" "}
               <Image
                 src="/vercel.svg"
                 alt="Vercel Logo"
@@ -108,7 +109,17 @@ export default function Home() {
             </p>
           </a>
         </div>
+        <img
+          src={imageUrlBuilder(
+            "home-photo/0dae7712-a8c0-45c1-a0f7-f85c1d8b9ca0.webp"
+          )}
+        ></img>
       </main>
     </>
-  )
+  );
 }
+const imageUrlBuilder = (imagePath) => {
+  return `${process.env.NEXT_PUBLIC_WEPPATH_API_URL}images/${imagePath}`;
+};
+
+export { imageUrlBuilder };
