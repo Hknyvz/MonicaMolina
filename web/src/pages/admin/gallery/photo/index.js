@@ -12,8 +12,8 @@ export default AdminGalleryPhoto;
 export const getServerSideProps = async () => {
   try {
     const client = createClient();
-    const res = await client.get("/gallery/photo");
-    const data = res.data;
+    const res = await fetch("http://www.monicamolina.com/api/gallery/photo");
+    const data = await res.json();
     return { props: { data } };
   } catch (error) {
     logger.error(`AdminGalleryPhoto:${error}`);

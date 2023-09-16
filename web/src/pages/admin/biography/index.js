@@ -13,8 +13,8 @@ export default AdminBiography;
 export const getServerSideProps = async () => {
   try {
     const client = createClient();
-    const res = await client.get("/biography");
-    const data = res.data;
+    const res = await fetch("http://www.monicamolina.com/api/biography");
+    const data = await res.json();
     return { props: { data } };
   } catch (error) {
     logger.error(`Admin Biography:${error}`);
