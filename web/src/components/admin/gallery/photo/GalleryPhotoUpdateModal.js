@@ -1,6 +1,5 @@
-import { Form, Input, Modal } from "antd";
+import { Form, Input, Modal, Space } from "antd";
 import React, { useState } from "react";
-import { FullSpace, RequiredFormLabel } from "../../shared/StyledComponent";
 import CropContainer from "../../shared/CropContainer";
 
 function GalleryPhotoUpdateModal({ visible, record, onCancel, onOk }) {
@@ -46,15 +45,15 @@ function GalleryPhotoUpdateModal({ visible, record, onCancel, onOk }) {
           >
             <Input id="Order" name="Order" placeholder="Photo Order" />
           </Form.Item>
-          <FullSpace direction="vertical">
-            <RequiredFormLabel>Gallery Photo</RequiredFormLabel>
+          <Space className="fullSpace" direction="vertical">
+            <label className="requiredFormLabel">Gallery Photo</label>
             <CropContainer
               image={undefined}
               cropImage={(e) => setCropImage(e)}
               fullImage={(e) => setFullImage(e)}
               aspect={1 / 1}
             />
-          </FullSpace>
+          </Space>
         </Form>
       </Modal>
     </>

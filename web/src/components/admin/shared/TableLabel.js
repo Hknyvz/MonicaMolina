@@ -1,11 +1,10 @@
 import React from "react";
-import { TableLabelContainer } from "./StyledComponent";
 
 function TableLabel({ children }) {
   return (
-    <TableLabelContainer>
+    <div className="tableLabelContainer">
       <label>{children}</label>
-    </TableLabelContainer>
+    </div>
   );
 }
 

@@ -25,6 +25,7 @@ export default function Home({ data }) {
       </Head>
 
       <div style={contentStyle}>
+        <div className="test"></div>
         <MainCarousel data={data} />
       </div>
     </>

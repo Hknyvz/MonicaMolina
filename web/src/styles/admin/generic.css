@@ -1,0 +1,55 @@
+.fullSpace {
+  width: 100%;
+}
+
+.tableContainer {
+  padding: 15px;
+}
+
+.tableGeneralOperationContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.requiredFormLabel::before {
+  content: "*";
+  font-size: 1em;
+  color: #ff4d4f;
+  font-family: SimSun, sans-serif;
+  line-height: 1;
+  margin-inline-end: 4px;
+  display: inline-block;
+}
+
+.tableLabelContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.quillEditor {
+  width: 100%;
+  max-width: 950px;
+}
+
+.quillEditor img {
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+}
+
+.quillEditor .ql-align-center {
+  display: flex;
+  justify-content: center;
+}
+
+.quillEditor .ql-editor {
+  font-family: "Poppins";
+  min-height: 100px;
+}
+
+.toolbarContainer {
+  top: 0;
+  z-index: 100;
+}

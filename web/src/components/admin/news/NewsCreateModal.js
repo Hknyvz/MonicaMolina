@@ -1,9 +1,5 @@
-import { Form, Input, Modal } from "antd";
+import { Form, Input, Modal, Space } from "antd";
 import React, { useState } from "react";
-import {
-  FullSpace,
-  RequiredFormLabel,
-} from "@/components/admin/shared/StyledComponent";
 import CropContainer from "@/components/admin/shared/CropContainer";
 import dynamic from "next/dynamic";
 
@@ -71,8 +67,8 @@ function NewsCreateModal({ onOk, onCancel, visible }) {
         width={1000}
       >
         <Form form={form} layout="vertical">
-          <FullSpace direction="vertical">
-            <RequiredFormLabel>News Photo</RequiredFormLabel>
+          <Space className="fullSpace" direction="vertical">
+            <label className="requiredFormLabel">News Photo</label>
             <CropContainer
               cropImage={(e) => setCropImage(e)}
               fullImage={(e) => setFullImage(e)}
@@ -81,7 +77,7 @@ function NewsCreateModal({ onOk, onCancel, visible }) {
             {visibleUploadError ? (
               <span style={{ color: "#ff4d4f" }}>Image is required</span>
             ) : null}
-          </FullSpace>
+          </Space>
           <Form.Item
             label="Title"
             name="Title"
@@ -89,13 +85,13 @@ function NewsCreateModal({ onOk, onCancel, visible }) {
           >
             <Input id="Title" name="Title" placeholder="Title" />
           </Form.Item>
-          <FullSpace direction="vertical">
-            <RequiredFormLabel>News Photo</RequiredFormLabel>
+          <Space className="fullSpace" direction="vertical">
+            <label className="requiredFormLabel">News Photo</label>
             <Editor value={text} onChange={setText} />
             {visibleEditorError && (
               <span style={{ color: "#ff4d4f" }}>News Text is required</span>
             )}
-          </FullSpace>
+          </Space>
         </Form>
       </Modal>
     </>

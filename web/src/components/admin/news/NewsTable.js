@@ -1,9 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  FullSpace,
-  TableContainer,
-  TableGeneralOperationContainer,
-} from "../shared/StyledComponent";
 import { Button, Image, Popconfirm, Space, Table } from "antd";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 import TableRowAction from "../shared/TableRowAction";
@@ -121,9 +116,9 @@ function NewsTable({ data }) {
   };
   return (
     <>
-      <TableContainer>
-        <FullSpace direction="vertical">
-          <TableGeneralOperationContainer>
+      <div className="tableContainer">
+        <Space className="fullSpace" direction="vertical">
+          <div className="tableGeneralOperationContainer">
             <Space>
               <Button
                 type="primary"
@@ -134,7 +129,7 @@ function NewsTable({ data }) {
                 Add a Row
               </Button>
             </Space>
-          </TableGeneralOperationContainer>
+          </div>
           <Table
             size="small"
             pagination={false}
@@ -143,8 +138,8 @@ function NewsTable({ data }) {
             dataSource={tableData}
             rowKey="_id"
           ></Table>
-        </FullSpace>
-      </TableContainer>
+        </Space>
+      </div>
       <NewsCreateModal
         visible={isOpenCreateModal}
         onOk={async (data) => {

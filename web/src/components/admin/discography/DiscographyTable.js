@@ -1,9 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  FullSpace,
-  TableContainer,
-  TableGeneralOperationContainer,
-} from "../shared/StyledComponent";
 import { Button, Space, Table, Image } from "antd";
 import DiscographyCreateModal from "./DiscographyCreateModal";
 import { createClient } from "@/pages/api/client";
@@ -69,7 +64,11 @@ function DiscographyTable({ data }) {
       width: 500,
       render: (data) => (
         <>
-          <FullSpace style={{ justifyContent: "center" }} size={(0, 20)}>
+          <Space
+            className="fullSpace"
+            style={{ justifyContent: "center" }}
+            size={(0, 20)}
+          >
             {data.YoutubeLink && (
               <Link
                 href=""
@@ -118,7 +117,7 @@ function DiscographyTable({ data }) {
                 <img src="/spotify.svg" width={75} />
               </Link>
             )}
-          </FullSpace>
+          </Space>
         </>
       ),
     },
@@ -175,9 +174,9 @@ function DiscographyTable({ data }) {
 
   return (
     <>
-      <TableContainer>
-        <FullSpace direction="vertical">
-          <TableGeneralOperationContainer>
+      <div className="tableContainer">
+        <Space className="fullSpace" direction="vertical">
+          <div className="tableGeneralOperationContainer">
             <Space>
               <Button
                 type="primary"
@@ -188,7 +187,7 @@ function DiscographyTable({ data }) {
                 Add a Row
               </Button>
             </Space>
-          </TableGeneralOperationContainer>
+          </div>
           <Table
             size="small"
             pagination={false}
@@ -197,8 +196,8 @@ function DiscographyTable({ data }) {
             dataSource={tableData}
             rowKey={(record) => record._id}
           ></Table>
-        </FullSpace>
-      </TableContainer>
+        </Space>
+      </div>
       {isOpenCreateModal && (
         <DiscographyCreateModal
           visible={isOpenCreateModal}

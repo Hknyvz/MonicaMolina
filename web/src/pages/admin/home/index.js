@@ -2,6 +2,7 @@ import CarouselContainer from "@/components/admin/home/carousel/CarouselContaine
 import logger from "@/helpers/logger";
 import { createClient } from "@/pages/api/client";
 import React from "react";
+import "@/styles/admin/Home.module.css";
 
 function AdminHome({ data }) {
   return (

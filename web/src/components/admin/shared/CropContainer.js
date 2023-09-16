@@ -5,9 +5,8 @@ import { canvasPreview } from "../../utils/crop/canvasPreview";
 import { useDebounceEffect } from "../../utils/crop/useDebounceEffect";
 
 import "react-image-crop/dist/ReactCrop.css";
-import { Alert, Button, Upload } from "antd";
+import { Alert, Button, Space, Upload } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { FullSpace } from "./StyledComponent";
 
 function centerAspectCrop(mediaWidth, mediaHeight, aspect) {
   return centerCrop(
@@ -111,7 +110,7 @@ export default function CropContainer({
 
   return (
     <>
-      <FullSpace direction="vertical">
+      <Space className="fullSpace" direction="vertical">
         {sizeError ? (
           <Alert
             message="The image size to be uploaded is 10 mb max"
@@ -169,7 +168,7 @@ export default function CropContainer({
             objectFit: "contain",
           }}
         />
-      </FullSpace>
+      </Space>
     </>
   );
 }

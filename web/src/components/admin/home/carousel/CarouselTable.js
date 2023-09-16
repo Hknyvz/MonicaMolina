@@ -2,11 +2,6 @@ import { Button, Popconfirm, Space, Table, Image, Switch, Tooltip } from "antd";
 import React, { useContext, useEffect, useState } from "react";
 import CarouselCreateModal from "./CarouselCreateModal";
 import { createClient } from "@/pages/api/client";
-import {
-  FullSpace,
-  TableContainer,
-  TableGeneralOperationContainer,
-} from "@/components/admin/shared/StyledComponent";
 import { imageUrlBuilder } from "@/helpers/imageUrlBuilder";
 import CarouselUpdateModal from "./CarouselUpdateModal";
 import { NotificationContext } from "../../shared/NotificationContext";
@@ -153,7 +148,11 @@ function CarouselTable({ data }) {
           title: "Links",
           render: (data) => (
             <>
-              <FullSpace style={{ justifyContent: "center" }} size={(0, 20)}>
+              <Space
+                className="fullSpace"
+                style={{ justifyContent: "center" }}
+                size={(0, 20)}
+              >
                 {data.YoutubeLink && (
                   <Link
                     href=""
@@ -202,7 +201,7 @@ function CarouselTable({ data }) {
                     <img src="/spotify.svg" width={75} />
                   </Link>
                 )}
-              </FullSpace>
+              </Space>
             </>
           ),
         },
@@ -274,9 +273,9 @@ function CarouselTable({ data }) {
 
   return (
     <>
-      <TableContainer>
-        <FullSpace direction="vertical">
-          <TableGeneralOperationContainer>
+      <div className="tableContainer">
+        <Space className="fullSpace" direction="vertical">
+          <div className="tableGeneralOperationContainer">
             <Space>
               <Button
                 type="primary"
@@ -287,7 +286,7 @@ function CarouselTable({ data }) {
                 Add a Row
               </Button>
             </Space>
-          </TableGeneralOperationContainer>
+          </div>
           <Table
             size="small"
             pagination={false}
@@ -296,8 +295,8 @@ function CarouselTable({ data }) {
             dataSource={tableData}
             rowKey="_id"
           ></Table>
-        </FullSpace>
-      </TableContainer>
+        </Space>
+      </div>
       {isOpenCreateModal && (
         <CarouselCreateModal
           visible={isOpenCreateModal}

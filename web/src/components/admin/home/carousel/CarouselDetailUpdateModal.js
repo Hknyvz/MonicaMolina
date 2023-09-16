@@ -1,11 +1,7 @@
-import { Form, Input, Modal } from "antd";
+import { Form, Input, Modal, Space } from "antd";
 import React, { useState } from "react";
 import { SiItunes } from "react-icons/si";
 import { SlSocialSpotify, SlSocialYoutube } from "react-icons/sl";
-import {
-  FullSpace,
-  RequiredFormLabel,
-} from "@/components/admin/shared/StyledComponent";
 import CropContainer from "@/components/admin/shared/CropContainer";
 
 function CarouselDetailEditModal({ visible, record, onCancel, onOk }) {
@@ -74,8 +70,10 @@ function CarouselDetailEditModal({ visible, record, onCancel, onOk }) {
               prefix={<SiItunes />}
             />
           </Form.Item>
-          <FullSpace direction="vertical">
-            <RequiredFormLabel>Upload Carousel Detail Image</RequiredFormLabel>
+          <Space className="fullSpace" direction="vertical">
+            <label className="requiredFormLabel">
+              Upload Carousel Detail Image
+            </label>
             <CropContainer
               cropImage={(e) => setCropImage(e)}
               aspect={139 / 145}
@@ -83,7 +81,7 @@ function CarouselDetailEditModal({ visible, record, onCancel, onOk }) {
             {visibleUploadError ? (
               <span style={{ color: "#ff4d4f" }}>Image is required</span>
             ) : null}
-          </FullSpace>
+          </Space>
         </Form>
       </Modal>
       ;

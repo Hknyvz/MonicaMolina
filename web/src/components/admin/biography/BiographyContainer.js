@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
-import { Card, Typography, Button } from "antd";
+import { Card, Typography, Button, Space } from "antd";
 import { EditOutlined } from "@ant-design/icons";
-import { FullSpace } from "../shared/StyledComponent";
 import BiographyEditModal from "./BiographyEditModal";
 import { createClient } from "@/pages/api/client";
 import Image from "next/image";
@@ -32,7 +31,7 @@ const BiographyContainer = ({ data }) => {
       }}
     >
       <Card style={{ width: 800 }}>
-        <FullSpace size={[10, 30]} direction="vertical">
+        <Space className="fullSpace" size={[10, 30]} direction="vertical">
           <div>
             <Title level={5}>Title</Title>
             <p>{data.Title}</p>
@@ -50,6 +49,7 @@ const BiographyContainer = ({ data }) => {
               alt="Biography photo"
               width={"400"}
               height={"500"}
+              priority={5}
               unoptimized
             />
           </div>
@@ -66,7 +66,7 @@ const BiographyContainer = ({ data }) => {
               Edit
             </Button>
           </div>
-        </FullSpace>
+        </Space>
       </Card>
       <BiographyEditModal
         record={data}
