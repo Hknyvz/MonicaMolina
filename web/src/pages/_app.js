@@ -1,5 +1,6 @@
 import { SessionProvider } from "next-auth/react";
 import "@/styles/globals.css";
+import "@/styles/admin/generic.css";
 import AdminLayout from "@/components/layouts/AdminLayout";
 import { useEffect } from "react";
 import WebLayout from "@/components/layouts/WebLayout";

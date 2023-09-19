@@ -1,9 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  FullSpace,
-  TableContainer,
-  TableGeneralOperationContainer,
-} from "../../shared/StyledComponent";
 import { Button, Space, Table } from "antd";
 import GalleryVideoCreateModal from "./GalleryVideoCreateModal";
 import { createClient } from "@/pages/api/client";
@@ -89,9 +84,9 @@ function GalleryVideoTable({ data }) {
   };
   return (
     <>
-      <TableContainer>
-        <FullSpace direction="vertical">
-          <TableGeneralOperationContainer>
+      <div className="tableContainer">
+        <Space className="fullSpace" direction="vertical">
+          <div className="tableGeneralOperationContainer">
             <Space>
               <Button
                 type="primary"
@@ -102,7 +97,7 @@ function GalleryVideoTable({ data }) {
                 Add a Row
               </Button>
             </Space>
-          </TableGeneralOperationContainer>
+          </div>
           <Table
             size="small"
             pagination={false}
@@ -111,8 +106,8 @@ function GalleryVideoTable({ data }) {
             dataSource={tableData}
             rowKey={(record) => record._id}
           ></Table>
-        </FullSpace>
-      </TableContainer>
+        </Space>
+      </div>
       {isOpenCreateModal && (
         <GalleryVideoCreateModal
           visible={isOpenCreateModal}

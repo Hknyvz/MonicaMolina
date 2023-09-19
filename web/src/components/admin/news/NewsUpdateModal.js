@@ -1,9 +1,5 @@
-import { Form, Input, Modal } from "antd";
+import { Form, Input, Modal, Space } from "antd";
 import React, { useEffect, useState } from "react";
-import {
-  FullSpace,
-  RequiredFormLabel,
-} from "@/components/admin/shared/StyledComponent";
 import CropContainer from "@/components/admin/shared/CropContainer";
 import dynamic from "next/dynamic";
 
@@ -70,14 +66,14 @@ function NewsUpdateModal({ visible, record, onCancel, onOk }) {
           <Form.Item name="_id" hidden>
             <Input type="hidden" name="_id" id="_id" />
           </Form.Item>
-          <FullSpace direction="vertical">
-            <RequiredFormLabel>News Photo</RequiredFormLabel>
+          <Space className="fullSpace" direction="vertical">
+            <label className="requiredFormLabel">News Photo</label>
             <CropContainer
               cropImage={(e) => setCropImage(e)}
               fullImage={(e) => setFullImage(e)}
               aspect={424 / 195}
             />
-          </FullSpace>
+          </Space>
           <Form.Item
             label="Title"
             name="Title"
@@ -85,13 +81,13 @@ function NewsUpdateModal({ visible, record, onCancel, onOk }) {
           >
             <Input id="Title" name="Title" placeholder="Title" />
           </Form.Item>
-          <FullSpace direction="vertical">
-            <RequiredFormLabel>News Photo</RequiredFormLabel>
+          <Space className="fullSpace" direction="vertical">
+            <label className="requiredFormLabel">News Photo</label>
             <Editor value={text} onChange={setText} />
             {visibleEditorError && (
               <span style={{ color: "#ff4d4f" }}>News Text is required</span>
             )}
-          </FullSpace>
+          </Space>
         </Form>
       </Modal>
     </>

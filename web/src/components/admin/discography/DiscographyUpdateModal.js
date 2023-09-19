@@ -1,7 +1,6 @@
-import { Form, Input, Modal } from "antd";
+import { Form, Input, Modal, Space } from "antd";
 import React, { useState } from "react";
 import CropContainer from "../shared/CropContainer";
-import { FullSpace } from "../shared/StyledComponent";
 import { SiItunes } from "react-icons/si";
 import { SlSocialSpotify, SlSocialYoutube } from "react-icons/sl";
 
@@ -52,13 +51,13 @@ function DiscographyUpdateModal({ visible, record, onCancel, onOk }) {
         >
           <Input id="Year" name="Year" placeholder="Album Year" />
         </Form.Item>
-        <FullSpace direction="vertical">
+        <Space className="fullSpace" direction="vertical">
           Album Cover Image
           <CropContainer
             cropImage={(e) => setCropImage(e)}
             aspect={undefined}
           ></CropContainer>
-        </FullSpace>
+        </Space>
         <Form.Item label="Youtube Link" name="YoutubeLink">
           <Input
             id="YoutubeLink"

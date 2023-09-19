@@ -1,7 +1,5 @@
 import { Quill } from "react-quill";
 
-import { ToolbarContainer } from "./Editor.styled";
-
 const Size = Quill.import("formats/size");
 Size.whitelist = ["small", "medium", "large"];
 Quill.register(Size, true);
@@ -46,7 +44,7 @@ const formats = [
 
 const QuillToolbar = () => (
   <>
-    <ToolbarContainer id="toolbar">
+    <div className="toolbarContainer" id="toolbar">
       <span className="ql-formats">
         <select className="ql-size" defaultValue="medium">
           <option value="small">Small</option>
@@ -92,7 +90,7 @@ const QuillToolbar = () => (
         <button className="ql-code-block" />
         <button className="ql-clean" />
       </span>
-    </ToolbarContainer>
+    </div>
   </>
 );
 

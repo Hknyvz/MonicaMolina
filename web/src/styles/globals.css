@@ -136,6 +136,7 @@ a {
   src: url("/fonts/Raleway-VariableFont_wght.ttf");
 }
 
-textarea:focus, input:focus {
+textarea:focus,
+input:focus {
   outline: none;
 }

@@ -1,7 +1,6 @@
-import { Divider, Form, Input, Modal } from "antd";
+import { Divider, Form, Input, Modal, Space } from "antd";
 import React, { useState } from "react";
 import CropContainer from "@/components/admin/shared/CropContainer";
-import { FullSpace, RequiredFormLabel } from "../../shared/StyledComponent";
 
 function CarouselCreateModal({ onOk, onCancel, visible }) {
   const [cropImage, setCropImage] = useState();
@@ -63,18 +62,20 @@ function CarouselCreateModal({ onOk, onCancel, visible }) {
           <Form.Item label="Order" name="Order">
             <Input id="Order" name="Order" placeholder="Order Number" />
           </Form.Item>
-          <FullSpace direction="vertical">
-            <RequiredFormLabel>Upload Carousel Image For Web</RequiredFormLabel>
+          <Space className="fullSpace" direction="vertical">
+            <label className="requiredFormLabel">
+              Upload Carousel Image For Web
+            </label>
             <CropContainer cropImage={(e) => setCropImage(e)} aspect={16 / 9} />
             {visibleUploadError ? (
               <span style={{ color: "#ff4d4f" }}>Image is required</span>
             ) : null}
-          </FullSpace>
+          </Space>
           <Divider />
-          <FullSpace direction="vertical">
-            <RequiredFormLabel>
+          <Space className="fullSpace" direction="vertical">
+            <label className="requiredFormLabel">
               Upload Carousel Image For Mobile
-            </RequiredFormLabel>
+            </label>
             <CropContainer
               cropImage={(e) => setCropMobileImage(e)}
               aspect={9 / 16}
@@ -82,7 +83,7 @@ function CarouselCreateModal({ onOk, onCancel, visible }) {
             {visibleMobileUploadError ? (
               <span style={{ color: "#ff4d4f" }}>Image is required</span>
             ) : null}
-          </FullSpace>
+          </Space>
         </Form>
       </Modal>
     </>

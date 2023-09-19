@@ -1,7 +1,6 @@
-import { Form, Input, Modal } from "antd";
+import { Form, Input, Modal, Space } from "antd";
 import React, { useState } from "react";
 import CropContainer from "../shared/CropContainer";
-import { FullSpace, RequiredFormLabel } from "../shared/StyledComponent";
 import { SiItunes } from "react-icons/si";
 import { SlSocialSpotify, SlSocialYoutube } from "react-icons/sl";
 
@@ -62,8 +61,8 @@ function DiscographyCreateModal({ onOk, onCancel, visible }) {
           >
             <Input id="Year" name="Year" placeholder="Album Year" />
           </Form.Item>
-          <FullSpace direction="vertical">
-            <RequiredFormLabel>Upload</RequiredFormLabel>
+          <Space className="fullSpace" direction="vertical">
+            <label className="requiredFormLabel">Upload</label>
             <CropContainer
               cropImage={(e) => setCropImage(e)}
               aspect={undefined}
@@ -71,7 +70,7 @@ function DiscographyCreateModal({ onOk, onCancel, visible }) {
             {visibleUploadError ? (
               <span style={{ color: "#ff4d4f" }}>Image is required</span>
             ) : null}
-          </FullSpace>
+          </Space>
           <Form.Item label="Youtube Link" name="YoutubeLink">
             <Input
               id="YoutubeLink"

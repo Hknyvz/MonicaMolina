@@ -8,7 +8,7 @@ const saveImage = async (image, guid, directory) => {
   base64Data = base64Data.replace(/^data:image\/jpeg;base64,/, "");
   base64Data = base64Data.replace(/^data:image\/jpg;base64,/, "");
   base64Data = base64Data.replace(/^data:image\/webp;base64,/, "");
-  let fileName = `${guid}.webp`;
+  let fileName = `${guid}.jpeg`;
   let relativePath = path.join(directory, fileName);
   let filePath = path.join(process.cwd(), "public", relativePath);
   await createWebpImage(base64Data, filePath);
@@ -21,7 +21,7 @@ const deleteImage = (id, directory) => {
       process.cwd(),
       "public",
       directory,
-      `${id}.webp`
+      `${id}.jpeg`
     );
     fs.unlinkSync(filePath);
   } catch (error) {
@@ -29,9 +29,11 @@ const deleteImage = (id, directory) => {
   }
 };
 
-async function createWebpImage(base64Image, outputPath) {
-  const image = await Jimp.read(Buffer.from(base64Image, "base64"));
-  await image.writeAsync(outputPath);
+function createWebpImage(base64Image, outputPath) {
+  Jimp.read(Buffer.from(base64Image, "base64"), (err, image) => {
+    if (err) throw err;
+    image.quality(60).write(outputPath);
+  });
 }
 
 export { saveImage, deleteImage };

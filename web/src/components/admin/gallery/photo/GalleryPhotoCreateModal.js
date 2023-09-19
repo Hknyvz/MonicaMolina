@@ -1,9 +1,5 @@
-import { Form, Input, Modal } from "antd";
+import { Form, Input, Modal, Space } from "antd";
 import React, { useState } from "react";
-import {
-  FullSpace,
-  RequiredFormLabel,
-} from "@/components/admin/shared/StyledComponent";
 import CropContainer from "@/components/admin/shared/CropContainer";
 
 function GalleryPhotoCreateModal({ onOk, onCancel, visible }) {
@@ -58,8 +54,8 @@ function GalleryPhotoCreateModal({ onOk, onCancel, visible }) {
           >
             <Input id="Order" name="Order" placeholder="Photo Order" />
           </Form.Item>
-          <FullSpace direction="vertical">
-            <RequiredFormLabel>Gallery Photo</RequiredFormLabel>
+          <Space className="fullSpace" direction="vertical">
+            <label className="requiredFormLabel">Gallery Photo</label>
             <CropContainer
               cropImage={(e) => setCropImage(e)}
               fullImage={(e) => setFullImage(e)}
@@ -68,7 +64,7 @@ function GalleryPhotoCreateModal({ onOk, onCancel, visible }) {
             {visibleUploadError ? (
               <span style={{ color: "#ff4d4f" }}>Image is required</span>
             ) : null}
-          </FullSpace>
+          </Space>
         </Form>
       </Modal>
     </>
