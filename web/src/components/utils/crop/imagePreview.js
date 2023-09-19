@@ -3,8 +3,9 @@ import { canvasPreview } from "./canvasPreview";
 let previewUrl = "";
 
 function toBlob(canvas) {
+  debugger;
   return new Promise((resolve) => {
-    canvas.toBlob(resolve);
+    canvas.toBlob(resolve, "image/jpeg", 0.5);
   });
 }
 

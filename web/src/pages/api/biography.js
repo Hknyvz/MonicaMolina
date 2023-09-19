@@ -6,7 +6,7 @@ import BiographyModel from "@/mongoose/models/Biography";
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: "10mb",
+      sizeLimit: "50mb",
     },
   },
 };

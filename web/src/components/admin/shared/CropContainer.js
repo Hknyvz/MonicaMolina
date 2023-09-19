@@ -66,7 +66,12 @@ export default function CropContainer({
       reader.readAsDataURL(blob);
     });
   }
-
+  function toBlob(canvas) {
+    debugger;
+    return new Promise((resolve) => {
+      canvas.toBlob(resolve, "image/jpeg", 0.5);
+    });
+  }
   useDebounceEffect(
     async () => {
       if (
@@ -80,6 +85,7 @@ export default function CropContainer({
           previewCanvasRef.current,
           completedCrop
         );
+        await toBlob(previewCanvasRef.current);
         croppedSend();
       }
     },

@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from "uuid";
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: "10mb",
+      sizeLimit: "50mb",
     },
   },
 };
@@ -37,7 +37,6 @@ const handler = async (req, res) => {
       return res.status(201).json(response);
     } else if (method === "PUT") {
       const response = await update(req.body);
-
       return res.status(200).json(response);
     } else if (method === "DELETE") {
       const { id } = req.query;

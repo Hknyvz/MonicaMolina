@@ -7,7 +7,7 @@ import { deleteImage, saveImage } from "@/helpers/file";
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: "10mb",
+      sizeLimit: "50mb",
     },
   },
 };

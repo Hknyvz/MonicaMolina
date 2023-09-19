@@ -6,7 +6,7 @@ import CarouselModel from "@/mongoose/models/Carousel";
 export const config = {
   api: {
     bodyParser: {
-      sizeLimit: "10mb",
+      sizeLimit: "50mb",
     },
   },
 };
