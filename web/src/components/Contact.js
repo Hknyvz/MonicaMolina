@@ -118,13 +118,13 @@ function Contact() {
                     <Title level={1} style={SubTitleStyle}>E-mail</Title> 
                 </Row> 
                 <Row>
-                    <Text style={textStyle}>ipek@musicarium.live</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>muge@musicarium.live</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>info@musicarium.live</Text>
+                    <Text style={textStyle}>ipek@musicarium.live</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>efe@musicarium.live</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>info@musicarium.live</Text>
                 </Row>
                 <Row justify="start" align="middle" style={rowStyle}> 
                     <Title level={1} style={SubTitleStyle}>Phone</Title> 
                 </Row> 
                 <Row>
-                    <Text style={textStyle}>+90 216 422 48 01</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>+49 01523 1323266</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>+90 (535) 652 1707 </Text>
+                    <Text style={textStyle}>+90 216 422 48 01</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>+49 01523 1323266</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text>
                 </Row>          
            
             <Row justify="center" style={{width:"100%", paddingTop: 20}}>
