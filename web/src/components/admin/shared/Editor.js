@@ -2,8 +2,14 @@ import React from "react";
 import QuillToolbar, { formats, modules } from "./EditorToolbar";
 import dynamic from "next/dynamic";
 
-const Quill = typeof window === "object" ? require("react-quill") : () => false;
-function Editor({ onChange, value }) {
+const Quill = dynamic(
+  () => {
+    return import("react-quill");
+  },
+  { ssr: false }
+);
+
+const Editor = ({ onChange, value }) => {
   return (
     <div>
       <QuillToolbar />
@@ -19,6 +25,6 @@ function Editor({ onChange, value }) {
       </div>
     </div>
   );
-}
+};
 
 export default Editor;
