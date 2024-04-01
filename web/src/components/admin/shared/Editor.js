@@ -14,14 +14,16 @@ const Editor = ({ onChange, value }) => {
     <div>
       <QuillToolbar />
       <div className="quillEditor">
-        <Quill
-          theme="snow"
-          value={value}
-          onChange={onChange}
-          placeholder={"Write something awesome..."}
-          modules={modules}
-          formats={formats}
-        />
+        {document && (
+          <Quill
+            theme="snow"
+            value={value}
+            onChange={onChange}
+            placeholder={"Write something awesome..."}
+            modules={modules}
+            formats={formats}
+          />
+        )}
       </div>
     </div>
   );
