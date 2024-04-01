@@ -41,6 +41,6 @@ export const getServerSideProps = async () => {
     const data = res.data;
     return { props: { data } };
   } catch (error) {
-    logger.error(`AdminHome:${error}`);
+    logger.error(`Home:${error}`);
   }
 };

@@ -2,11 +2,7 @@ import React from "react";
 import QuillToolbar, { formats, modules } from "./EditorToolbar";
 import dynamic from "next/dynamic";
 
-const Quill = dynamic(import("react-quill"), {
-  ssr: false,
-  loading: () => <p>Loading ...</p>,
-});
-
+const Quill = typeof window === "object" ? require("react-quill") : () => false;
 function Editor({ onChange, value }) {
   return (
     <div>
