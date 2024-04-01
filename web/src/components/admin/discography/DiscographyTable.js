@@ -98,7 +98,7 @@ function DiscographyTable({ data }) {
                   });
                 }}
               >
-                <img src="/apple_music.svg" width={75} />
+                <img alt="apple_music" src="/apple_music.svg" width={75} />
               </Link>
             )}
             {data.SpotifyLink && (
