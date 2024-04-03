@@ -1,5 +1,7 @@
 import React from "react";
 import Contact from "src/components/Contact.js";
+import logger from "@/helpers/logger";
+import { createClient } from "@/pages/api/client";
 
 function index() {
   return (
