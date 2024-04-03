@@ -1,4 +1,4 @@
-import { Quill } from "react-quill";
+const Quill = dynamic(() => import("react-quill"), { ssr: false });
 
 const Size = Quill.import("formats/size");
 Size.whitelist = ["small", "medium", "large"];
