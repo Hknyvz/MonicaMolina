@@ -1,3 +1,5 @@
+import dynamic from "next/dynamic";
+
 const Quill = dynamic(() => import("react-quill"), { ssr: false });
 
 const Size = Quill.import("formats/size");
