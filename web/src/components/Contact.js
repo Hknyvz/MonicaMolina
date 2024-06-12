@@ -103,8 +103,7 @@ function Contact() {
     <div >
         {contextHolder}
         {isDownMD ? ( 
-        <div style={{marginTop: 50,paddingRight: "5%", paddingLeft: "5%"}}>
-            
+        <div style={{marginTop: 50,paddingRight: "5%", paddingLeft: "5%"}}>           
                 <Row justify="center" >
                     <Title level={1} style={titleStyle}>Contact Us</Title>
                 </Row>
@@ -112,42 +111,41 @@ function Contact() {
                     <Title level={1} style={SubTitleStyle}>Booking</Title>
                 </Row>
                 <Row>
-                    <Text style={textStyle}>Musicarium Entertainment</Text>
                     <Text style={textStyle}>Isabel Capllonch</Text>
                 </Row>
                 <Row style={{paddingTop: 10}}> 
                     <Title level={1} style={SubTitleStyle}>E-mail</Title> 
                 </Row> 
                 <Row>
-                    <Text style={textStyle}>ipek@musicarium.live</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>efe@musicarium.live</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>info@musicarium.live</Text>
-                    <Text style={textStyle}>eisaca@telefonica.net</Text>                    
+                    <Col>
+                        <Row> <Text style={textStyle}>info@monicamolina.com</Text> </Row>
+                        <Row> <Text style={textStyle}>eisaca@telefonica.net</Text> </Row>
+                    </Col>                  
                 </Row>
                 <Row justify="start" align="middle" style={rowStyle}> 
                     <Title level={1} style={SubTitleStyle}>Phone</Title> 
                 </Row> 
                 <Row>
-                    <Text style={textStyle}>+90 216 422 48 01</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>+49 01523 1323266</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>+34636533826</Text>
-                </Row>          
-           
-            <Row justify="center" style={{width:"100%", paddingTop: 20}}>
-                <form ref={form} onSubmit={sendEmail} style={{width:"100%"}}>
-                        <Row style={{width:"100%"}}> 
-                            <input type="text" className="form__input" id="name" placeholder="Name" required="" name="from_name"  style={inputStyle}/>
-                        </Row> 
-                        <Row style={{width:"100%"}}> 
-                            <input type="text" className="form__input" id="e-posta" placeholder="E-mail" required="" name="from_email" style={inputStyle} /> 
+                    <Text style={textStyle}>+34636533826</Text>
+                </Row>                     
+                <Row justify="center" style={{width:"100%", paddingTop: 20}}>
+                    <form ref={form} onSubmit={sendEmail} style={{width:"100%"}}>
+                            <Row style={{width:"100%"}}> 
+                                <input type="text" className="form__input" id="name" placeholder="Name" required="" name="from_name"  style={inputStyle}/>
+                            </Row> 
+                            <Row style={{width:"100%"}}> 
+                                <input type="text" className="form__input" id="e-posta" placeholder="E-mail" required="" name="from_email" style={inputStyle} /> 
+                            </Row>
+                        <Row style={{paddingTop:20}}>
+                            <Col style={{width:"100%"}}>
+                                <textarea name="message" placeholder="Message" className="form__input" style={textAreaStyle}/>
+                            </Col>
                         </Row>
-                    <Row style={{paddingTop:20}}>
-                        <Col style={{width:"100%"}}>
-                            <textarea name="message" placeholder="Message" className="form__input" style={textAreaStyle}/>
-                        </Col>
-                    </Row>
-                    <Row justify="center" style={{paddingTop:20}}>
-                        <Button style={buttonStyle} size="large" value="Send" onClick={sendEmail}>Send Message</Button>
-                    </Row>
-                </form>
-            </Row>
-            
+                        <Row justify="center" style={{paddingTop:20}}>
+                            <Button style={buttonStyle} size="large" value="Send" onClick={sendEmail}>Send Message</Button>
+                        </Row>
+                    </form>
+                </Row>           
         </div>
         ):(  
             <div style={{paddingTop: 300, paddingRight: "15%", paddingLeft: "15%"}}>
@@ -160,18 +158,24 @@ function Contact() {
                         <Title level={1} style={SubTitleStyle}>Booking</Title>
                     </Row>
                     <Row>
-                        <Text style={textStyle}>Musicarium Entertainment</Text>
-                        <Text style={textStyle}>&nbsp;|&nbsp;</Text>
+                        {/* <Text style={textStyle}>Musicarium Entertainment</Text>
+                        <Text style={textStyle}>&nbsp;|&nbsp;</Text> */}
                         <Text style={textStyle}>Isabel Capllonch</Text>
 
                     </Row>
                     <Row justify="start" align="middle" style={rowStyle}> <Title level={1} style={SubTitleStyle}>E-mail</Title> </Row> 
                     <Row>
-                        <Text style={textStyle}>ipek@musicarium.live</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>muge@musicarium.live</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>info@musicarium.live</Text> <Text style={textStyle}>&nbsp;|&nbsp;</Text> <Text style={textStyle}>eisaca@telefonica.net</Text>   
+                        {/* <Text style={textStyle}>ipek@musicarium.live</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text> */}
+                        {/* <Text style={textStyle}>muge@musicarium.live</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text> */}
+                        <Col>
+                            <Row> <Text style={textStyle}>info@monicamolina.com</Text> </Row>
+                            <Row> <Text style={textStyle}>eisaca@telefonica.net</Text> </Row>
+                        </Col>
                     </Row>
                     <Row justify="start" align="middle" style={rowStyle}> <Title level={1} style={SubTitleStyle}>Phone</Title> </Row> 
                     <Row>
-                        <Text style={textStyle}>+90 216 422 48 01</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>+49 01523 1323266</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>+90 (535) 652 1707 </Text> <Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>+34636533826</Text>
+                        {/* <Text style={textStyle}>+90 216 422 48 01</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>+49 01523 1323266</Text><Text style={textStyle}>&nbsp;|&nbsp;</Text><Text style={textStyle}>+90 (535) 652 1707 </Text> <Text style={textStyle}>&nbsp;|&nbsp;</Text> */}
+                        <Text style={textStyle}>+34636533826</Text>
                     </Row>          
                 </Col>
                 <Col span={14} >
